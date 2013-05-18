@@ -1,4 +1,4 @@
 ShootSpacer
 ===========
 
-by Michal K. and Lukasz Z.
+by Michał K. and Łukasz Ż.
