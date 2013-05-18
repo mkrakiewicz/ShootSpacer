@@ -7,7 +7,7 @@
 
 #include "Object3D.h"
 
-namespace shootspacer {
+namespace ShootSpacer {
 
 Object3D::Object3D() {
 	// TODO Auto-generated constructor stub

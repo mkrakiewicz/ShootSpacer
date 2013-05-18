@@ -19,7 +19,7 @@ using namespace video;
 using namespace io;
 using namespace gui;
 
-namespace shootspacer {
+namespace ShootSpacer {
 
 class Object3D {
 public:

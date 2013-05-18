@@ -7,7 +7,7 @@
 
 #include "PlayerShip.h"
 
-namespace shootspacer {
+namespace ShootSpacer {
 
 PlayerShip::PlayerShip() {
 	// TODO Auto-generated constructor stub

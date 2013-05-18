@@ -7,7 +7,7 @@
 
 #include "Planet.h"
 
-namespace shootspacer {
+namespace ShootSpacer {
 
 Planet::Planet() {
 	// TODO Auto-generated constructor stub

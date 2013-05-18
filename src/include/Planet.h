@@ -10,7 +10,7 @@
 
 #include "Object3D.h"
 
-namespace shootspacer {
+namespace ShootSpacer {
 
 class Planet: public shootspacer::Object3D {
 public:

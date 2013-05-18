@@ -1,20 +1,20 @@
 /*
- * ShootSpacer.cpp
+ * Ship.cpp
  *
  *  Created on: 18-05-2013
  *      Author: Micha³
  */
 
-#include "ShootSpacer.h"
+#include "Ship.h"
 
 namespace ShootSpacer {
 
-ShootSpacer::ShootSpacer() {
+Ship::Ship() {
 	// TODO Auto-generated constructor stub
 
 }
 
-ShootSpacer::~ShootSpacer() {
+Ship::~Ship() {
 	// TODO Auto-generated destructor stub
 }
 
