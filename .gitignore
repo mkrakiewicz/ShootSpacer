@@ -18,3 +18,6 @@ Debug
 Release
 /.cproject
 /.project
+/*.exe
+/*.exe
+/*.dll
