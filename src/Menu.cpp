@@ -1,21 +1,21 @@
 /*
- * PlayerShip.cpp
+ * Menu.cpp
  *
- *  Created on: 17-05-2013
+ *  Created on: 18-05-2013
  *      Author: Micha³
  */
 
 #include "stdafx.h"
-#include "PlayerShip.h"
+#include "Menu.h"
 
 namespace shs {
 
-PlayerShip::PlayerShip() {
+Menu::Menu() {
 	// TODO Auto-generated constructor stub
 
 }
 
-PlayerShip::~PlayerShip() {
+Menu::~Menu() {
 	// TODO Auto-generated destructor stub
 }
 

@@ -1,20 +1,20 @@
 /*
- * Ship.h
+ * Menu.h
  *
  *  Created on: 18-05-2013
  *      Author: Micha³
  */
 
-#ifndef SHIP_H_
-#define SHIP_H_
+#ifndef MENU_H_
+#define MENU_H_
 
 namespace shs {
 
-class Ship {
+class Menu {
 public:
-	Ship();
-	virtual ~Ship();
+	Menu();
+	virtual ~Menu();
 };
 
 } /* namespace shootspacer */
-#endif /* SHIP_H_ */
+#endif /* MENU_H_ */

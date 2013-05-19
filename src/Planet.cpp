@@ -5,9 +5,10 @@
  *      Author: Micha³
  */
 
+#include "stdafx.h"
 #include "Planet.h"
 
-namespace ShootSpacer {
+namespace shs {
 
 Planet::Planet() {
 	// TODO Auto-generated constructor stub

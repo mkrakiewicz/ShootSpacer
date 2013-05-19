@@ -5,9 +5,10 @@
  *      Author: Micha³
  */
 
+#include "stdafx.h"
 #include "Object3D.h"
 
-namespace ShootSpacer {
+namespace shs {
 
 Object3D::Object3D() {
 	// TODO Auto-generated constructor stub

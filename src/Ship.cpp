@@ -5,9 +5,10 @@
  *      Author: Micha³
  */
 
+#include "stdafx.h"
 #include "Ship.h"
 
-namespace ShootSpacer {
+namespace shs {
 
 Ship::Ship() {
 	// TODO Auto-generated constructor stub

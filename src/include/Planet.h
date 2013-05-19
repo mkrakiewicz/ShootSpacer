@@ -10,9 +10,9 @@
 
 #include "Object3D.h"
 
-namespace ShootSpacer {
+namespace shs {
 
-class Planet: public shootspacer::Object3D {
+class Planet: public shs::Object3D {
 public:
 	Planet();
 	virtual ~Planet();
