@@ -12,7 +12,6 @@ namespace shs {
 
 Object3D::Object3D() {
 	// TODO Auto-generated constructor stub
-
 }
 
 Object3D::~Object3D() {

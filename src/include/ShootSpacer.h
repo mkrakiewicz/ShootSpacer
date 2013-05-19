@@ -11,47 +11,47 @@
 
 namespace shs {
 
-class RenderLoop;
+//
+//template<class T>
+//class Singleton
+//{
+//public:
+//    static T &GetInstance( void )
+//    {
+//        static T obj;
+//        return obj;
+//    }
+//
+//    static T *GetInstancePtr( void )
+//    {
+//        return &(GetInstance());
+//    }
+//
+//protected:
+//    virtual ~Singleton(){};
+//    Singleton(){};
+//
+//};
 
-class ShootSpacer : public RenderLoop {
+class Menu;
+
+class ShootSpacer : public RenderLoop/*,Singleton<ShootSpacer>*/ {
+protected:
+	IrrlichtDevice* createIrrlichtDevice();
+	Menu *menu;
+
+	void beforeRender();
+	void afterRender();
+
+
 public:
-	ShootSpacer(IrrlichtDevice *device);
+
+	ShootSpacer();
 	virtual ~ShootSpacer();
 
-void beforeRender();
-void afterRender();
+	void startGame();
 };
 
 } /* namespace shootspacer */
 #endif /* SHOOTSPACER_H_ */
-/*
-device->setWindowCaption(L"Hello World! - Irrlicht Engine Demo");
 
-
-	IVideoDriver* driver = device->getVideoDriver();
-	ISceneManager* smgr = device->getSceneManager();
-	IGUIEnvironment* guienv = device->getGUIEnvironment();
-
-
-	guienv->addStaticText(L"Hello World! This is the Irrlicht Software renderer!",
-		rect<s32>(10,10,260,22), true);
-
-
-	IAnimatedMesh* mesh = smgr->getMesh("D:/Pliki/irrlicht-1.8/irrlicht-1.8/media/sydney.md2");
-	if (!mesh)
-	{
-		device->drop();
-		return 1;
-	}
-	IAnimatedMeshSceneNode* node = smgr->addAnimatedMeshSceneNode( mesh );
-
-
-	if (node)
-	{
-		node->setMaterialFlag(EMF_LIGHTING, false);
-		node->setMD2Animation(scene::EMAT_STAND);
-		node->setMaterialTexture( 0, driver->getTexture("D:/Pliki/irrlicht-1.8/irrlicht-1.8/media/sydney.bmp") );
-	}
-
-
-	smgr->addCameraSceneNode(0, vector3df(0,30,-40), vector3df(0,5,0));*/

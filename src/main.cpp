@@ -15,25 +15,12 @@ using namespace gui;
 
 using namespace shs;
 
-int main(int argc, char **argv)
-{
-	std::cout << "Hello";
-
-	IrrlichtDevice *device =
-	        createDevice( video::EDT_OPENGL, dimension2d<u32>(640, 480), 16,
-	            false, false, false, 0);
-
-	    if (!device)
-	        return 1;
 
 
-	    ShootSpacer s(device);
+int main(int argc, char **argv) {
 
-	    s.run();
-
-	    device->drop();
-
-
+	ShootSpacer s;
+	s.startGame();
 
 	return 0;
 }

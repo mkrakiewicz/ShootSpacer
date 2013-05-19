@@ -10,6 +10,8 @@
 
 namespace shs {
 
+/*NEED TO USE BOOST INSTEAD*/
+
 template < typename T > class SmartPointer {
 private:
    T*    pData; // Generic pointer to be stored
@@ -21,6 +23,8 @@ public:
 	T& operator*();
 
 	T* operator->();
+
+
 };
 
 } /* namespace ShootSpacer */

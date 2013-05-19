@@ -30,14 +30,13 @@ protected:
 	ISceneManager *smgr;
 	IGUIEnvironment *gui;
 
+	void run();
+	virtual void beforeRender() = 0;
+	virtual void afterRender() = 0;
+
 public:
 	RenderLoop(IrrlichtDevice * context);
 	virtual ~RenderLoop();
-
-	void run();
-
-//	virtual void beforeRender() = 0;
-//	virtual void afterRender() = 0;
 
 };
 

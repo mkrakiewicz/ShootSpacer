@@ -8,11 +8,23 @@
 #ifndef MENU_H_
 #define MENU_H_
 
+#include "RenderLoop.h"
+
+using namespace irr;
+
+using namespace core;
+using namespace scene;
+using namespace video;
+using namespace io;
+using namespace gui;
+
 namespace shs {
 
-class Menu {
+class Menu : public RenderLoop {
+protected:
+
 public:
-	Menu();
+	Menu(IrrlichtDevice * context);
 	virtual ~Menu();
 };
 

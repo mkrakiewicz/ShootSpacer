@@ -10,9 +10,16 @@
 
 namespace shs {
 
-Menu::Menu() {
-	// TODO Auto-generated constructor stub
+Menu::Menu(IrrlichtDevice * context):
+	RenderLoop(context) {
 
+
+	/*
+	 * swap original scene manager with menu smgr
+	 * */
+	ISceneManager *menuSmgr;
+	menuSmgr = smgr->createNewSceneManager();
+	smgr = menuSmgr;
 }
 
 Menu::~Menu() {

@@ -8,9 +8,6 @@
 #ifndef OBJECT3D_H_
 #define OBJECT3D_H_
 
-#include <irrlicht.h>
-
-
 using namespace irr;
 
 using namespace core;
