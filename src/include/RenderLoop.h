@@ -34,6 +34,8 @@ protected:
 	virtual void beforeRender() = 0;
 	virtual void afterRender() = 0;
 
+	RenderLoop(){}
+
 public:
 	RenderLoop(IrrlichtDevice * context);
 	virtual ~RenderLoop();

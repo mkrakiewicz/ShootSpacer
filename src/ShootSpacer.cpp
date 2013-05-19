@@ -11,6 +11,10 @@
 
 namespace shs {
 
+ShootSpacer* ShootSpacer::_instance = NULL;
+
+int ShootSpacer::_referenceCount = 0;
+
 ShootSpacer::ShootSpacer() :
 		RenderLoop(createIrrlichtDevice()) {
 
@@ -42,8 +46,6 @@ ShootSpacer::ShootSpacer() :
 
 }
 
-
-
 ShootSpacer::~ShootSpacer() {
 	device->drop();
 }
@@ -61,6 +63,24 @@ IrrlichtDevice* ShootSpacer::createIrrlichtDevice() {
 
 void ShootSpacer::startGame() {
 	run();
+}
+
+ShootSpacer* shs::ShootSpacer::getInstance() {
+
+	if (NULL == _instance) {
+		_instance = new ShootSpacer();
+	}
+	_referenceCount++;
+	return _instance;
+
+}
+
+void shs::ShootSpacer::releaseInstance() {
+	_referenceCount--;
+	if ((0 == _referenceCount) && (NULL != _instance)) {
+		delete _instance;
+		_instance = NULL;
+	}
 }
 
 } /* namespace shootspacer */

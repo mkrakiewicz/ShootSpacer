@@ -11,6 +11,7 @@
 
 namespace shs {
 
+/*
 //
 //template<class T>
 //class Singleton
@@ -32,10 +33,31 @@ namespace shs {
 //    Singleton(){};
 //
 //};
+*/
 
 class Menu;
 
-class ShootSpacer : public RenderLoop/*,Singleton<ShootSpacer>*/ {
+class ShootSpacer: public RenderLoop/*,Singleton<ShootSpacer>*/{
+private:
+
+//	// default destructor
+//	inline ~ShootSpacer() {
+//	}
+
+	// copy constructor
+	inline ShootSpacer(const ShootSpacer&) {
+	}
+
+	// assignment operator
+	inline ShootSpacer& operator=(const ShootSpacer&) {
+		return *this;
+	}
+
+	ShootSpacer();
+
+	static ShootSpacer* _instance;
+	static int _referenceCount;
+
 protected:
 	IrrlichtDevice* createIrrlichtDevice();
 	Menu *menu;
@@ -43,14 +65,16 @@ protected:
 	void beforeRender();
 	void afterRender();
 
-
 public:
 
-	ShootSpacer();
-	virtual ~ShootSpacer();
-
 	void startGame();
+
+	static ShootSpacer* getInstance();
+	static void releaseInstance();
+
+	virtual ~ShootSpacer();
 };
+
 
 } /* namespace shootspacer */
 #endif /* SHOOTSPACER_H_ */

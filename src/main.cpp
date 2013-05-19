@@ -19,8 +19,9 @@ using namespace shs;
 
 int main(int argc, char **argv) {
 
-	ShootSpacer s;
-	s.startGame();
+	ShootSpacer *s = ShootSpacer::getInstance();
+	s->startGame();
+	ShootSpacer::releaseInstance();
 
 	return 0;
 }
