@@ -29,16 +29,18 @@ RenderLoop::~RenderLoop() {
 void RenderLoop::run() {
 	runLoop = true;
 
-	while(device->run() && runLoop)
-		    {
+	while (device->run() && runLoop) {
 
-		        driver->beginScene(true, true, SColor(255,100,101,140));
+		beforeRender();
+		driver->beginScene(true, true, SColor(255, 100, 101, 140));
 
-		        smgr->drawAll();
-		        gui->drawAll();
+		smgr->drawAll();
+		gui->drawAll();
 
-		        driver->endScene();
-		    }
+		driver->endScene();
+
+		afterRender();
+	}
 
 }
 

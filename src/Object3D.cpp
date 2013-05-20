@@ -10,8 +10,8 @@
 
 namespace shs {
 
-Object3D::Object3D() {
-	// TODO Auto-generated constructor stub
+Object3D::Object3D(IMeshSceneNode *node) {
+	this->node = node;
 }
 
 Object3D::~Object3D() {
@@ -19,19 +19,20 @@ Object3D::~Object3D() {
 }
 
 const vector3df& Object3D::getPosition() const {
-	return position;
+	return node->getAbsolutePosition();
 }
 
 void Object3D::setPosition(const vector3df& position) {
-	this->position = position;
+	node->setPosition(position);
+
 }
 
 const vector3df& Object3D::getRotation() const {
-	return rotation;
+	return node->getRotation();
 }
 
 void Object3D::setRotation(const vector3df& rotation) {
-	this->rotation = rotation;
+	node->setRotation(rotation);
 }
 
 const vector3df& Object3D::getSpeedVector() const {
@@ -40,6 +41,45 @@ const vector3df& Object3D::getSpeedVector() const {
 
 void Object3D::setSpeedVector(const vector3df& speedVector) {
 	this->speedVector = speedVector;
+}
+
+void Object3D::rotateNodeInWorldSpace(scene::ISceneNode* node, f32 degs,
+		const core::vector3df& axis) {
+
+	core::quaternion q;
+	q.fromAngleAxis(degs * core::DEGTORAD, axis);
+	core::matrix4 m1 = q.getMatrix();
+
+	node->updateAbsolutePosition();
+	core::matrix4 m2 = node->getAbsoluteTransformation();
+
+	core::matrix4 m = m1 * m2;
+	node->setRotation(m.getRotationDegrees());
+
+}
+
+void Object3D::rotateNodeInLocalSpace(scene::ISceneNode* node, f32 degs,
+		const core::vector3df& axis) {
+	node->updateAbsolutePosition();
+	core::matrix4 m2 = node->getAbsoluteTransformation();
+	core::vector3df a = axis;
+	m2.rotateVect(a);
+	a.normalize();
+
+	core::quaternion q;
+	q.fromAngleAxis(degs * core::DEGTORAD, a);
+	core::matrix4 m1 = q.getMatrix();
+
+	core::matrix4 m = m1 * m2;
+	node->setRotation(m.getRotationDegrees());
+
+}
+
+core::vector3df Object3D::getClosestPointOnLine(const core::vector3df& axis,
+		const core::vector3df& pivot, const core::vector3df& point) {
+	core::vector3df c = point - pivot;
+	f32 t = axis.dotProduct(c);
+	return pivot + axis * t;
 }
 
 } /* namespace shootspacer */

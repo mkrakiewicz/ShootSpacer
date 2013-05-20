@@ -19,6 +19,9 @@ using namespace shs;
 
 int main(int argc, char **argv) {
 
+//	setvbuf(stdout, NULL, _IONBF, 0);
+//	setvbuf(stderr, NULL, _IONBF, 0);
+
 	ShootSpacer *s = ShootSpacer::getInstance();
 	s->startGame();
 	ShootSpacer::releaseInstance();

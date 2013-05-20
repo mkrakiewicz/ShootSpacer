@@ -51,9 +51,12 @@ ShootSpacer::~ShootSpacer() {
 }
 
 void ShootSpacer::beforeRender() {
+	std::cout << "hello \n";
+
 }
 
 void ShootSpacer::afterRender() {
+
 }
 
 IrrlichtDevice* ShootSpacer::createIrrlichtDevice() {

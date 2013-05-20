@@ -12,39 +12,36 @@
 namespace shs {
 
 /*
-//
-//template<class T>
-//class Singleton
-//{
-//public:
-//    static T &GetInstance( void )
-//    {
-//        static T obj;
-//        return obj;
-//    }
-//
-//    static T *GetInstancePtr( void )
-//    {
-//        return &(GetInstance());
-//    }
-//
-//protected:
-//    virtual ~Singleton(){};
-//    Singleton(){};
-//
-//};
-*/
+ //
+ //template<class T>
+ //class Singleton
+ //{
+ //public:
+ //    static T &GetInstance( void )
+ //    {
+ //        static T obj;
+ //        return obj;
+ //    }
+ //
+ //    static T *GetInstancePtr( void )
+ //    {
+ //        return &(GetInstance());
+ //    }
+ //
+ //protected:
+ //    virtual ~Singleton(){};
+ //    Singleton(){};
+ //
+ //};
+ */
 
 class Menu;
 
 class ShootSpacer: public RenderLoop/*,Singleton<ShootSpacer>*/{
 private:
 
-//	// default destructor
-//	inline ~ShootSpacer() {
-//	}
 
-	// copy constructor
+// copy constructor
 	inline ShootSpacer(const ShootSpacer&) {
 	}
 
@@ -58,12 +55,12 @@ private:
 	static ShootSpacer* _instance;
 	static int _referenceCount;
 
+	void beforeRender();
+	void afterRender();
+
 protected:
 	IrrlichtDevice* createIrrlichtDevice();
 	Menu *menu;
-
-	void beforeRender();
-	void afterRender();
 
 public:
 
@@ -74,7 +71,6 @@ public:
 
 	virtual ~ShootSpacer();
 };
-
 
 } /* namespace shootspacer */
 #endif /* SHOOTSPACER_H_ */
