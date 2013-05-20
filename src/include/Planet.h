@@ -16,8 +16,10 @@ namespace shs {
 
 class Planet: public Object3D {
 public:
-	Planet(IAnimatedMeshSceneNode &createdNode);
+	Planet(ISceneNode *createdNode);
 	virtual ~Planet();
+
+	static Planet* createTestPlanet(GameContext* c);
 };
 
 } /* namespace shootspacer */

@@ -20,13 +20,14 @@ namespace shs {
 
 class Object3D  {
 protected:
-	IAnimatedMeshSceneNode *node;
+	ISceneNode *node;
 //	vector3df position;
 //	vector3df rotation;
 	vector3df speedVector;
 public:
 
-	Object3D(IAnimatedMeshSceneNode &node);
+	Object3D():node(0) {}
+	Object3D(ISceneNode *node);
 	virtual ~Object3D();
 
 	/*

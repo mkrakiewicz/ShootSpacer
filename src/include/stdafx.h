@@ -24,11 +24,18 @@ using namespace gui;
 
 namespace shs {
 
-struct GameContext {
+class GameContext {
 public:
 	IrrlichtDevice *device;
+	IVideoDriver *driver;
+	ISceneManager *smgr;
+	IGUIEnvironment *gui;
 
-	GameContext(IrrlichtDevice *_device): device(_device) {}
+	GameContext(IrrlichtDevice *_device): device(_device),
+	driver(device->getVideoDriver()),
+	smgr(device->getSceneManager()),
+	gui(device->getGUIEnvironment())
+	{}
 
 
 };

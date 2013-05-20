@@ -9,6 +9,7 @@
 #define SHOOTSPACER_H_
 #include "RenderLoop.h"
 
+
 namespace shs {
 
 /*
@@ -37,6 +38,7 @@ namespace shs {
 
 class Menu;
 class Object3D;
+class Planet;
 
 class ShootSpacer: public RenderLoop/*,Singleton<ShootSpacer>*/{
 private:
@@ -63,7 +65,8 @@ protected:
 	IrrlichtDevice* createIrrlichtDevice();
 	Menu *menu;
 
-	Object3D* node;
+	Object3D *node;
+	Planet *testPlanet;
 
 public:
 

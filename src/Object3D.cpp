@@ -10,7 +10,7 @@
 
 namespace shs {
 
-Object3D::Object3D(IAnimatedMeshSceneNode &createdNode) : node(&createdNode)
+Object3D::Object3D(ISceneNode *createdNode) : node(createdNode)
 {
 //	this->node = node;
 }

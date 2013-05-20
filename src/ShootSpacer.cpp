@@ -9,6 +9,7 @@
 #include "ShootSpacer.h"
 #include "Menu.h"
 #include "Object3D.h"
+#include "Planet.h"
 
 namespace shs {
 
@@ -24,7 +25,8 @@ ShootSpacer::ShootSpacer() :
 }
 
 ShootSpacer::~ShootSpacer() {
-//	delete node;
+	delete node;
+	delete testPlanet;
 	device->drop();
 }
 
@@ -32,6 +34,8 @@ void ShootSpacer::beforeRender() {
 	node->rotateNodeInLocalSpace(1,vector3df(0,1,0));
 	node->rotateNodeInLocalSpace(1,vector3df(1,0,0));
 //	node->rotateNodeInLocalSpace(1,vector3df(0,0,1));
+	testPlanet->rotateNodeInLocalSpace(1,vector3df(0,1,0));
+
 
 }
 
@@ -69,10 +73,13 @@ void ShootSpacer::startGame() {
 							"D:/Pliki/irrlicht-1.8/irrlicht-1.8/media/sydney.bmp"));
 		}
 
-		this->node = new Object3D(*node);
+		this->node = new Object3D(node);
 	}
 
-		smgr->addCameraSceneNode(0, vector3df(0, 30, -40), vector3df(0, 5, 0));
+	GameContext gc(device);
+
+	testPlanet = Planet::createTestPlanet(&gc);
+		smgr->addCameraSceneNode(0, vector3df(0, 30, -140), vector3df(0, 5, 0));
 
 	run();
 }
