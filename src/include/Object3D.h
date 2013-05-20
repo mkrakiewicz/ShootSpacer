@@ -50,6 +50,10 @@ public:
 
 	void rotateNodeInWorldSpace(scene::ISceneNode* node, f32 degs, const core::vector3df& axis);
 
+	void Object3D::moveNodeInLocalSpace(scene::ISceneNode* node, const core::vector3df& distVect);
+
+	void Object3D::moveNodeInLocalSpace(scene::ISceneNode* node, const core::vector3df& dir, f32 dist);
+
 	// the line is defined by axis direction passing through the pivot
 	// 3rd argument "point" is the external point
 	core::vector3df getClosestPointOnLine(const core::vector3df& axis,

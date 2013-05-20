@@ -82,4 +82,29 @@ core::vector3df Object3D::getClosestPointOnLine(const core::vector3df& axis,
 	return pivot + axis * t;
 }
 
+
+void Object3D::moveNodeInLocalSpace(scene::ISceneNode* node, const core::vector3df& distVect)
+{
+    node->updateAbsolutePosition();
+    core::matrix4 m = node->getAbsoluteTransformation();
+    core::vector3df d = distVect;
+    m.rotateVect(d);
+
+    core::vector3df pos = node->getAbsolutePosition() + d;
+    node->setPosition(pos);
+}
+
+
+void Object3D::moveNodeInLocalSpace(scene::ISceneNode* node, const core::vector3df& dir, f32 dist)
+{
+    node->updateAbsolutePosition();
+    core::matrix4 m = node->getAbsoluteTransformation();
+    core::vector3df d = dir;
+    m.rotateVect(d);
+    d.normalize();
+
+    core::vector3df pos = node->getAbsolutePosition() + d * dist;
+    node->setPosition(pos);
+}
+
 } /* namespace shootspacer */
