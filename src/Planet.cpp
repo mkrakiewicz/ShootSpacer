@@ -8,9 +8,12 @@
 #include "stdafx.h"
 #include "Planet.h"
 
+using namespace shs;
+
 namespace shs {
 
-Planet::Planet() {
+Planet::Planet(IAnimatedMeshSceneNode &createdNode):Object3D(createdNode)
+{
 	// TODO Auto-generated constructor stub
 
 }

@@ -8,6 +8,7 @@
 #include "stdafx.h"
 #include "ShootSpacer.h"
 #include "Menu.h"
+#include "Object3D.h"
 
 namespace shs {
 
@@ -18,40 +19,19 @@ int ShootSpacer::_referenceCount = 0;
 ShootSpacer::ShootSpacer() :
 		RenderLoop(createIrrlichtDevice()) {
 
-	device->setWindowCaption(L"Hello World! - Irrlicht Engine Demo");
-
-	IVideoDriver* driver = device->getVideoDriver();
-	ISceneManager* smgr = device->getSceneManager();
-
-	IGUIEnvironment* guienv = device->getGUIEnvironment();
-
-	guienv->addStaticText(
-			L"Hello World! This is the Irrlicht Software renderer!",
-			rect<s32>(10, 10, 260, 22), true);
-
-	IAnimatedMesh* mesh = smgr->getMesh(
-			"D:/Pliki/irrlicht-1.8/irrlicht-1.8/media/sydney.md2");
-
-	IAnimatedMeshSceneNode* node = smgr->addAnimatedMeshSceneNode(mesh);
-
-	if (node) {
-		node->setMaterialFlag(EMF_LIGHTING, false);
-		node->setMD2Animation(scene::EMAT_STAND);
-		node->setMaterialTexture(0,
-				driver->getTexture(
-						"D:/Pliki/irrlicht-1.8/irrlicht-1.8/media/sydney.bmp"));
-	}
-
-	smgr->addCameraSceneNode(0, vector3df(0, 30, -40), vector3df(0, 5, 0));
+	device->setWindowCaption(L"ShootSpacer version 0.00001 pre alpha :P");
 
 }
 
 ShootSpacer::~ShootSpacer() {
+//	delete node;
 	device->drop();
 }
 
 void ShootSpacer::beforeRender() {
-	std::cout << "hello \n";
+	node->rotateNodeInLocalSpace(1,vector3df(0,1,0));
+	node->rotateNodeInLocalSpace(1,vector3df(1,0,0));
+//	node->rotateNodeInLocalSpace(1,vector3df(0,0,1));
 
 }
 
@@ -65,6 +45,35 @@ IrrlichtDevice* ShootSpacer::createIrrlichtDevice() {
 }
 
 void ShootSpacer::startGame() {
+
+		IVideoDriver* driver = device->getVideoDriver();
+		ISceneManager* smgr = device->getSceneManager();
+
+		IGUIEnvironment* guienv = device->getGUIEnvironment();
+
+		guienv->addStaticText(
+				L"Hello World! This is the Irrlicht Software renderer!",
+				rect<s32>(10, 10, 260, 22), true);
+
+		IAnimatedMesh* mesh = smgr->getMesh(
+				"D:/Pliki/irrlicht-1.8/irrlicht-1.8/media/sydney.md2");
+	{
+		IAnimatedMeshSceneNode * node  = smgr->addAnimatedMeshSceneNode(
+				mesh);
+
+		if (node) {
+			node->setMaterialFlag(EMF_LIGHTING, false);
+			node->setMD2Animation(scene::EMAT_STAND);
+			node->setMaterialTexture(0,
+					driver->getTexture(
+							"D:/Pliki/irrlicht-1.8/irrlicht-1.8/media/sydney.bmp"));
+		}
+
+		this->node = new Object3D(*node);
+	}
+
+		smgr->addCameraSceneNode(0, vector3df(0, 30, -40), vector3df(0, 5, 0));
+
 	run();
 }
 

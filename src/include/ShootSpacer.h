@@ -36,6 +36,7 @@ namespace shs {
  */
 
 class Menu;
+class Object3D;
 
 class ShootSpacer: public RenderLoop/*,Singleton<ShootSpacer>*/{
 private:
@@ -61,6 +62,8 @@ private:
 protected:
 	IrrlichtDevice* createIrrlichtDevice();
 	Menu *menu;
+
+	Object3D* node;
 
 public:
 

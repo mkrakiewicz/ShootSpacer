@@ -18,14 +18,15 @@ using namespace gui;
 
 namespace shs {
 
-class Object3D {
+class Object3D  {
 protected:
-	IMeshSceneNode *node;
+	IAnimatedMeshSceneNode *node;
 //	vector3df position;
 //	vector3df rotation;
 	vector3df speedVector;
 public:
-	Object3D(IMeshSceneNode *node);
+
+	Object3D(IAnimatedMeshSceneNode &node);
 	virtual ~Object3D();
 
 	/*
@@ -34,10 +35,10 @@ public:
 	 *
 	 * */
 
-	const vector3df& getPosition() const;
-	void setPosition(const vector3df& position);
-	const vector3df& getRotation() const;
-	void setRotation(const vector3df& rotation);
+//	const vector3df& getPosition() const;
+//	void setPosition(const vector3df& position);
+//	const vector3df& getRotation() const;
+//	void setRotation(const vector3df& rotation);
 	const vector3df& getSpeedVector() const;
 	void setSpeedVector(const vector3df& speedVector);
 
@@ -46,13 +47,13 @@ public:
 	 * functions by SMSO from Irrlicht forum:
 	 * */
 
-	void rotateNodeInLocalSpace(scene::ISceneNode* node, f32 degs, const core::vector3df& axis);
+	void rotateNodeInLocalSpace(f32 degs, const core::vector3df& axis);
 
-	void rotateNodeInWorldSpace(scene::ISceneNode* node, f32 degs, const core::vector3df& axis);
+	void rotateNodeInWorldSpace(f32 degs, const core::vector3df& axis);
 
-	void Object3D::moveNodeInLocalSpace(scene::ISceneNode* node, const core::vector3df& distVect);
+	void moveNodeInLocalSpace(scene::ISceneNode* node, const core::vector3df& distVect);
 
-	void Object3D::moveNodeInLocalSpace(scene::ISceneNode* node, const core::vector3df& dir, f32 dist);
+	void moveNodeInLocalSpace(scene::ISceneNode* node, const core::vector3df& dir, f32 dist);
 
 	// the line is defined by axis direction passing through the pivot
 	// 3rd argument "point" is the external point

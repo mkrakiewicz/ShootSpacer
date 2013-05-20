@@ -10,11 +10,13 @@
 
 #include "Object3D.h"
 
+using namespace shs;
+
 namespace shs {
 
-class Planet: public shs::Object3D {
+class Planet: public Object3D {
 public:
-	Planet();
+	Planet(IAnimatedMeshSceneNode &createdNode);
 	virtual ~Planet();
 };
 

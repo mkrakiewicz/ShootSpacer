@@ -14,7 +14,7 @@ namespace shs {
 
 class PlayerShip: public shs::Object3D {
 public:
-	PlayerShip();
+	PlayerShip(IAnimatedMeshSceneNode &node);
 	virtual ~PlayerShip();
 };
 
