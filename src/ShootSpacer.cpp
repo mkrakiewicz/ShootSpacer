@@ -37,7 +37,7 @@ void ShootSpacer::beforeRender() {
 	node->rotateNodeInLocalSpace(15,vector3df(1,0,0));
 	node->rotateNodeInLocalSpace(15,vector3df(0,0,1));
 
-	testPlanet->rotateNodeInLocalSpace(180,vector3df(0,1,0));
+	testPlanet->rotateNodeInLocalSpace(5,vector3df(0,1,0));
 
 
 
@@ -49,8 +49,14 @@ void ShootSpacer::afterRender() {
 }
 
 IrrlichtDevice* ShootSpacer::createIrrlichtDevice() {
-	return createDevice(video::EDT_OPENGL, dimension2d<u32>(640, 480), 16,
-			false, false, false, 0);
+
+	SIrrlichtCreationParameters params = SIrrlichtCreationParameters();
+	params.AntiAlias = true;
+	params.DriverType = video::EDT_OPENGL;
+	params.WindowSize = core::dimension2d<u32>(1024, 768);
+	params.Fullscreen = false;
+
+	return createDeviceEx(params);
 }
 
 void ShootSpacer::startGame() {
@@ -86,7 +92,10 @@ void ShootSpacer::startGame() {
 
 
 	testPlanet = Planet::createTestPlanet(&gc);
-		smgr->addCameraSceneNode(0, vector3df(0, 30, -140), vector3df(0, 5, 0));
+
+	ICameraSceneNode *cam = smgr->addCameraSceneNode(0, vector3df(0, 30, -140), vector3df(0, 5, 0));
+
+//	cam->setAspectRatio(16/9.f);
 
 	run();
 }

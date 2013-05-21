@@ -33,8 +33,13 @@ void Object3D::setSpeedVector(const vector3df& speedVector) {
 
 void Object3D::rotateNodeInWorldSpace(f32 degs, const core::vector3df& axis) {
 
+	f32 mult = 1.f;
+	if (getFrameDelta() != 0) {
+		mult = getFrameDelta();
+	}
+
 	core::quaternion q;
-	q.fromAngleAxis(degs * core::DEGTORAD, axis);
+	q.fromAngleAxis(degs * mult * core::DEGTORAD, axis);
 	core::matrix4 m1 = q.getMatrix();
 
 	node->updateAbsolutePosition();
@@ -79,9 +84,15 @@ core::vector3df Object3D::getClosestPointOnLine(const core::vector3df& axis,
 
 void Object3D::moveNodeInLocalSpace(scene::ISceneNode* node,
 		const core::vector3df& distVect) {
+
+	f32 mult = 1.f;
+	if (getFrameDelta() != 0) {
+		mult = getFrameDelta();
+	}
+
 	node->updateAbsolutePosition();
 	core::matrix4 m = node->getAbsoluteTransformation();
-	core::vector3df d = distVect;
+	core::vector3df d = distVect * mult;
 	m.rotateVect(d);
 
 	core::vector3df pos = node->getAbsolutePosition() + d;
@@ -90,13 +101,18 @@ void Object3D::moveNodeInLocalSpace(scene::ISceneNode* node,
 
 void Object3D::moveNodeInLocalSpace(scene::ISceneNode* node,
 		const core::vector3df& dir, f32 dist) {
+	f32 mult = 1.f;
+	if (getFrameDelta() != 0) {
+		mult = getFrameDelta();
+	}
+
 	node->updateAbsolutePosition();
 	core::matrix4 m = node->getAbsoluteTransformation();
 	core::vector3df d = dir;
 	m.rotateVect(d);
 	d.normalize();
 
-	core::vector3df pos = node->getAbsolutePosition() + d * dist;
+	core::vector3df pos = node->getAbsolutePosition() + d * dist * mult;
 	node->setPosition(pos);
 }
 

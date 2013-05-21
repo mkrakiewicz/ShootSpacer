@@ -24,9 +24,9 @@ Planet::~Planet() {
 
 Planet* Planet::createTestPlanet(GameContext* c) {
 
-	ISceneNode *tmp = (c->smgr->addSphereSceneNode(10));
+	ISceneNode *tmp = (c->smgr->addSphereSceneNode(80,64));
 
-	tmp->setPosition(vector3df(50,0,0));
+	tmp->setPosition(vector3df(100,10,0));
 	if (tmp) {
 		tmp->setMaterialFlag(EMF_LIGHTING, false);
 
