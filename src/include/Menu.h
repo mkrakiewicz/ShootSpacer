@@ -28,7 +28,7 @@ protected:
 	void render();
 
 	ISceneManager *smgr;
-	IGUIEnvironment *gui;
+//	IGUIEnvironment *gui;
 
 public:
 	Menu(GameContext * context);

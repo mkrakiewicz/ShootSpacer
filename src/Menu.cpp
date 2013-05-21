@@ -19,7 +19,7 @@ Menu::Menu(GameContext * context):
 	 * */
 
 	smgr = context->smgr->createNewSceneManager();
-	gui = context->device->getGUIEnvironment();
+//	gui = context->device->getGUIEnvironment();
 }
 
 void Menu::beforeRender() {
@@ -39,8 +39,10 @@ void Menu::render() {
 }
 
 void Menu::displayMenu() {
+	gui->clear();
+
 	gui->addStaticText(
-					L"Hello World! This is the Irrlicht Software renderer!",
+					L"MENU",
 					rect<s32>(10, 10, 260, 22), true);
 	run();
 

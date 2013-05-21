@@ -25,7 +25,7 @@ enum GameState {
 	EXIT
 };
 
-class ShootSpacer: public RenderLoop/*,Singleton<ShootSpacer>*/{
+class ShootSpacer: public RenderLoop {
 private:
 
 	ShootSpacer();
@@ -62,6 +62,8 @@ protected:
 	ShootSpacerEvent *eventReceiver;
 
 	GameState state;
+
+	void displayGame();
 
 public:
 

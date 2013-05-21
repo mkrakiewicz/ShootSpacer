@@ -8,8 +8,7 @@
 #ifndef SHOOTSPACEREVENT_H_
 #define SHOOTSPACEREVENT_H_
 
-#include <IEventReceiver.h>
-
+class irr::IEventReceiver;
 
 namespace shs {
 

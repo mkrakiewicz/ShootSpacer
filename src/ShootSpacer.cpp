@@ -47,6 +47,16 @@ void ShootSpacer::toggleGameState() {
 	}
 }
 
+void ShootSpacer::displayGame() {
+	context->gui->clear();
+
+	context->gui->addStaticText(
+				L"Game",
+				rect<s32>(10, 10, 260, 22), true);
+
+	run();
+}
+
 ShootSpacer::~ShootSpacer() {
 	delete node;
 	delete testPlanet;
@@ -88,9 +98,6 @@ void ShootSpacer::startGame() {
 
 	IGUIEnvironment* guienv = device->getGUIEnvironment();
 
-	guienv->addStaticText(
-			L"Hello World! This is the Irrlicht Software renderer!",
-			rect<s32>(10, 10, 260, 22), true);
 
 	IAnimatedMesh* mesh = smgr->getMesh(
 			"D:/Pliki/irrlicht-1.8/irrlicht-1.8/media/sydney.md2");
@@ -128,7 +135,7 @@ void ShootSpacer::startGame() {
 			menu->displayMenu();
 			break;
 		case RUN:
-			this->run();
+			displayGame();
 			break;
 		case EXIT:
 			run = false;

@@ -4,10 +4,10 @@
  *  Created on: 19-05-2013
  *      Author: Micha³
  */
-
-#include "ShootSpacerEvent.h"c
-#include "ShootSpacer.h"
 #include "stdafx.h"
+#include "ShootSpacerEvent.h"
+#include "ShootSpacer.h"
+
 
 
 using namespace irr;
@@ -34,9 +34,12 @@ bool ShootSpacerEvent::OnEvent(const SEvent& event)
     if (event.EventType == irr::EET_KEY_INPUT_EVENT){
         KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
 
-        if (event.KeyInput.Key == KEY_ESCAPE) {
+        if ((!event.KeyInput.PressedDown) && (event.KeyInput.Key == KEY_ESCAPE)) {
         	gameInstance->toggleGameState();
+        	return true;
         }
+
+
     }
 
     return false;
