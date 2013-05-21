@@ -12,44 +12,21 @@
 
 namespace shs {
 
-/*
- //
- //template<class T>
- //class Singleton
- //{
- //public:
- //    static T &GetInstance( void )
- //    {
- //        static T obj;
- //        return obj;
- //    }
- //
- //    static T *GetInstancePtr( void )
- //    {
- //        return &(GetInstance());
- //    }
- //
- //protected:
- //    virtual ~Singleton(){};
- //    Singleton(){};
- //
- //};
- */
 
 class Menu;
 class Object3D;
 class Planet;
+class ShootSpacerEvent;
+
+enum GameState {
+	INIT,
+	RUN,
+	MENU,
+	EXIT
+};
 
 class ShootSpacer: public RenderLoop/*,Singleton<ShootSpacer>*/{
 private:
-// copy constructor
-	inline ShootSpacer(const ShootSpacer&) {
-	}
-
-	// assignment operator
-	inline ShootSpacer& operator=(const ShootSpacer&) {
-		return *this;
-	}
 
 	ShootSpacer();
 
@@ -58,18 +35,37 @@ private:
 
 	void beforeRender();
 	void afterRender();
+	void render();
 
 //	std::string windowTitle =
 
+	// copy constructor
+	inline ShootSpacer(const ShootSpacer&) {
+	}
+
+	// assignment operator
+	inline ShootSpacer& operator=(const ShootSpacer&) {
+		return *this;
+	}
+
+
 protected:
 	IrrlichtDevice* createIrrlichtDevice();
+	void initialize();
+
+	GameContext *context;
+
 	Menu *menu;
 
 	Object3D *node;
 	Planet *testPlanet;
+	ShootSpacerEvent *eventReceiver;
+
+	GameState state;
 
 public:
 
+	void toggleGameState();
 	void startGame();
 
 	static ShootSpacer* getInstance();

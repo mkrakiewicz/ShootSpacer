@@ -23,9 +23,18 @@ namespace shs {
 class Menu : public RenderLoop {
 protected:
 
+	void beforeRender();
+	void afterRender();
+	void render();
+
+	ISceneManager *smgr;
+	IGUIEnvironment *gui;
+
 public:
-	Menu(IrrlichtDevice * context);
+	Menu(GameContext * context);
 	virtual ~Menu();
+
+	void displayMenu();
 };
 
 } /* namespace shootspacer */

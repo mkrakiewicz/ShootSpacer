@@ -10,6 +10,8 @@
 
 #include <irrlicht.h>
 #include <iostream>
+#include <memory>
+
 #include "SmartPointer.h"
 
 using namespace irr;
@@ -31,7 +33,7 @@ public:
 	ISceneManager *smgr;
 	IGUIEnvironment *gui;
 
-	GameContext(IrrlichtDevice *_device): device(_device),
+	GameContext(IrrlichtDevice * context): device(context),
 	driver(device->getVideoDriver()),
 	smgr(device->getSceneManager()),
 	gui(device->getGUIEnvironment())

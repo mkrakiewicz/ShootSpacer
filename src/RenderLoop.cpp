@@ -7,6 +7,16 @@
 #include "stdafx.h"
 #include "RenderLoop.h"
 
+
+using namespace irr;
+
+using namespace core;
+using namespace scene;
+using namespace video;
+using namespace io;
+using namespace gui;
+
+
 namespace shs {
 
 RenderLoop::RenderLoop(IrrlichtDevice * context) :
@@ -46,10 +56,10 @@ void RenderLoop::run() {
 		then = now;
 
 		beforeRender();
+
 		driver->beginScene(true, true, SColor(255, 100, 101, 140));
 
-		smgr->drawAll();
-		gui->drawAll();
+		render();
 
 		driver->endScene();
 
@@ -73,6 +83,10 @@ void RenderLoop::run() {
 f32* RenderLoop::getFrameDeltaTimePtr() {
 	f32* tmp = &frameDeltaTime;
 	return tmp;
+}
+
+void RenderLoop::stop() {
+	runLoop = false;
 }
 
 } /* namespace ShootSpacer */

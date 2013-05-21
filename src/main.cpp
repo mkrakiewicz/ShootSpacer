@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "ShootSpacer.h"
-#include <memory>
 
 
 using namespace std;

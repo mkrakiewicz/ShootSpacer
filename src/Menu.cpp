@@ -10,20 +10,40 @@
 
 namespace shs {
 
-Menu::Menu(IrrlichtDevice * context):
-	RenderLoop(context) {
+Menu::Menu(GameContext * context):
+	RenderLoop(context->device) {
 
 
 	/*
 	 * swap original scene manager with menu smgr
 	 * */
-	ISceneManager *menuSmgr;
-	menuSmgr = smgr->createNewSceneManager();
-	smgr = menuSmgr;
+
+	smgr = context->smgr->createNewSceneManager();
+	gui = context->device->getGUIEnvironment();
+}
+
+void Menu::beforeRender() {
+}
+
+void Menu::afterRender() {
 }
 
 Menu::~Menu() {
 	// TODO Auto-generated destructor stub
+}
+
+void Menu::render() {
+
+	smgr->drawAll();
+	gui->drawAll();
+}
+
+void Menu::displayMenu() {
+	gui->addStaticText(
+					L"Hello World! This is the Irrlicht Software renderer!",
+					rect<s32>(10, 10, 260, 22), true);
+	run();
+
 }
 
 } /* namespace shootspacer */

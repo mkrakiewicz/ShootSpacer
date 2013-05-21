@@ -8,14 +8,6 @@
 #ifndef RENDERLOOP_H_
 #define RENDERLOOP_H_
 
-using namespace irr;
-
-using namespace core;
-using namespace scene;
-using namespace video;
-using namespace io;
-using namespace gui;
-
 namespace shs {
 
 /**
@@ -23,26 +15,30 @@ namespace shs {
  */
 class RenderLoop {
 private:
-	f32 frameDeltaTime;
+	irr::f32 frameDeltaTime;
 protected:
 	bool runLoop;
 
-	IrrlichtDevice *device;
-	IVideoDriver *driver;
-	ISceneManager *smgr;
-	IGUIEnvironment *gui;
+	irr::IrrlichtDevice *device;
+	irr::video::IVideoDriver *driver;
+	irr::scene::ISceneManager *smgr;
+	irr::gui::IGUIEnvironment *gui;
 
 	void run();
 	virtual void beforeRender() = 0;
 	virtual void afterRender() = 0;
+	virtual void render() = 0;
+
 
 	RenderLoop(){}
 
 public:
-	RenderLoop(IrrlichtDevice * context);
+	RenderLoop(irr::IrrlichtDevice * context);
 	virtual ~RenderLoop();
 	f32 getFrameDeltaTime() const;
 	f32* getFrameDeltaTimePtr();
+
+	void stop();
 };
 
 /**
