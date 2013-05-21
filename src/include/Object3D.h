@@ -19,27 +19,24 @@ using namespace gui;
 namespace shs {
 
 class Object3D  {
+private:
+		static f32 *frameDeltaTime;
+
 protected:
 	ISceneNode *node;
 //	vector3df position;
 //	vector3df rotation;
 	vector3df speedVector;
+
 public:
 
-	Object3D():node(0) {}
+	Object3D():
+		node(0)
+	{}
 	Object3D(ISceneNode *node);
 	virtual ~Object3D();
 
-	/*
-	 *
-	 * getters and setters
-	 *
-	 * */
 
-//	const vector3df& getPosition() const;
-//	void setPosition(const vector3df& position);
-//	const vector3df& getRotation() const;
-//	void setRotation(const vector3df& rotation);
 	const vector3df& getSpeedVector() const;
 	void setSpeedVector(const vector3df& speedVector);
 
@@ -49,11 +46,8 @@ public:
 	 * */
 
 	void rotateNodeInLocalSpace(f32 degs, const core::vector3df& axis);
-
 	void rotateNodeInWorldSpace(f32 degs, const core::vector3df& axis);
-
 	void moveNodeInLocalSpace(scene::ISceneNode* node, const core::vector3df& distVect);
-
 	void moveNodeInLocalSpace(scene::ISceneNode* node, const core::vector3df& dir, f32 dist);
 
 	// the line is defined by axis direction passing through the pivot
@@ -61,7 +55,11 @@ public:
 	core::vector3df getClosestPointOnLine(const core::vector3df& axis,
 			const core::vector3df& pivot, const core::vector3df& point);
 
+	static void setFrameDeltaReference(f32 *ref);
+	f32 getFrameDelta(){
 
+			return *frameDeltaTime;
+	};
 
 };
 

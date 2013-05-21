@@ -10,7 +10,7 @@
 namespace shs {
 
 RenderLoop::RenderLoop(IrrlichtDevice * context) :
-		runLoop(false), device(context) {
+		runLoop(false), device(context), frameDeltaTime(0.f) {
 
 	if (device) {
 		driver = device->getVideoDriver();
@@ -22,6 +22,11 @@ RenderLoop::RenderLoop(IrrlichtDevice * context) :
 
 }
 
+f32 RenderLoop::getFrameDeltaTime() const {
+	return frameDeltaTime;
+}
+
+
 RenderLoop::~RenderLoop() {
 	// TODO Auto-generated destructor stub
 }
@@ -29,7 +34,16 @@ RenderLoop::~RenderLoop() {
 void RenderLoop::run() {
 	runLoop = true;
 
+    int lastFPS = -1;
+
+    u32 then = device->getTimer()->getTime();
+
+
 	while (device->run() && runLoop) {
+
+		const u32 now = device->getTimer()->getTime();
+		frameDeltaTime = (f32) (now - then) / 1000.f; // Time in seconds
+		then = now;
 
 		beforeRender();
 		driver->beginScene(true, true, SColor(255, 100, 101, 140));
@@ -40,8 +54,25 @@ void RenderLoop::run() {
 		driver->endScene();
 
 		afterRender();
+
+		int fps = driver->getFPS();
+
+		if (lastFPS != fps) {
+			core::stringw tmp(L"ShootSpacer [");
+			tmp += driver->getName();
+			tmp += L"] fps: ";
+			tmp += fps;
+
+			device->setWindowCaption(tmp.c_str());
+			lastFPS = fps;
+		}
 	}
 
+}
+
+f32* RenderLoop::getFrameDeltaTimePtr() {
+	f32* tmp = &frameDeltaTime;
+	return tmp;
 }
 
 } /* namespace ShootSpacer */

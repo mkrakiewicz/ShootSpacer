@@ -42,8 +42,6 @@ class Planet;
 
 class ShootSpacer: public RenderLoop/*,Singleton<ShootSpacer>*/{
 private:
-
-
 // copy constructor
 	inline ShootSpacer(const ShootSpacer&) {
 	}
@@ -60,6 +58,8 @@ private:
 
 	void beforeRender();
 	void afterRender();
+
+//	std::string windowTitle =
 
 protected:
 	IrrlichtDevice* createIrrlichtDevice();

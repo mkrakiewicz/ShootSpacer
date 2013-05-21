@@ -22,6 +22,8 @@ namespace shs {
  * Abstract base class for Menu and ShootSpacer
  */
 class RenderLoop {
+private:
+	f32 frameDeltaTime;
 protected:
 	bool runLoop;
 
@@ -39,7 +41,8 @@ protected:
 public:
 	RenderLoop(IrrlichtDevice * context);
 	virtual ~RenderLoop();
-
+	f32 getFrameDeltaTime() const;
+	f32* getFrameDeltaTimePtr();
 };
 
 /**

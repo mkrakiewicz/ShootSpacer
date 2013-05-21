@@ -10,31 +10,18 @@
 
 namespace shs {
 
-Object3D::Object3D(ISceneNode *createdNode) : node(createdNode)
+f32* Object3D::frameDeltaTime = 0;
+
+Object3D::Object3D(ISceneNode *createdNode) :
+		node(createdNode)
 {
 //	this->node = node;
 }
 
 Object3D::~Object3D() {
-	// TODO Auto-generated destructor stub
+
 }
-//
-//const vector3df& Object3D::getPosition() const {
-//	return node->getAbsolutePosition();
-//}
-//
-//void Object3D::setPosition(const vector3df& position) {
-//	node->setPosition(position);
-//
-//}
-//
-//const vector3df& Object3D::getRotation() const {
-//	return node->getRotation();
-//}
-//
-//void Object3D::setRotation(const vector3df& rotation) {
-//	node->setRotation(rotation);
-//}
+
 
 const vector3df& Object3D::getSpeedVector() const {
 	return speedVector;
@@ -59,6 +46,10 @@ void Object3D::rotateNodeInWorldSpace(f32 degs, const core::vector3df& axis) {
 }
 
 void Object3D::rotateNodeInLocalSpace(f32 degs, const core::vector3df& axis) {
+	f32 mult = 1.f;
+	if (getFrameDelta() != 0) {
+		mult = getFrameDelta();
+	}
 	node->updateAbsolutePosition();
 	core::matrix4 m2 = node->getAbsoluteTransformation();
 	core::vector3df a = axis;
@@ -66,12 +57,17 @@ void Object3D::rotateNodeInLocalSpace(f32 degs, const core::vector3df& axis) {
 	a.normalize();
 
 	core::quaternion q;
-	q.fromAngleAxis(degs * core::DEGTORAD, a);
+	q.fromAngleAxis(degs * mult * core::DEGTORAD, a);
 	core::matrix4 m1 = q.getMatrix();
 
 	core::matrix4 m = m1 * m2;
 	node->setRotation(m.getRotationDegrees());
 
+}
+
+void Object3D::setFrameDeltaReference(f32 *ref) {
+
+	Object3D::frameDeltaTime = ref;
 }
 
 core::vector3df Object3D::getClosestPointOnLine(const core::vector3df& axis,

@@ -22,6 +22,8 @@ ShootSpacer::ShootSpacer() :
 
 	device->setWindowCaption(L"ShootSpacer version 0.00001 pre alpha :P");
 
+	Object3D::setFrameDeltaReference(getFrameDeltaTimePtr());
+
 }
 
 ShootSpacer::~ShootSpacer() {
@@ -31,10 +33,13 @@ ShootSpacer::~ShootSpacer() {
 }
 
 void ShootSpacer::beforeRender() {
-	node->rotateNodeInLocalSpace(1,vector3df(0,1,0));
-	node->rotateNodeInLocalSpace(1,vector3df(1,0,0));
-//	node->rotateNodeInLocalSpace(1,vector3df(0,0,1));
-	testPlanet->rotateNodeInLocalSpace(1,vector3df(0,1,0));
+	node->rotateNodeInLocalSpace(15,vector3df(0,1,0));
+	node->rotateNodeInLocalSpace(15,vector3df(1,0,0));
+	node->rotateNodeInLocalSpace(15,vector3df(0,0,1));
+
+	testPlanet->rotateNodeInLocalSpace(180,vector3df(0,1,0));
+
+
 
 
 }
@@ -51,6 +56,7 @@ IrrlichtDevice* ShootSpacer::createIrrlichtDevice() {
 void ShootSpacer::startGame() {
 
 		IVideoDriver* driver = device->getVideoDriver();
+		driver->getFPS();
 		ISceneManager* smgr = device->getSceneManager();
 
 		IGUIEnvironment* guienv = device->getGUIEnvironment();
@@ -77,6 +83,7 @@ void ShootSpacer::startGame() {
 	}
 
 	GameContext gc(device);
+
 
 	testPlanet = Planet::createTestPlanet(&gc);
 		smgr->addCameraSceneNode(0, vector3df(0, 30, -140), vector3df(0, 5, 0));
