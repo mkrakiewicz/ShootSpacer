@@ -3,7 +3,7 @@
 
 using namespace irr;
 
-const core::stringw COMMITS = "20";
+const core::stringw COMMITS = "21";
 const core::stringw CURRENT_VERSION =  core::stringw("0.0.") + COMMITS;
 const core::stringw CURRENT_VERSION_STRING =  core::stringw("v") + CURRENT_VERSION;
 
