@@ -8,9 +8,12 @@
 #ifndef STDAFX_H_
 #define STDAFX_H_
 
+
 #include <irrlicht.h>
 #include <iostream>
 #include <memory>
+#include <string>
+#include "version.h"
 
 #include "SmartPointer.h"
 

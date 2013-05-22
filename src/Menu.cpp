@@ -40,9 +40,10 @@ void Menu::render() {
 
 void Menu::displayMenu() {
 	gui->clear();
-
+	 core::stringw tmp = L"MENU: ShootSpacer ";
+	tmp += CURRENT_VERSION_STRING;
 	gui->addStaticText(
-					L"MENU",
+					tmp.c_str(),
 					rect<s32>(10, 10, 260, 22), true);
 	run();
 
