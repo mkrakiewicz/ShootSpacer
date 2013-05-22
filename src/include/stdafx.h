@@ -13,7 +13,6 @@
 #include <iostream>
 #include <memory>
 #include <string>
-#include "version.h"
 
 #include "SmartPointer.h"
 
