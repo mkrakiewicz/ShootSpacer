@@ -57,6 +57,15 @@ void ShootSpacer::displayGame() {
 	run();
 }
 
+void ShootSpacer::exit() {
+	if (state == RUN)
+		stop();
+	else
+		menu->stop();
+	state = EXIT;
+
+}
+
 ShootSpacer::~ShootSpacer() {
 	delete node;
 	delete testPlanet;
@@ -126,7 +135,7 @@ void ShootSpacer::startGame() {
 
 //	cam->setAspectRatio(16/9.f);
 
-	state = RUN;
+	state = MENU;
 	bool run = true;
 
 	while (run) {

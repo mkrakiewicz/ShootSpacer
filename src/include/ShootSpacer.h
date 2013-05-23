@@ -69,6 +69,7 @@ public:
 
 	void toggleGameState();
 	void startGame();
+	void exit();
 
 	static ShootSpacer* getInstance();
 	static void releaseInstance();

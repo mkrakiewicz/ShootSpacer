@@ -34,10 +34,15 @@ bool ShootSpacerEvent::OnEvent(const SEvent& event)
     if (event.EventType == irr::EET_KEY_INPUT_EVENT){
         KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
 
-        if ((!event.KeyInput.PressedDown) && (event.KeyInput.Key == KEY_ESCAPE)) {
-        	gameInstance->toggleGameState();
-        	return true;
-        }
+	if (!event.KeyInput.PressedDown) {
+		if (event.KeyInput.Key == KEY_ESCAPE) {
+
+			gameInstance->toggleGameState();
+			return false;
+		} else if (event.KeyInput.Key == KEY_KEY_Q) {
+			gameInstance->exit();
+		}
+	}
 
 
     }

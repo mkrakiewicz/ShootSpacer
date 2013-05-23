@@ -44,37 +44,41 @@ RenderLoop::~RenderLoop() {
 void RenderLoop::run() {
 	runLoop = true;
 
-    int lastFPS = -1;
+	int lastFPS = -1;
 
-    u32 then = device->getTimer()->getTime();
-
+	u32 then = device->getTimer()->getTime();
 
 	while (device->run() && runLoop) {
 
-		const u32 now = device->getTimer()->getTime();
-		frameDeltaTime = (f32) (now - then) / 1000.f; // Time in seconds
-		then = now;
+		if (device->isWindowActive()) {
 
-		beforeRender();
+			const u32 now = device->getTimer()->getTime();
+			frameDeltaTime = (f32) (now - then) / 1000.f; // Time in seconds
+			then = now;
 
-		driver->beginScene(true, true, SColor(255, 100, 101, 140));
+			beforeRender();
 
-		render();
+			driver->beginScene(true, true, SColor(255, 100, 101, 140));
 
-		driver->endScene();
+			render();
 
-		afterRender();
+			driver->endScene();
 
-		int fps = driver->getFPS();
+			afterRender();
 
-		if (lastFPS != fps) {
-			core::stringw tmp(L"ShootSpacer [");
-			tmp += driver->getName();
-			tmp += L"] fps: ";
-			tmp += fps;
+			int fps = driver->getFPS();
 
-			device->setWindowCaption(tmp.c_str());
-			lastFPS = fps;
+			if (lastFPS != fps) {
+				core::stringw tmp(L"ShootSpacer [");
+				tmp += driver->getName();
+				tmp += L"] fps: ";
+				tmp += fps;
+
+				device->setWindowCaption(tmp.c_str());
+				lastFPS = fps;
+			}
+		} else {
+			device->yield();
 		}
 	}
 

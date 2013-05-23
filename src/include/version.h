@@ -3,8 +3,38 @@
 
 using namespace irr;
 
-const core::stringw COMMITS = "22";
-const core::stringw CURRENT_VERSION =  core::stringw("0.0.") + COMMITS;
-const core::stringw CURRENT_VERSION_STRING =  core::stringw("v") + CURRENT_VERSION;
+/**
+ * BASIC STUCTURE OF THE VERSION:
+ * 		"V.S.R rcRC"
+ * 		or "V.S.R" if current RC == 0
+ * 		V - main version - incremented by adding tag: nextversion (check pre-commit hook to make sure).
+ * 			Incremented when a lot of issues were fixed, or some major enhancements were fixed... or simply it is ready
+ * 			to be called Version Two. :P
+ * 		S - sub version - incremented by adding tag: subversion
+ * 			Incremented when some feature was implemented, or major bug fixed.
+ * 		R - release - incremented by adding tag: release
+ * 			Incremented when a task or an issue were completed, bug fixed... etc
+ * 		RC - release candidate
+ * 			Incremented after each commit. It's a number of commits since last release.
+ *
+ * 		All variables are calculated by summing up the number of tags since last "higher level tag":
+ * 			V - all tags, S - all tags since last V, R - all tags since last S, RC - all commits since last R
+ *
+ */
+
+namespace VERSION_INFO {
+const core::stringw RC_NUM = "22";
+const core::stringw V = "22";
+const core::stringw S = "22";
+const core::stringw R = "22";
+const core::stringw REVISION_HASH = "22";
+
+const core::stringw CURRENT_VERSION = core::stringw(
+		V + "." + S + "." + R
+				+ (RC_NUM != "0" ? core::stringw(" rc") + RC_NUM : ""));
+
+const core::stringw CURRENT_VERSION_STRING = core::stringw("v")
+		+ CURRENT_VERSION;
+}
 
 #endif
