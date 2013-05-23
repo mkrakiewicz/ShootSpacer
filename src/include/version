@@ -1,2 +1,2 @@
-const core::stringw VERSION = "0.0.4" ;
-const core::stringw VERSION_HASH = "8a53750";
+const core::stringw VERSION = "0.0.5" ;
+const core::stringw VERSION_HASH = "0b51151";
