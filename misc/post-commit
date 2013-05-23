@@ -18,7 +18,9 @@ applyVersion()
  # sed -i 's/^'"$VER_TOCKEN"'.*/'"$VER_LINE"'/' $PRO_PATH
   echo "$VER_LINE" > $PRO_PATH
   echo "const core::stringw VERSION_HASH = \"$HASH\";" >> $PRO_PATH
+  echo "$VER_STR" > "$PRO_PATH_short"
   git add $PRO_PATH
+  git add "$PRO_PATH_short"
   git commit -m "version update: "$VER_STR
 }
 
