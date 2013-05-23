@@ -23,18 +23,11 @@ using namespace irr;
  */
 
 namespace VERSION_INFO {
-const core::stringw RC_NUM = "22";
-const core::stringw V = "22";
-const core::stringw S = "22";
-const core::stringw R = "22";
-const core::stringw REVISION_HASH = "22";
 
-const core::stringw CURRENT_VERSION = core::stringw(
-		V + "." + S + "." + R
-				+ (RC_NUM != "0" ? core::stringw(" rc") + RC_NUM : ""));
+#include "version"
 
 const core::stringw CURRENT_VERSION_STRING = core::stringw("v")
-		+ CURRENT_VERSION;
+		+ VERSION;
 }
 
 #endif
