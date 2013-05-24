@@ -9,9 +9,7 @@
 #define SHOOTSPACER_H_
 #include "RenderLoop.h"
 
-
 namespace shs {
-
 
 class Menu;
 class Object3D;
@@ -19,36 +17,10 @@ class Planet;
 class ShootSpacerEvent;
 
 enum GameState {
-	INIT,
-	RUN,
-	MENU,
-	EXIT
+	INIT, RUN, MENU, EXIT
 };
 
 class ShootSpacer: public RenderLoop {
-private:
-
-	ShootSpacer();
-
-	static ShootSpacer* _instance;
-	static int _referenceCount;
-
-	void beforeRender();
-	void afterRender();
-	void render();
-
-//	std::string windowTitle =
-
-	// copy constructor
-	inline ShootSpacer(const ShootSpacer&) {
-	}
-
-	// assignment operator
-	inline ShootSpacer& operator=(const ShootSpacer&) {
-		return *this;
-	}
-
-
 protected:
 	IrrlichtDevice* createIrrlichtDevice();
 	void initialize();
@@ -65,6 +37,26 @@ protected:
 
 	void displayGame();
 
+	void beforeRender();
+	void afterRender();
+	void render();
+
+	void cleanup();
+
+	ShootSpacer();
+	static ShootSpacer* _instance;
+	static int _referenceCount;
+
+	// copy constructor
+	inline ShootSpacer(const ShootSpacer&):RenderLoop(createIrrlichtDevice()) {
+		initialize();
+	}
+
+	// assignment operator
+	inline ShootSpacer& operator=(const ShootSpacer&) {
+		return *this;
+	}
+
 public:
 
 	void toggleGameState();
@@ -74,7 +66,7 @@ public:
 	static ShootSpacer* getInstance();
 	static void releaseInstance();
 
-	virtual ~ShootSpacer();
+	 ~ShootSpacer();
 };
 
 } /* namespace shootspacer */

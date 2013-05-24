@@ -18,17 +18,20 @@ ShootSpacer* ShootSpacer::_instance = NULL;
 
 int ShootSpacer::_referenceCount = 0;
 
-ShootSpacer::ShootSpacer() :
-		eventReceiver(new ShootSpacerEvent(this)), RenderLoop(createIrrlichtDevice()), state(INIT) {
+ShootSpacer::ShootSpacer() : RenderLoop(createIrrlichtDevice())
+{
+	initialize();
+}
+
+void ShootSpacer::initialize() {
+	state = INIT;
+
+	eventReceiver = new ShootSpacerEvent(this);
+
 	device->setEventReceiver(eventReceiver);
 	device->setWindowCaption(L"ShootSpacer version 0.00001 pre alpha :P");
 
 	Object3D::setFrameDeltaReference(getFrameDeltaTimePtr());
-
-}
-
-void ShootSpacer::initialize() {
-
 }
 
 void ShootSpacer::render() {
@@ -66,13 +69,17 @@ void ShootSpacer::exit() {
 
 }
 
-ShootSpacer::~ShootSpacer() {
+void ShootSpacer::cleanup() {
 	delete node;
 	delete testPlanet;
 	delete menu;
 	delete context;
 	delete eventReceiver;
 	device->drop();
+}
+
+ShootSpacer::~ShootSpacer() {
+	cleanup();
 }
 
 void ShootSpacer::beforeRender() {
@@ -138,7 +145,7 @@ void ShootSpacer::startGame() {
 	state = MENU;
 	bool run = true;
 
-	while (run) {
+	while (run && device->run()) {
 		switch (state) {
 		case MENU:
 			menu->displayMenu();
@@ -170,6 +177,7 @@ ShootSpacer* shs::ShootSpacer::getInstance() {
 void shs::ShootSpacer::releaseInstance() {
 	_referenceCount--;
 	if ((0 == _referenceCount) && (NULL != _instance)) {
+//		_instance->cleanup();
 		delete _instance;
 		_instance = NULL;
 	}
