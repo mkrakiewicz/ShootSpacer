@@ -20,7 +20,7 @@ using namespace gui;
 namespace shs {
 
 RenderLoop::RenderLoop(IrrlichtDevice * context) :
-		runLoop(false), device(context), frameDeltaTime(0.f) {
+		runLoop(false), device(context), frameDeltaTime(1.f) {
 
 	if (device) {
 		driver = device->getVideoDriver();
@@ -66,17 +66,7 @@ void RenderLoop::run() {
 
 			afterRender();
 
-			int fps = driver->getFPS();
 
-			if (lastFPS != fps) {
-				core::stringw tmp(L"ShootSpacer [");
-				tmp += driver->getName();
-				tmp += L"] fps: ";
-				tmp += fps;
-
-				device->setWindowCaption(tmp.c_str());
-				lastFPS = fps;
-			}
 		} else {
 			device->yield();
 		}

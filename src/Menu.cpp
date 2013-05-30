@@ -5,7 +5,6 @@
  *      Author: Micha³
  */
 #include "stdafx.h"
-#include "version.h"
 #include "Menu.h"
 
 namespace shs {

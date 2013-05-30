@@ -60,9 +60,12 @@ public:
 	 * @return
 	 */
 	inline f32 getFrameDelta() {
+		if (!frameDeltaTime)
+			return 1.f;
+
 		return *frameDeltaTime;
+
 	}
-	;
 
 	/******************************************
 	 * Rotation and translation of 3D Object. *

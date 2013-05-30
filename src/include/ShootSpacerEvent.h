@@ -8,33 +8,29 @@
 #ifndef SHOOTSPACEREVENT_H_
 #define SHOOTSPACEREVENT_H_
 
-class irr::IEventReceiver;
-
 namespace shs {
 
+class irr::IEventReceiver;
 class ShootSpacer;
 
 class ShootSpacerEvent: public irr::IEventReceiver {
 private:
-    // We use this array to store the current state of each key
-    bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
+	// We use this array to store the current state of each key
+	bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
 
-    ShootSpacer *gameInstance;
+	ShootSpacer *gameInstance;
 public:
-    // This is the one method that we have to implement
-    virtual bool OnEvent(const irr::SEvent& event);
+	// This is the one method that we have to implement
+	virtual bool OnEvent(const irr::SEvent& event);
 
-    // This is used to check whether a key is being held down
-    inline bool IsKeyDown(irr::EKEY_CODE keyCode) const
-    {
-        return KeyIsDown[keyCode];
-    }
+	// This is used to check whether a key is being held down
+	inline bool IsKeyDown(irr::EKEY_CODE keyCode) const {
+		return KeyIsDown[keyCode];
+	}
 
-    ShootSpacerEvent(ShootSpacer *gameInstance);
+	ShootSpacerEvent(ShootSpacer *gameInstance);
 
 	virtual ~ShootSpacerEvent();
-
-
 
 };
 

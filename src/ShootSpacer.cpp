@@ -13,27 +13,45 @@
 
 #include "ShootSpacer.h"
 
-
 namespace shs {
 
 ShootSpacer* ShootSpacer::_instance = NULL;
-
 int ShootSpacer::_referenceCount = 0;
 
-ShootSpacer::ShootSpacer() : RenderLoop(createIrrlichtDevice())
-{
+const stringw ShootSpacer::windowTitle = (stringw(L"ShootSpacer ") + VERSION_INFO::CURRENT_VERSION_STRING + " ");
+
+ShootSpacer::ShootSpacer() :
+		RenderLoop(createIrrlichtDevice()) {
+
+	/**
+	 *  Init the game
+	 */
 	initialize();
 }
 
 void ShootSpacer::initialize() {
+
 	state = INIT;
+
+	enableFrameIndependentMovement();
 
 	eventReceiver = new ShootSpacerEvent(this);
 
 	device->setEventReceiver(eventReceiver);
-	device->setWindowCaption(L"ShootSpacer version 0.00001 pre alpha :P");
+	device->setWindowCaption(windowTitle.c_str());
 
-	Object3D::setFrameDeltaReference(getFrameDeltaTimePtr());
+#ifdef SHS_DEV
+
+#endif
+
+	context = new GameContext(device);
+
+	menu = new Menu(context);
+
+	ICameraSceneNode *cam = smgr->addCameraSceneNode(0, vector3df(0, 30, -140),
+			vector3df(0, 5, 0));
+
+//	cam->setAspectRatio(16/9.f);
 }
 
 void ShootSpacer::render() {
@@ -55,9 +73,7 @@ void ShootSpacer::toggleGameState() {
 void ShootSpacer::displayGame() {
 	context->gui->clear();
 
-	context->gui->addStaticText(
-				L"Game",
-				rect<s32>(10, 10, 260, 22), true);
+	context->gui->addStaticText(L"Game", rect<s32>(10, 10, 260, 22), true);
 
 	run();
 }
@@ -72,12 +88,22 @@ void ShootSpacer::exit() {
 }
 
 void ShootSpacer::cleanup() {
+
+#ifdef SHS_DEV
+
 	delete node;
 	delete testPlanet;
+
+#endif
+
 	delete menu;
 	delete context;
 	delete eventReceiver;
 	device->drop();
+}
+
+void ShootSpacer::enableFrameIndependentMovement() {
+	Object3D::setFrameDeltaReference(getFrameDeltaTimePtr());
 }
 
 ShootSpacer::~ShootSpacer() {
@@ -85,15 +111,35 @@ ShootSpacer::~ShootSpacer() {
 }
 
 void ShootSpacer::beforeRender() {
+
+#ifdef SHS_DEV
+
 	node->rotateNodeInLocalSpace(15, vector3df(0, 1, 0));
 	node->rotateNodeInLocalSpace(15, vector3df(1, 0, 0));
 	node->rotateNodeInLocalSpace(15, vector3df(0, 0, 1));
 
 	testPlanet->rotateNodeInLocalSpace(5, vector3df(0, 1, 0));
 
+#endif
+
+
 }
 
 void ShootSpacer::afterRender() {
+	static int lastFPS = -1;
+	int fps = driver->getFPS();
+
+	if (lastFPS != fps) {
+//		core::stringw tmp(L"ShootSpacer [");
+//		tmp += driver->getName();
+//		tmp += L"] fps: ";
+//		tmp += fps;
+
+		device->setWindowCaption((windowTitle + L"FPS: " + stringw(fps)).c_str());
+		lastFPS = fps;
+	}
+
+
 
 }
 
@@ -110,39 +156,25 @@ IrrlichtDevice* ShootSpacer::createIrrlichtDevice() {
 
 void ShootSpacer::startGame() {
 
-	IVideoDriver* driver = device->getVideoDriver();
-	driver->getFPS();
-	ISceneManager* smgr = device->getSceneManager();
-
-	IGUIEnvironment* guienv = device->getGUIEnvironment();
-
+#ifdef SHS_DEV
 
 	IAnimatedMesh* mesh = smgr->getMesh(
 			"D:/Pliki/irrlicht-1.8/irrlicht-1.8/media/sydney.md2");
-	{
-		IAnimatedMeshSceneNode * node = smgr->addAnimatedMeshSceneNode(mesh);
 
-		if (node) {
-			node->setMaterialFlag(EMF_LIGHTING, false);
-			node->setMD2Animation(scene::EMAT_STAND);
-			node->setMaterialTexture(0,
-					driver->getTexture(
-							"D:/Pliki/irrlicht-1.8/irrlicht-1.8/media/sydney.bmp"));
-		}
+	IAnimatedMeshSceneNode * node = smgr->addAnimatedMeshSceneNode(mesh);
 
-		this->node = new Ship(node);
+	if (node) {
+		node->setMaterialFlag(EMF_LIGHTING, false);
+		node->setMD2Animation(scene::EMAT_STAND);
+		node->setMaterialTexture(0,
+				driver->getTexture(
+						"D:/Pliki/irrlicht-1.8/irrlicht-1.8/media/sydney.bmp"));
 	}
 
-	context = new GameContext(device);
-
-	menu = new Menu(context);
-
+	this->node = new Ship(node);
 	testPlanet = Planet::createTestPlanet(context);
 
-	ICameraSceneNode *cam = smgr->addCameraSceneNode(0, vector3df(0, 30, -140),
-			vector3df(0, 5, 0));
-
-//	cam->setAspectRatio(16/9.f);
+#endif
 
 	state = MENU;
 	bool run = true;

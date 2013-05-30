@@ -8,13 +8,14 @@
 #ifndef STDAFX_H_
 #define STDAFX_H_
 
-
 #include <irrlicht.h>
 #include <iostream>
 #include <memory>
 #include <string>
 
 #include "SmartPointer.h"
+
+#include "version.h"
 
 using namespace irr;
 
@@ -24,6 +25,11 @@ using namespace video;
 using namespace io;
 using namespace gui;
 
+/**
+ * #define SHOOTSPACER_DEVELOPMENT
+ * -- means we are in development move. code needs to be not placed in according #ifdefs
+ * Set this in project build settings instead of here.
+ */
 
 
 namespace shs {

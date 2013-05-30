@@ -17,6 +17,9 @@ public:
 	PlayerShip();
 	PlayerShip(IAnimatedMeshSceneNode *node);
 	virtual ~PlayerShip();
+
+	static ISceneNode* createPlayerShip(GameContext *c);
+
 };
 
 } /* namespace shootspacer */
