@@ -12,7 +12,7 @@
 namespace shs {
 
 class Menu;
-class Object3D;
+class Ship;
 class Planet;
 class ShootSpacerEvent;
 
@@ -29,7 +29,7 @@ protected:
 
 	Menu *menu;
 
-	Object3D *node;
+	Ship *node;
 	Planet *testPlanet;
 	ShootSpacerEvent *eventReceiver;
 

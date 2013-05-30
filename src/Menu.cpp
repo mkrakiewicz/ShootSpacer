@@ -45,6 +45,10 @@ void Menu::displayMenu() {
 	gui->addStaticText(
 					tmp.c_str(),
 					rect<s32>(10, 10, 260, 22), true);
+
+	gui->addStaticText(L"SPACESHOOTER",
+						rect<s32>(400, 400, 700, 722), true);
+
 	run();
 
 }

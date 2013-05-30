@@ -10,9 +10,12 @@
 
 namespace shs {
 
-PlayerShip::PlayerShip(IAnimatedMeshSceneNode *node):Object3D(node) {
+PlayerShip::PlayerShip(IAnimatedMeshSceneNode *node):Ship(node) {
 	// TODO Auto-generated constructor stub
 
+}
+
+PlayerShip::PlayerShip() : Ship() {
 }
 
 PlayerShip::~PlayerShip() {

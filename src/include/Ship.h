@@ -8,11 +8,17 @@
 #ifndef SHIP_H_
 #define SHIP_H_
 
+#include "Object3D.h"
+
 namespace shs {
 
-class Ship {
+class Ship : public MovingObject3D {
 public:
+
 	Ship();
+
+	Ship(ISceneNode *node);
+
 	virtual ~Ship();
 };
 

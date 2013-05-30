@@ -6,11 +6,13 @@
  */
 
 #include "stdafx.h"
-#include "ShootSpacerEvent.h"
-#include "ShootSpacer.h"
 #include "Menu.h"
-#include "Object3D.h"
+#include "Ship.h"
 #include "Planet.h"
+#include "ShootSpacerEvent.h"
+
+#include "ShootSpacer.h"
+
 
 namespace shs {
 
@@ -128,7 +130,7 @@ void ShootSpacer::startGame() {
 							"D:/Pliki/irrlicht-1.8/irrlicht-1.8/media/sydney.bmp"));
 		}
 
-		this->node = new Object3D(node);
+		this->node = new Ship(node);
 	}
 
 	context = new GameContext(device);

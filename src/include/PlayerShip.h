@@ -8,12 +8,13 @@
 #ifndef PLAYERSHIP_H_
 #define PLAYERSHIP_H_
 
-#include "Object3D.h"
+#include "Ship.h"
 
 namespace shs {
 
-class PlayerShip: public shs::Object3D {
+class PlayerShip: public shs::Ship {
 public:
+	PlayerShip();
 	PlayerShip(IAnimatedMeshSceneNode *node);
 	virtual ~PlayerShip();
 };

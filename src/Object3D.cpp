@@ -23,14 +23,6 @@ Object3D::~Object3D() {
 }
 
 
-const vector3df& Object3D::getSpeedVector() const {
-	return speedVector;
-}
-
-void Object3D::setSpeedVector(const vector3df& speedVector) {
-	this->speedVector = speedVector;
-}
-
 void Object3D::rotateNodeInWorldSpace(f32 degs, const core::vector3df& axis) {
 
 	f32 mult = 1.f;
@@ -114,6 +106,15 @@ void Object3D::moveNodeInLocalSpace(scene::ISceneNode* node,
 
 	core::vector3df pos = node->getAbsolutePosition() + d * dist * mult;
 	node->setPosition(pos);
+}
+
+
+const vector3df& MovingObject3D::getSpeedVector() const {
+	return speedVector;
+}
+
+void MovingObject3D::setSpeedVector(const vector3df& speedVector) {
+	this->speedVector = speedVector;
 }
 
 } /* namespace shootspacer */
