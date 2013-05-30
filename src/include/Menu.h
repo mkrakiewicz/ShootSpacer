@@ -23,6 +23,8 @@ namespace shs {
 class Menu : public RenderLoop {
 protected:
 
+	ITexture *backgroundImg;
+
 	void beforeRender();
 	void afterRender();
 	void render();

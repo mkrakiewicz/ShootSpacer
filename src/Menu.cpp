@@ -12,13 +12,12 @@ namespace shs {
 Menu::Menu(GameContext * context):
 	RenderLoop(context->device) {
 
-
-	/*
+	/**
 	 * swap original scene manager with menu smgr
 	 * */
-
 	smgr = context->smgr->createNewSceneManager();
 //	gui = context->device->getGUIEnvironment();
+	backgroundImg = driver->getTexture("img/space.jpg");
 }
 
 void Menu::beforeRender() {
@@ -32,12 +31,13 @@ Menu::~Menu() {
 }
 
 void Menu::render() {
-
+	driver->draw2DImage(backgroundImg,vector2d<int>(0,0));
 	smgr->drawAll();
 	gui->drawAll();
 }
 
 void Menu::displayMenu() {
+
 	gui->clear();
 	 core::stringw tmp = L"MENU: ShootSpacer ";
 	tmp += VERSION_INFO::CURRENT_VERSION_STRING;
