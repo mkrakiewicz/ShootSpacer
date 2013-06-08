@@ -10,13 +10,11 @@
 
 #include "Object3D.h"
 
-using namespace shs;
-
 namespace shs {
 
 class Planet: public Object3D {
 public:
-	Planet(ISceneNode *createdNode);
+	Planet(irr::scene::ISceneNode *createdNode);
 	virtual ~Planet();
 
 	static Planet* createTestPlanet(GameContext* c);

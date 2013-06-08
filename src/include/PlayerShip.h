@@ -15,10 +15,10 @@ namespace shs {
 class PlayerShip: public shs::Ship {
 public:
 	PlayerShip();
-	PlayerShip(IAnimatedMeshSceneNode *node);
+	PlayerShip(irr::scene::IAnimatedMeshSceneNode *node);
 	virtual ~PlayerShip();
 
-	static ISceneNode* createPlayerShip(GameContext *c);
+	static irr::scene::ISceneNode* createPlayerShip(GameContext *c);
 
 };
 

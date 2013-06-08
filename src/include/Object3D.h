@@ -8,14 +8,6 @@
 #ifndef OBJECT3D_H_
 #define OBJECT3D_H_
 
-using namespace irr;
-
-using namespace core;
-using namespace scene;
-using namespace video;
-using namespace io;
-using namespace gui;
-
 namespace shs {
 
 class Object3D {
@@ -24,13 +16,13 @@ private:
 	/**
 	 * "Global" private reference for all 3D objects. only accessible by getFrameDelta()
 	 */
-	static f32 *frameDeltaTime;
+	static irr::f32 *frameDeltaTime;
 
 protected:
 	/**
 	 * Irrlicht engine node type that will be a base for all objects.
 	 */
-	ISceneNode *node;
+	irr::scene::ISceneNode *node;
 
 public:
 
@@ -45,7 +37,7 @@ public:
 	 * Constructor
 	 * @param node
 	 */
-	Object3D(ISceneNode *node);
+	Object3D(irr::scene::ISceneNode *node);
 	virtual ~Object3D();
 
 	/**
@@ -53,13 +45,13 @@ public:
 	 * Setting frame delta reference for all objects
 	 * @param ref
 	 */
-	static void setFrameDeltaReference(f32 *ref);
+	static void setFrameDeltaReference(irr::f32 *ref);
 
 	/**
 	 * Get frame delta time
 	 * @return
 	 */
-	inline f32 getFrameDelta() {
+	inline irr::f32 getFrameDelta() {
 		if (!frameDeltaTime)
 			return 1.f;
 
@@ -79,28 +71,28 @@ public:
 	 * @param degs
 	 * @param axis
 	 */
-	void rotateNodeInLocalSpace(f32 degs, const core::vector3df& axis);
+	void rotateNodeInLocalSpace(irr::f32 degs, const irr::core::vector3df& axis);
 	/**
 	 *
 	 * @param degs
 	 * @param axis
 	 */
-	void rotateNodeInWorldSpace(f32 degs, const core::vector3df& axis);
+	void rotateNodeInWorldSpace(irr::f32 degs, const irr::core::vector3df& axis);
 	/**
 	 *
 	 * @param node
 	 * @param distVect
 	 */
-	void moveNodeInLocalSpace(scene::ISceneNode* node,
-			const core::vector3df& distVect);
+	void moveNodeInLocalSpace(irr::scene::ISceneNode* node,
+			const irr::core::vector3df& distVect);
 	/**
 	 *
 	 * @param node
 	 * @param dir
 	 * @param dist
 	 */
-	void moveNodeInLocalSpace(scene::ISceneNode* node,
-			const core::vector3df& dir, f32 dist);
+	void moveNodeInLocalSpace(irr::scene::ISceneNode* node,
+			const irr::core::vector3df& dir, irr::f32 dist);
 
 	/**
 	 * 	 	the line is defined by axis direction passing through the pivot
@@ -110,8 +102,8 @@ public:
 	 * @param point
 	 * @return
 	 */
-	core::vector3df getClosestPointOnLine(const core::vector3df& axis,
-			const core::vector3df& pivot, const core::vector3df& point);
+	irr::core::vector3df getClosestPointOnLine(const irr::core::vector3df& axis,
+			const irr::core::vector3df& pivot, const irr::core::vector3df& point);
 
 };
 
@@ -125,7 +117,7 @@ protected:
 	/**
 	 * Vector along which the object is supposed to move each frame. Must be multiplied by frame delta.
 	 */
-	vector3df speedVector;
+	irr::core::vector3df speedVector;
 
 public:
 
@@ -140,7 +132,7 @@ public:
 	 * Constructor
 	 * @param node
 	 */
-	MovingObject3D(ISceneNode *node) :
+	MovingObject3D(irr::scene::ISceneNode *node) :
 			Object3D(node) {
 	}
 
@@ -150,13 +142,13 @@ public:
 	 * TODO: check if returning reference is good practice. it's supposed to be faster than returning by value...
 	 * @return
 	 */
-	const vector3df& getSpeedVector() const;
+	const irr::core::vector3df& getSpeedVector() const;
 
 	/**
 	 * Set the speed vector
 	 * @param speedVector
 	 */
-	void setSpeedVector(const vector3df& speedVector);
+	void setSpeedVector(const irr::core::vector3df& speedVector);
 };
 
 } /* namespace shs */

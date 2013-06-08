@@ -20,7 +20,7 @@ using namespace gui;
 namespace shs {
 
 RenderLoop::RenderLoop(IrrlichtDevice * context) :
-		runLoop(false), device(context), frameDeltaTime(1.f) {
+		frameDeltaTime(1.f), runLoop(false), device(context) {
 
 	if (device) {
 		driver = device->getVideoDriver();

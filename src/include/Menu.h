@@ -10,26 +10,18 @@
 
 #include "RenderLoop.h"
 
-using namespace irr;
-
-using namespace core;
-using namespace scene;
-using namespace video;
-using namespace io;
-using namespace gui;
-
 namespace shs {
 
 class Menu : public RenderLoop {
 protected:
 
-	ITexture *backgroundImg;
+	irr::video::ITexture *backgroundImg;
 
 	void beforeRender();
 	void afterRender();
 	void render();
 
-	ISceneManager *smgr;
+	irr::scene::ISceneManager *smgr;
 //	IGUIEnvironment *gui;
 
 public:

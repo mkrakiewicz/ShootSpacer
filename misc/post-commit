@@ -4,7 +4,7 @@ MESSAGE=$(git log -1 HEAD --pretty=format:%s)
 HASH=$(git log -1 HEAD --pretty=format:%h)
 PRO_PATH=`git rev-parse --show-toplevel`"/src/include/version"
 
-VER_TOCKEN="const core::stringw VERSION"
+VER_TOCKEN="const irr::core::stringw VERSION"
 VER_STR=$(grep "^$VER_TOCKEN" $PRO_PATH | head -1| tr -d '"' | awk '{print $5}')
 
 VER_MAJ=$(echo $VER_STR | awk -F. '{print $1}')
@@ -17,7 +17,7 @@ applyVersion()
   VER_LINE=$VER_TOCKEN" = \""$VER_STR"\" ;"
  # sed -i 's/^'"$VER_TOCKEN"'.*/'"$VER_LINE"'/' $PRO_PATH
   echo "$VER_LINE" > $PRO_PATH
-  echo "const core::stringw VERSION_HASH = \"$HASH\";" >> $PRO_PATH
+  echo "const irr::core::stringw VERSION_HASH = \"$HASH\";" >> $PRO_PATH
   echo "$VER_STR" > $PRO_PATH"_short"
   git add $PRO_PATH
   git add $PRO_PATH"_short"

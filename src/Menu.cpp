@@ -7,6 +7,15 @@
 #include "stdafx.h"
 #include "Menu.h"
 
+using namespace irr;
+
+using namespace core;
+using namespace scene;
+using namespace video;
+using namespace io;
+using namespace gui;
+
+
 namespace shs {
 
 Menu::Menu(GameContext * context):
@@ -41,9 +50,10 @@ void Menu::displayMenu() {
 	gui->clear();
 	 core::stringw tmp = L"MENU: ShootSpacer ";
 	tmp += VERSION_INFO::CURRENT_VERSION_STRING;
+	tmp += "\nmenu to be implemented...";
 	gui->addStaticText(
 					tmp.c_str(),
-					rect<s32>(10, 10, 260, 22), true);
+					rect<s32>(10, 10, 260, 52), true)->setOverrideColor(SColor(255,255,255,255));
 
 	gui->addStaticText(L"SPACESHOOTER",
 						rect<s32>(400, 400, 700, 722), true);

@@ -17,13 +17,13 @@
 
 #include "version.h"
 
-using namespace irr;
-
-using namespace core;
-using namespace scene;
-using namespace video;
-using namespace io;
-using namespace gui;
+//using namespace irr;
+//
+//using namespace core;
+//using namespace scene;
+//using namespace video;
+//using namespace io;
+//using namespace gui;
 
 /**
  * #define SHOOTSPACER_DEVELOPMENT
@@ -36,12 +36,12 @@ namespace shs {
 
 class GameContext {
 public:
-	IrrlichtDevice *device;
-	IVideoDriver *driver;
-	ISceneManager *smgr;
-	IGUIEnvironment *gui;
+	irr::IrrlichtDevice *device;
+	irr::video::IVideoDriver *driver;
+	irr::scene::ISceneManager *smgr;
+	irr::gui::IGUIEnvironment *gui;
 
-	GameContext(IrrlichtDevice * context): device(context),
+	GameContext(irr::IrrlichtDevice * context): device(context),
 	driver(device->getVideoDriver()),
 	smgr(device->getSceneManager()),
 	gui(device->getGUIEnvironment())

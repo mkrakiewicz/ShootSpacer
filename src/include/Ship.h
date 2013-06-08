@@ -17,7 +17,7 @@ public:
 
 	Ship();
 
-	Ship(ISceneNode *node);
+	Ship(irr::scene::ISceneNode *node);
 
 	virtual ~Ship();
 };

@@ -30,13 +30,14 @@ protected:
 	virtual void render() = 0;
 
 
-	RenderLoop(){}
+	RenderLoop():frameDeltaTime(1),runLoop(false),device(0),driver(0),smgr(0),gui(0){
+	}
 
 public:
 	RenderLoop(irr::IrrlichtDevice * context);
 	virtual ~RenderLoop();
-	f32 getFrameDeltaTime() const;
-	f32* getFrameDeltaTimePtr();
+	irr::f32 getFrameDeltaTime() const;
+	irr::f32* getFrameDeltaTimePtr();
 
 	void stop();
 };

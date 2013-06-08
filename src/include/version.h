@@ -1,7 +1,6 @@
 #ifndef VERSION_H_
 #define VERSION_H_
 
-using namespace irr;
 
 /**
  * BASIC STUCTURE OF THE VERSION:
@@ -26,7 +25,7 @@ namespace VERSION_INFO {
 
 #include "version"
 
-const core::stringw CURRENT_VERSION_STRING = core::stringw("v")
+const irr::core::stringw CURRENT_VERSION_STRING = irr::core::stringw("v")
 		+ VERSION;
 }
 

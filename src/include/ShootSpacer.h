@@ -50,13 +50,13 @@ private:
 
 protected:
 
-	static const stringw windowTitle;
+	static const irr::core::stringw windowTitle;
 
 	/**
 	 * Function to store params and create device
 	 * @return
 	 */
-	IrrlichtDevice* createIrrlichtDevice();
+	irr::IrrlichtDevice* createIrrlichtDevice();
 
 	/**
 	 * Sets some params, creates main objects
