@@ -20,7 +20,7 @@ using namespace gui;
 namespace shs {
 
 RenderLoop::RenderLoop(IrrlichtDevice * context) :
-		frameDeltaTime(1.f), runLoop(false), device(context) {
+		frameDeltaTime(1.f), isRunning(false), device(context) {
 
 	if (device) {
 		driver = device->getVideoDriver();
@@ -42,13 +42,13 @@ RenderLoop::~RenderLoop() {
 }
 
 void RenderLoop::run() {
-	runLoop = true;
+	isRunning = true;
 
 	int lastFPS = -1;
 
 	u32 then = device->getTimer()->getTime();
 
-	while (device->run() && runLoop) {
+	while (device->run() && isRunning) {
 
 		if (device->isWindowActive()) {
 
@@ -80,7 +80,7 @@ f32* RenderLoop::getFrameDeltaTimePtr() {
 }
 
 void RenderLoop::stop() {
-	runLoop = false;
+	isRunning = false;
 }
 
 } /* namespace ShootSpacer */

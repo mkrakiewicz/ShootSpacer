@@ -17,7 +17,7 @@ class RenderLoop {
 private:
 	irr::f32 frameDeltaTime;
 protected:
-	bool runLoop;
+	bool isRunning;
 
 	irr::IrrlichtDevice *device;
 	irr::video::IVideoDriver *driver;
@@ -30,7 +30,7 @@ protected:
 	virtual void render() = 0;
 
 
-	RenderLoop():frameDeltaTime(1),runLoop(false),device(0),driver(0),smgr(0),gui(0){
+	RenderLoop():frameDeltaTime(1),isRunning(false),device(0),driver(0),smgr(0),gui(0){
 	}
 
 public:

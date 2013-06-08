@@ -9,10 +9,11 @@
 #define MENU_H_
 
 #include "RenderLoop.h"
+#include "FSMState.h"
 
 namespace shs {
 
-class Menu : public RenderLoop {
+class Menu : public RenderLoop, public FSMState {
 protected:
 
 	irr::video::ITexture *backgroundImg;
@@ -24,11 +25,19 @@ protected:
 	irr::scene::ISceneManager *smgr;
 //	IGUIEnvironment *gui;
 
+	void beforeBegin();
+	void beforeEnd();
+
 public:
 	Menu(GameContext * context);
 	virtual ~Menu();
 
 	void displayMenu();
+
+	void begin();
+	void end();
+
+
 };
 
 } /* namespace shootspacer */
