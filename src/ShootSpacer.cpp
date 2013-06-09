@@ -29,7 +29,7 @@ int ShootSpacer::_referenceCount = 0;
 const stringw ShootSpacer::windowTitle = (stringw(L"ShootSpacer ") + VERSION_INFO::CURRENT_VERSION_STRING + " ");
 
 ShootSpacer::ShootSpacer() :
-		RenderLoop(createIrrlichtDevice()) {
+		FSMStateRenderLoop(createIrrlichtDevice()) {
 
 	/**
 	 *  Init the game
@@ -112,6 +112,12 @@ void ShootSpacer::cleanup() {
 
 void ShootSpacer::enableFrameIndependentMovement() {
 	Object3D::setFrameDeltaReference(getFrameDeltaTimePtr());
+}
+
+void ShootSpacer::beforeRun() {
+}
+
+void ShootSpacer::beforeStop() {
 }
 
 ShootSpacer::~ShootSpacer() {

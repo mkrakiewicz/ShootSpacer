@@ -7,7 +7,7 @@
 
 #ifndef SHOOTSPACER_H_
 #define SHOOTSPACER_H_
-#include "RenderLoop.h"
+#include "FSMState.h"
 
 namespace shs {
 
@@ -23,7 +23,7 @@ enum GameState {
 	INIT, RUN, MENU, EXIT
 };
 
-class ShootSpacer: public RenderLoop {
+class ShootSpacer: public FSMStateRenderLoop {
 private:
 
 	/**
@@ -37,7 +37,7 @@ private:
 	 * Private copy constructor (singleton)
 	 */
 	inline ShootSpacer(const ShootSpacer&) :
-			RenderLoop(createIrrlichtDevice()) {
+		FSMStateRenderLoop(createIrrlichtDevice()) {
 		initialize();
 	}
 
@@ -103,6 +103,10 @@ protected:
 	 * Call this to assign reference to current frame delta for all 3D Objects.
 	 */
 	void enableFrameIndependentMovement();
+
+	void beforeRun();
+	void beforeStop();
+
 
 public:
 
