@@ -18,37 +18,34 @@ FSMState::FSMState() {
 FSMState::~FSMState() {
 	// TODO Auto-generated destructor stub
 }
-//
-//void FSMState::begin() {
-//	beforeBegin();
-//	run();
-//}
-//
-//void FSMState::end() {
-//	beforeEnd();
-//	stop();
-//}
 
-} /* namespace shs */
-
-shs::FSMStateRenderLoop::FSMStateRenderLoop() :
-		FSMState(), RenderLoop() {
+FSMStateRenderLoop::FSMStateRenderLoop() :
+		FSMRunnableState(), RenderLoop() {
 
 }
 
-shs::FSMStateRenderLoop::~FSMStateRenderLoop() {
+FSMStateRenderLoop::~FSMStateRenderLoop() {
 }
 
-void shs::FSMStateRenderLoop::run() {
+void FSMStateRenderLoop::run() {
 	beforeRun();
 	RenderLoop::run();
 }
 
-shs::FSMStateRenderLoop::FSMStateRenderLoop(irr::IrrlichtDevice* context) : FSMState(), RenderLoop(context)
+FSMStateRenderLoop::FSMStateRenderLoop(irr::IrrlichtDevice* context) : FSMRunnableState(), RenderLoop(context)
 {
 }
 
-void shs::FSMStateRenderLoop::stop() {
+void FSMStateRenderLoop::stop() {
 	beforeStop();
 	RenderLoop::stop();
 }
+
+FSMRunnableState::FSMRunnableState() {
+}
+
+FSMRunnableState::~FSMRunnableState() {
+}
+
+} /* namespace shs */
+

@@ -20,13 +20,21 @@ public:
 	FSMState();
 	virtual ~FSMState();
 
+
+};
+
+class FSMRunnableState {
+public:
+	FSMRunnableState();
+	virtual ~FSMRunnableState();
+
 	virtual void run() = 0;
 
 	virtual void stop() = 0;
 
 };
 
-class FSMStateRenderLoop : public FSMState, protected RenderLoop{
+class FSMStateRenderLoop : public FSMRunnableState, protected RenderLoop{
 public:
 	FSMStateRenderLoop();
 	FSMStateRenderLoop(irr::IrrlichtDevice * context);

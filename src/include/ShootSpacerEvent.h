@@ -11,14 +11,14 @@
 namespace shs {
 
 class irr::IEventReceiver;
-class ShootSpacer;
+class ShootSpacerInstance;
 
 class ShootSpacerEvent: public irr::IEventReceiver {
 private:
 	// We use this array to store the current state of each key
 	bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
 
-	ShootSpacer *gameInstance;
+	ShootSpacerInstance *gameInstance;
 public:
 	// This is the one method that we have to implement
 	virtual bool OnEvent(const irr::SEvent& event);
@@ -28,7 +28,7 @@ public:
 		return KeyIsDown[keyCode];
 	}
 
-	ShootSpacerEvent(ShootSpacer *gameInstance);
+	ShootSpacerEvent(ShootSpacerInstance *gameInstance);
 
 	virtual ~ShootSpacerEvent();
 

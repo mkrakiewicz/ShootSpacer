@@ -12,13 +12,33 @@
 
 namespace shs {
 
-
 class FiniteStateMachine {
-private:
-	std::vector<FSMState> stateContainer;
+protected:
+	/**
+	 * Last element is current State.
+	 */
+	std::vector<FSMRunnableState*> stateContainer;
 public:
 	FiniteStateMachine();
 	virtual ~FiniteStateMachine();
+
+	void addState(FSMRunnableState *state);
+	FSMRunnableState* getCurrentState();
+
+	bool hasNext();
+
+};
+
+class FSMStateRunner: public FiniteStateMachine {
+protected:
+	void runCurrentState();
+
+
+public:
+	FSMStateRunner();
+
+	void runNext();
+	void stopCurrentState();
 };
 
 } /* namespace shs */

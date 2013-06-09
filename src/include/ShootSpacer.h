@@ -23,20 +23,20 @@ enum GameState {
 	INIT, RUN, MENU, EXIT
 };
 
-class ShootSpacer: public FSMStateRenderLoop {
+class ShootSpacerInstance: public FSMStateRenderLoop {
 private:
 
 	/**
 	 * Private constructor to implement Singleton pattern.
 	 */
-	ShootSpacer();
-	static ShootSpacer* _instance;
+	ShootSpacerInstance();
+	static ShootSpacerInstance* _instance;
 	static int _referenceCount;
 
 	/**
 	 * Private copy constructor (singleton)
 	 */
-	inline ShootSpacer(const ShootSpacer&) :
+	inline ShootSpacerInstance(const ShootSpacerInstance&) :
 		FSMStateRenderLoop(createIrrlichtDevice()) {
 		initialize();
 	}
@@ -44,7 +44,7 @@ private:
 	/**
 	 *  Private assignment operator - singleton requirement
 	 */
-	inline ShootSpacer& operator=(const ShootSpacer&) {
+	inline ShootSpacerInstance& operator=(const ShootSpacerInstance&) {
 		return *this;
 	}
 
@@ -114,10 +114,10 @@ public:
 	void startGame();
 	void exit();
 
-	static ShootSpacer* getInstance();
+	static ShootSpacerInstance* getInstance();
 	static void releaseInstance();
 
-	~ShootSpacer();
+	~ShootSpacerInstance();
 };
 
 } /* namespace shs */

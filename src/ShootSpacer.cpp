@@ -23,12 +23,12 @@ using namespace gui;
 
 namespace shs {
 
-ShootSpacer* ShootSpacer::_instance = NULL;
-int ShootSpacer::_referenceCount = 0;
+ShootSpacerInstance* ShootSpacerInstance::_instance = NULL;
+int ShootSpacerInstance::_referenceCount = 0;
 
-const stringw ShootSpacer::windowTitle = (stringw(L"ShootSpacer ") + VERSION_INFO::CURRENT_VERSION_STRING + " ");
+const stringw ShootSpacerInstance::windowTitle = (stringw(L"ShootSpacer ") + VERSION_INFO::CURRENT_VERSION_STRING + " ");
 
-ShootSpacer::ShootSpacer() :
+ShootSpacerInstance::ShootSpacerInstance() :
 		FSMStateRenderLoop(createIrrlichtDevice()) {
 
 	/**
@@ -37,7 +37,7 @@ ShootSpacer::ShootSpacer() :
 	initialize();
 }
 
-void ShootSpacer::initialize() {
+void ShootSpacerInstance::initialize() {
 
 	state = INIT;
 
@@ -62,13 +62,13 @@ void ShootSpacer::initialize() {
 //	cam->setAspectRatio(16/9.f);
 }
 
-void ShootSpacer::render() {
+void ShootSpacerInstance::render() {
 
 	smgr->drawAll();
 	gui->drawAll();
 }
 
-void ShootSpacer::toggleGameState() {
+void ShootSpacerInstance::toggleGameState() {
 	if (state == MENU) {
 		state = RUN;
 		menu->stop();
@@ -78,7 +78,7 @@ void ShootSpacer::toggleGameState() {
 	}
 }
 
-void ShootSpacer::displayGame() {
+void ShootSpacerInstance::displayGame() {
 	context->gui->clear();
 
 	context->gui->addStaticText(L"Game", rect<s32>(10, 10, 260, 22), true);
@@ -86,7 +86,7 @@ void ShootSpacer::displayGame() {
 	run();
 }
 
-void ShootSpacer::exit() {
+void ShootSpacerInstance::exit() {
 	if (state == RUN)
 		stop();
 	else
@@ -95,7 +95,7 @@ void ShootSpacer::exit() {
 
 }
 
-void ShootSpacer::cleanup() {
+void ShootSpacerInstance::cleanup() {
 
 #ifdef SHS_DEV
 
@@ -110,21 +110,21 @@ void ShootSpacer::cleanup() {
 	device->drop();
 }
 
-void ShootSpacer::enableFrameIndependentMovement() {
+void ShootSpacerInstance::enableFrameIndependentMovement() {
 	Object3D::setFrameDeltaReference(getFrameDeltaTimePtr());
 }
 
-void ShootSpacer::beforeRun() {
+void ShootSpacerInstance::beforeRun() {
 }
 
-void ShootSpacer::beforeStop() {
+void ShootSpacerInstance::beforeStop() {
 }
 
-ShootSpacer::~ShootSpacer() {
+ShootSpacerInstance::~ShootSpacerInstance() {
 	cleanup();
 }
 
-void ShootSpacer::beforeRender() {
+void ShootSpacerInstance::beforeRender() {
 
 #ifdef SHS_DEV
 
@@ -139,7 +139,7 @@ void ShootSpacer::beforeRender() {
 
 }
 
-void ShootSpacer::afterRender() {
+void ShootSpacerInstance::afterRender() {
 	static int lastFPS = -1;
 	int fps = driver->getFPS();
 
@@ -157,7 +157,7 @@ void ShootSpacer::afterRender() {
 
 }
 
-IrrlichtDevice* ShootSpacer::createIrrlichtDevice() {
+IrrlichtDevice* ShootSpacerInstance::createIrrlichtDevice() {
 
 	SIrrlichtCreationParameters params = SIrrlichtCreationParameters();
 	params.AntiAlias = true;
@@ -168,7 +168,7 @@ IrrlichtDevice* ShootSpacer::createIrrlichtDevice() {
 	return createDeviceEx(params);
 }
 
-void ShootSpacer::startGame() {
+void ShootSpacerInstance::startGame() {
 
 #ifdef SHS_DEV
 
@@ -212,17 +212,17 @@ void ShootSpacer::startGame() {
 
 }
 
-ShootSpacer* shs::ShootSpacer::getInstance() {
+ShootSpacerInstance* shs::ShootSpacerInstance::getInstance() {
 
 	if (NULL == _instance) {
-		_instance = new ShootSpacer();
+		_instance = new ShootSpacerInstance();
 	}
 	_referenceCount++;
 	return _instance;
 
 }
 
-void shs::ShootSpacer::releaseInstance() {
+void shs::ShootSpacerInstance::releaseInstance() {
 	_referenceCount--;
 	if ((0 == _referenceCount) && (NULL != _instance)) {
 //		_instance->cleanup();

@@ -21,7 +21,7 @@ using namespace gui;
 
 namespace shs {
 
-ShootSpacerEvent::ShootSpacerEvent(ShootSpacer *gameInstance)
+ShootSpacerEvent::ShootSpacerEvent(ShootSpacerInstance *gameInstance)
 {
     for (u32 i=0; i<KEY_KEY_CODES_COUNT; ++i)
         KeyIsDown[i] = false;
