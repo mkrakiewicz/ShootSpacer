@@ -37,6 +37,8 @@ protected:
 public:
 	FSMStateRunner();
 
+	void handleEvent(const irr::SEvent& event);
+
 	void runNext();
 	void stopCurrentState();
 };

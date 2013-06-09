@@ -20,7 +20,6 @@ using namespace gui;
 namespace shs {
 
 Ship::Ship() : MovingObject3D() {
-	// TODO Auto-generated constructor stub
 
 }
 
@@ -28,7 +27,6 @@ Ship::Ship(ISceneNode* node) : MovingObject3D(node) {
 }
 
 Ship::~Ship() {
-	// TODO Auto-generated destructor stub
 }
 
 } /* namespace shootspacer */

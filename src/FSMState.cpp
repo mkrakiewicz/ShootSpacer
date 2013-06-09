@@ -12,11 +12,11 @@
 namespace shs {
 
 FSMState::FSMState() {
-	// TODO Auto-generated constructor stub
+
 }
 
 FSMState::~FSMState() {
-	// TODO Auto-generated destructor stub
+
 }
 
 FSMStateRenderLoop::FSMStateRenderLoop() :
@@ -32,7 +32,7 @@ void FSMStateRenderLoop::run() {
 	RenderLoop::run();
 }
 
-FSMStateRenderLoop::FSMStateRenderLoop(irr::IrrlichtDevice* context) : FSMRunnableState(), RenderLoop(context)
+FSMStateRenderLoop::FSMStateRenderLoop(const GameContext &context) : FSMRunnableState(), RenderLoop(context)
 {
 }
 

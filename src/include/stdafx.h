@@ -34,6 +34,9 @@
 
 namespace shs {
 
+const irr::core::stringw windowTitle = ( irr::core::stringw(L"ShootSpacer ") + VERSION_INFO::CURRENT_VERSION_STRING + " ");
+
+
 class GameContext {
 public:
 	irr::IrrlichtDevice *device;
@@ -46,6 +49,10 @@ public:
 	smgr(device->getSceneManager()),
 	gui(device->getGUIEnvironment())
 	{}
+
+	virtual ~GameContext() {
+		device->drop();
+	}
 
 
 };

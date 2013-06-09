@@ -18,13 +18,13 @@ using namespace gui;
 
 namespace shs {
 
-Menu::Menu(GameContext * context):
-	FSMStateRenderLoop(context->device){
+Menu::Menu(const GameContext &context):
+	FSMStateRenderLoop(context){
 
 	/**
 	 * swap original scene manager with menu smgr
 	 * */
-	smgr = context->smgr->createNewSceneManager();
+	smgr = context.smgr->createNewSceneManager();
 //	gui = context->device->getGUIEnvironment();
 	backgroundImg = driver->getTexture("img/space.jpg");
 }
@@ -68,6 +68,9 @@ void Menu::beforeRun() {
 }
 
 void Menu::beforeStop() {
+}
+
+void Menu::handleEvent(const irr::SEvent& event) {
 }
 
 } /* namespace shootspacer */

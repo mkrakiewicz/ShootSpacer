@@ -19,13 +19,21 @@ using namespace gui;
 
 namespace shs {
 
-RenderLoop::RenderLoop(IrrlichtDevice * context) :
-		frameDeltaTime(1.f), isRunning(false), device(context) {
+irr::f32 RenderLoop::frameDeltaTime = 1.f;
+
+
+RenderLoop::RenderLoop(const GameContext & context) :
+		frameDeltaTime(1.f), isRunning(false), context(context) {
+
+	device = this->context.device;
 
 	if (device) {
-		driver = device->getVideoDriver();
-		smgr = device->getSceneManager();
-		gui = device->getGUIEnvironment();
+
+		this->context = context;
+
+		driver = context.driver;
+		smgr = context.smgr;
+		gui = context.gui;
 	} else {
 		//Perhaps there should be some exceptions
 	}
@@ -38,7 +46,7 @@ f32 RenderLoop::getFrameDeltaTime() const {
 
 
 RenderLoop::~RenderLoop() {
-	// TODO Auto-generated destructor stub
+
 }
 
 void RenderLoop::run() {

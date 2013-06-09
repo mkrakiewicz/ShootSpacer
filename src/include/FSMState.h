@@ -28,6 +28,8 @@ public:
 	FSMRunnableState();
 	virtual ~FSMRunnableState();
 
+	virtual void handleEvent(const irr::SEvent& event) = 0;
+
 	virtual void run() = 0;
 
 	virtual void stop() = 0;
@@ -35,13 +37,13 @@ public:
 };
 
 class FSMStateRenderLoop : public FSMRunnableState, protected RenderLoop{
-public:
-	FSMStateRenderLoop();
-	FSMStateRenderLoop(irr::IrrlichtDevice * context);
-	virtual ~FSMStateRenderLoop();
-
+protected:
 	virtual void beforeRun() = 0;
 	virtual void beforeStop() = 0;
+public:
+	FSMStateRenderLoop();
+	FSMStateRenderLoop(const GameContext &context);
+	virtual ~FSMStateRenderLoop();
 
 	void run();
 	void stop();

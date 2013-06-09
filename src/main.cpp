@@ -21,9 +21,9 @@ int main(int argc, char **argv) {
 //	setvbuf(stdout, NULL, _IONBF, 0);
 //	setvbuf(stderr, NULL, _IONBF, 0);
 
-	ShootSpacerInstance *s = ShootSpacerInstance::getInstance();
+	ShootSpacer *s = ShootSpacer::getInstance();
 	s->startGame();
-	ShootSpacerInstance::releaseInstance();
+	ShootSpacer::releaseInstance();
 
 	return 0;
 }

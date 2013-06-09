@@ -30,12 +30,12 @@ protected:
 
 
 public:
-	Menu(GameContext * context);
+	Menu(const GameContext &context);
 	virtual ~Menu();
 
 	void displayMenu();
 
-
+	virtual void handleEvent(const irr::SEvent& event);
 
 
 };

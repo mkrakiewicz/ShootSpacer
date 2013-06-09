@@ -61,7 +61,12 @@ void shs::FSMStateRunner::runNext() {
 	stateContainer.pop_back();
 }
 
-
+void shs::FSMStateRunner::handleEvent(const irr::SEvent& event) {
+	FSMRunnableState *state = getCurrentState();
+		if (state) {
+			state->handleEvent(event);
+		}
+}
 
 void shs::FSMStateRunner::stopCurrentState() {
 	FSMRunnableState *state = getCurrentState();

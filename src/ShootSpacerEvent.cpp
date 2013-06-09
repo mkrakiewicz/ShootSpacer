@@ -21,7 +21,7 @@ using namespace gui;
 
 namespace shs {
 
-ShootSpacerEvent::ShootSpacerEvent(ShootSpacerInstance *gameInstance)
+ShootSpacerEvent::ShootSpacerEvent(ShootSpacer *gameInstance)
 {
     for (u32 i=0; i<KEY_KEY_CODES_COUNT; ++i)
         KeyIsDown[i] = false;
@@ -30,28 +30,28 @@ ShootSpacerEvent::ShootSpacerEvent(ShootSpacerInstance *gameInstance)
 
 bool ShootSpacerEvent::OnEvent(const SEvent& event)
 {
-    // Remember whether each key is down or up
-    if (event.EventType == irr::EET_KEY_INPUT_EVENT){
-        KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
+//    // Remember whether each key is down or up
+//    if (event.EventType == irr::EET_KEY_INPUT_EVENT){
+//        KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
+//
+//	if (!event.KeyInput.PressedDown) {
+//		if (event.KeyInput.Key == KEY_ESCAPE) {
+//
+//			gameInstance->toggleGameState();
+//			return false;
+//		} else if (event.KeyInput.Key == KEY_KEY_Q) {
+//			gameInstance->exit();
+//		}
+//	}
+	gameInstance->handleEvent(event);
 
-	if (!event.KeyInput.PressedDown) {
-		if (event.KeyInput.Key == KEY_ESCAPE) {
 
-			gameInstance->toggleGameState();
-			return false;
-		} else if (event.KeyInput.Key == KEY_KEY_Q) {
-			gameInstance->exit();
-		}
-	}
-
-
-    }
 
     return false;
 }
 
 ShootSpacerEvent::~ShootSpacerEvent() {
-	// TODO Auto-generated destructor stub
+
 }
 
 } /* namespace shs */

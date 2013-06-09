@@ -10,14 +10,18 @@
 
 namespace shs {
 
+class GameContext;
+
 /**
  * Abstract base class for Menu and ShootSpacer
  */
 class RenderLoop {
 private:
-	irr::f32 frameDeltaTime;
+	static irr::f32 frameDeltaTime;
 protected:
 	bool isRunning;
+
+	const GameContext &context;
 
 	irr::IrrlichtDevice *device;
 	irr::video::IVideoDriver *driver;
@@ -30,14 +34,15 @@ protected:
 	virtual void render() = 0;
 
 
-	RenderLoop():frameDeltaTime(1),isRunning(false),device(0),driver(0),smgr(0),gui(0){
+	RenderLoop():frameDeltaTime(1),isRunning(false),context(0),device(0),driver(0),smgr(0),gui(0){
 	}
 
 public:
-	RenderLoop(irr::IrrlichtDevice * context);
+	RenderLoop(const GameContext & context);
 	virtual ~RenderLoop();
-	irr::f32 getFrameDeltaTime() const;
-	irr::f32* getFrameDeltaTimePtr();
+
+	static irr::f32 getFrameDeltaTime() const;
+	static irr::f32* getFrameDeltaTimePtr();
 
 	void stop();
 };

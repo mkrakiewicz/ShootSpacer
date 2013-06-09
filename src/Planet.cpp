@@ -25,15 +25,15 @@ namespace shs {
 
 Planet::Planet(ISceneNode *createdNode):Object3D(createdNode)
 {
-	// TODO Auto-generated constructor stub
 
 }
 
 Planet::~Planet() {
-	// TODO Auto-generated destructor stub
 }
 
-Planet* Planet::createTestPlanet(GameContext* c) {
+Planet* Planet::createTestPlanet(const GameContext &context) {
+
+	GameContext *c = &context;
 
 	ISceneNode *tmp = (c->smgr->addSphereSceneNode(80,64));
 

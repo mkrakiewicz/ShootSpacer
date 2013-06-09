@@ -17,7 +17,7 @@ public:
 	Planet(irr::scene::ISceneNode *createdNode);
 	virtual ~Planet();
 
-	static Planet* createTestPlanet(GameContext* c);
+	static Planet* createTestPlanet(const GameContext &context);
 };
 
 } /* namespace shootspacer */

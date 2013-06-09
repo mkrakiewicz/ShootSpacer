@@ -15,6 +15,7 @@ class Menu;
 class Ship;
 class Planet;
 class ShootSpacerEvent;
+class FSMStateRunner;
 
 /**
  * States used to identify current game state
@@ -23,34 +24,37 @@ enum GameState {
 	INIT, RUN, MENU, EXIT
 };
 
-class ShootSpacerInstance: public FSMStateRenderLoop {
+//TODO: perhaps should change pointers to variables if possible for safety.
+class ShootSpacer {
 private:
 
 	/**
 	 * Private constructor to implement Singleton pattern.
 	 */
-	ShootSpacerInstance();
-	static ShootSpacerInstance* _instance;
+	ShootSpacer();
+	static ShootSpacer* _instance;
 	static int _referenceCount;
 
 	/**
 	 * Private copy constructor (singleton)
 	 */
-	inline ShootSpacerInstance(const ShootSpacerInstance&) :
-		FSMStateRenderLoop(createIrrlichtDevice()) {
+	inline ShootSpacer(const ShootSpacer&) {
 		initialize();
 	}
 
 	/**
 	 *  Private assignment operator - singleton requirement
 	 */
-	inline ShootSpacerInstance& operator=(const ShootSpacerInstance&) {
+	inline ShootSpacer& operator=(const ShootSpacer&) {
 		return *this;
 	}
 
 protected:
 
-	static const irr::core::stringw windowTitle;
+	irr::IrrlichtDevice *device;
+	irr::video::IVideoDriver *driver;
+	irr::scene::ISceneManager *smgr;
+	irr::gui::IGUIEnvironment *gui;
 
 	/**
 	 * Function to store params and create device
@@ -66,17 +70,12 @@ protected:
 	/**
 	 * A container to store game pointers (and other info)
 	 */
-	GameContext *context;
+	GameContext context;
 
 	/**
 	 * Pointer to menu object
 	 */
 	Menu *menu;
-
-#ifdef SHS_DEV
-	Ship *node;
-	Planet *testPlanet;
-#endif
 
 	/**
 	 * Event listener/receiver.
@@ -84,18 +83,9 @@ protected:
 	ShootSpacerEvent *eventReceiver;
 
 	/**
-	 * Stores current state.
+	 * Manages and runs states.
 	 */
-	GameState state;
-
-	void displayGame();
-
-	/**
-	 * Virtual overloaded methods from RenderLoop
-	 */
-	void beforeRender();
-	void afterRender();
-	void render();
+	FSMStateRunner stateRunner;
 
 	void cleanup();
 
@@ -104,9 +94,9 @@ protected:
 	 */
 	void enableFrameIndependentMovement();
 
-	void beforeRun();
-	void beforeStop();
+	friend bool shs::ShootSpacerEvent::OnEvent(const irr::SEvent& event);
 
+	void handleEvent(const irr::SEvent& event);
 
 public:
 
@@ -114,10 +104,10 @@ public:
 	void startGame();
 	void exit();
 
-	static ShootSpacerInstance* getInstance();
+	static ShootSpacer* getInstance();
 	static void releaseInstance();
 
-	~ShootSpacerInstance();
+	~ShootSpacer();
 };
 
 } /* namespace shs */
