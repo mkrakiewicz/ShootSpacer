@@ -19,7 +19,7 @@ using namespace gui;
 namespace shs {
 
 Menu::Menu(GameContext * context):
-	RenderLoop(context->device), FSMState() {
+	FSMStateRenderLoop(context->device){
 
 	/**
 	 * swap original scene manager with menu smgr
@@ -45,11 +45,7 @@ void Menu::render() {
 	gui->drawAll();
 }
 
-void Menu::beforeBegin() {
-}
 
-void Menu::beforeEnd() {
-}
 
 void Menu::displayMenu() {
 
@@ -68,10 +64,10 @@ void Menu::displayMenu() {
 
 }
 
-void Menu::begin() {
+void Menu::beforeRun() {
 }
 
-void Menu::end() {
+void Menu::beforeStop() {
 }
 
 } /* namespace shootspacer */

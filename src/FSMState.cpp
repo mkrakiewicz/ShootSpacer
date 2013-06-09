@@ -8,11 +8,11 @@
 #include "stdafx.h"
 #include "FSMState.h"
 
+
 namespace shs {
 
 FSMState::FSMState() {
 	// TODO Auto-generated constructor stub
-
 }
 
 FSMState::~FSMState() {
@@ -30,3 +30,25 @@ FSMState::~FSMState() {
 //}
 
 } /* namespace shs */
+
+shs::FSMStateRenderLoop::FSMStateRenderLoop() :
+		FSMState(), RenderLoop() {
+
+}
+
+shs::FSMStateRenderLoop::~FSMStateRenderLoop() {
+}
+
+void shs::FSMStateRenderLoop::run() {
+	beforeRun();
+	RenderLoop::run();
+}
+
+shs::FSMStateRenderLoop::FSMStateRenderLoop(irr::IrrlichtDevice* context) : FSMState(), RenderLoop(context)
+{
+}
+
+void shs::FSMStateRenderLoop::stop() {
+	beforeStop();
+	RenderLoop::stop();
+}

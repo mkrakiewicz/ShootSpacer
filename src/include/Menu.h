@@ -13,7 +13,7 @@
 
 namespace shs {
 
-class Menu : public RenderLoop, public FSMState {
+class Menu : public FSMStateRenderLoop {
 protected:
 
 	irr::video::ITexture *backgroundImg;
@@ -25,8 +25,9 @@ protected:
 	irr::scene::ISceneManager *smgr;
 //	IGUIEnvironment *gui;
 
-	void beforeBegin();
-	void beforeEnd();
+	void beforeRun();
+	void beforeStop();
+
 
 public:
 	Menu(GameContext * context);
@@ -34,8 +35,7 @@ public:
 
 	void displayMenu();
 
-	void begin();
-	void end();
+
 
 
 };

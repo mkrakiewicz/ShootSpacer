@@ -8,20 +8,36 @@
 #ifndef FSMSTATE_H_
 #define FSMSTATE_H_
 
+#include "RenderLoop.h"
+
 namespace shs {
 
 class FSMState {
 protected:
-	virtual void beforeBegin() = 0;
-	virtual void beforeEnd() = 0;
+
 
 public:
 	FSMState();
 	virtual ~FSMState();
 
-	virtual void begin() = 0;
+	virtual void run() = 0;
 
-	virtual void end() = 0;
+	virtual void stop() = 0;
+
+};
+
+class FSMStateRenderLoop : public FSMState, protected RenderLoop{
+public:
+	FSMStateRenderLoop();
+	FSMStateRenderLoop(irr::IrrlichtDevice * context);
+	virtual ~FSMStateRenderLoop();
+
+	virtual void beforeRun() = 0;
+	virtual void beforeStop() = 0;
+
+	void run();
+	void stop();
+
 
 };
 

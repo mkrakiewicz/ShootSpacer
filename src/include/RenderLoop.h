@@ -1,5 +1,5 @@
 /*
- * TimedLoop.h
+ * RenderLoop.h
  *
  *  Created on: 18-05-2013
  *      Author: Micha³
