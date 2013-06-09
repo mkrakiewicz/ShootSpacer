@@ -34,14 +34,14 @@ protected:
 	virtual void render() = 0;
 
 
-	RenderLoop():frameDeltaTime(1),isRunning(false),context(0),device(0),driver(0),smgr(0),gui(0){
-	}
+//	RenderLoop():isRunning(false),device(0),driver(0),smgr(0),gui(0){
+//	}
 
 public:
 	RenderLoop(const GameContext & context);
 	virtual ~RenderLoop();
 
-	static irr::f32 getFrameDeltaTime() const;
+	static irr::f32 getFrameDeltaTime();
 	static irr::f32* getFrameDeltaTimePtr();
 
 	void stop();

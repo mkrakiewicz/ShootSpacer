@@ -33,7 +33,7 @@ Planet::~Planet() {
 
 Planet* Planet::createTestPlanet(const GameContext &context) {
 
-	GameContext *c = &context;
+	const GameContext * c = &context;
 
 	ISceneNode *tmp = (c->smgr->addSphereSceneNode(80,64));
 

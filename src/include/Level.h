@@ -30,7 +30,7 @@ protected:
 
 
 public:
-	Level();
+//	Level();
 	Level(const GameContext &context);
 
 	virtual ~Level();
@@ -54,7 +54,7 @@ protected:
 
 
 public:
-	TestLevel();
+//	TestLevel();
 	TestLevel(const GameContext &context);
 
 	virtual ~TestLevel();

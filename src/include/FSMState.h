@@ -41,7 +41,7 @@ protected:
 	virtual void beforeRun() = 0;
 	virtual void beforeStop() = 0;
 public:
-	FSMStateRenderLoop();
+//	FSMStateRenderLoop();
 	FSMStateRenderLoop(const GameContext &context);
 	virtual ~FSMStateRenderLoop();
 

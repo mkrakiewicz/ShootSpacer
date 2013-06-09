@@ -57,11 +57,11 @@ using namespace gui;
  */
 namespace shs {
 
-Level::Level() :
-		FSMStateRenderLoop() {
-
-
-}
+//Level::Level() :
+//		FSMStateRenderLoop() {
+//
+//
+//}
 Level::Level(const GameContext &context) :
 		FSMStateRenderLoop(context) {
 }
@@ -89,9 +89,9 @@ Level::~Level() {
  * TestLevel
  */
 
-TestLevel::TestLevel() :
-		Level() {
-}
+//TestLevel::TestLevel() :
+//		Level() {
+//}
 
 TestLevel::TestLevel(const GameContext &context) :
 		Level(context) {
@@ -163,6 +163,7 @@ void TestLevel::afterRender() {
 				(windowTitle + L"FPS: " + stringw(fps)).c_str());
 		lastFPS = fps;
 	}
+}
 
 void TestLevel::handleEvent(const irr::SEvent& event)
 {

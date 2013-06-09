@@ -8,14 +8,15 @@
 #ifndef SHOOTSPACER_H_
 #define SHOOTSPACER_H_
 #include "FSMState.h"
+#include "FiniteStateMachine.h"
+#include "ShootSpacerEvent.h"
 
 namespace shs {
 
 class Menu;
 class Ship;
 class Planet;
-class ShootSpacerEvent;
-class FSMStateRunner;
+
 
 /**
  * States used to identify current game state
@@ -38,7 +39,7 @@ private:
 	/**
 	 * Private copy constructor (singleton)
 	 */
-	inline ShootSpacer(const ShootSpacer&) {
+	inline ShootSpacer(const ShootSpacer&):context(0) {
 		initialize();
 	}
 
@@ -85,7 +86,7 @@ protected:
 	/**
 	 * Manages and runs states.
 	 */
-	FSMStateRunner stateRunner;
+	shs::FSMStateRunner stateRunner;
 
 	void cleanup();
 

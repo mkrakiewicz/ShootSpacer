@@ -22,14 +22,12 @@ namespace shs {
 irr::f32 RenderLoop::frameDeltaTime = 1.f;
 
 
-RenderLoop::RenderLoop(const GameContext & context) :
-		frameDeltaTime(1.f), isRunning(false), context(context) {
+RenderLoop::RenderLoop(const GameContext & _context) :
+		isRunning(false), context(_context) {
 
 	device = this->context.device;
 
 	if (device) {
-
-		this->context = context;
 
 		driver = context.driver;
 		smgr = context.smgr;
@@ -40,7 +38,7 @@ RenderLoop::RenderLoop(const GameContext & context) :
 
 }
 
-f32 RenderLoop::getFrameDeltaTime() const {
+f32 RenderLoop::getFrameDeltaTime() {
 	return frameDeltaTime;
 }
 

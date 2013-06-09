@@ -19,10 +19,10 @@ FSMState::~FSMState() {
 
 }
 
-FSMStateRenderLoop::FSMStateRenderLoop() :
-		FSMRunnableState(), RenderLoop() {
-
-}
+//FSMStateRenderLoop::FSMStateRenderLoop() :
+//		FSMRunnableState(), RenderLoop() {
+//
+//}
 
 FSMStateRenderLoop::~FSMStateRenderLoop() {
 }
