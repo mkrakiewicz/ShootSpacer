@@ -9,11 +9,13 @@
 #define LEVEL_H_
 
 #include "FSMState.h"
+#include "PlayerShip.h"
 
 namespace shs {
 
 class Ship;
 class Planet;
+class TestPlayerShip;
 
 class Level: public shs::FSMStateRenderLoop {
 protected:
@@ -45,10 +47,12 @@ protected:
 	void beforeRun();
 	void beforeStop();
 
+	irr::scene::ICameraSceneNode *cam;
 
 	Ship *node;
 	Planet *testPlanet;
 
+	TestPlayerShip ship;
 	void init();
 
 

@@ -9,6 +9,7 @@
 #include "Ship.h"
 #include "Planet.h"
 #include "FiniteStateMachine.h"
+#include "PlayerShip.h"
 
 using namespace irr;
 
@@ -96,7 +97,9 @@ Level::~Level() {
 //		Level() {
 //}
 TestLevel::TestLevel(const GameContext &context) :
-		Level(context) {
+		Level(context),
+		ship(TestPlayerShip::createTestPlayerShipNode(context))
+{
 
 	init();
 }
@@ -134,6 +137,9 @@ void TestLevel::init() {
 						"D:/Pliki/irrlicht-1.8/irrlicht-1.8/media/sydney.bmp"));
 	}
 
+	cam = smgr->addCameraSceneNode(0,vector3df(0, 30, -240),ship.getPosition());
+	//ship.attachCamera(cam);
+
 	this->node = new Ship(tmpnode);
 	testPlanet = Planet::createTestPlanet(context);
 
@@ -146,6 +152,9 @@ void TestLevel::beforeRender() {
 	node->rotateNodeInLocalSpace(15.f, vector3df(0, 0, 1));
 
 	testPlanet->rotateNodeInLocalSpace(5, vector3df(0, 1, 0));
+
+	ship.moveNodeInLocalSpace(vector3df(0,0,1),15);
+	cam->setTarget(ship.getPosition());
 }
 
 void TestLevel::afterRender() {

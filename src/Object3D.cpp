@@ -82,8 +82,7 @@ core::vector3df Object3D::getClosestPointOnLine(const core::vector3df& axis,
 	return pivot + axis * t;
 }
 
-void Object3D::moveNodeInLocalSpace(scene::ISceneNode* node,
-		const core::vector3df& distVect) {
+void Object3D::moveNodeInLocalSpace(const core::vector3df& distVect) {
 
 	f32 mult = 1.f;
 	if (getFrameDelta() != 0) {
@@ -99,8 +98,7 @@ void Object3D::moveNodeInLocalSpace(scene::ISceneNode* node,
 	node->setPosition(pos);
 }
 
-void Object3D::moveNodeInLocalSpace(scene::ISceneNode* node,
-		const core::vector3df& dir, f32 dist) {
+void Object3D::moveNodeInLocalSpace(const core::vector3df& dir, f32 dist) {
 	f32 mult = 1.f;
 	if (getFrameDelta() != 0) {
 		mult = getFrameDelta();
@@ -123,6 +121,10 @@ const vector3df& MovingObject3D::getSpeedVector() const {
 
 void MovingObject3D::setSpeedVector(const vector3df& speedVector) {
 	this->speedVector = speedVector;
+}
+
+irr::core::vector3df Object3D::getPosition() {
+	return node->getAbsolutePosition();
 }
 
 } /* namespace shootspacer */

@@ -83,16 +83,14 @@ public:
 	 * @param node
 	 * @param distVect
 	 */
-	void moveNodeInLocalSpace(irr::scene::ISceneNode* node,
-			const irr::core::vector3df& distVect);
+	void moveNodeInLocalSpace(const irr::core::vector3df& distVect);
 	/**
 	 *
 	 * @param node
 	 * @param dir
 	 * @param dist
 	 */
-	void moveNodeInLocalSpace(irr::scene::ISceneNode* node,
-			const irr::core::vector3df& dir, irr::f32 dist);
+	void moveNodeInLocalSpace(const irr::core::vector3df& dir, irr::f32 dist);
 
 	/**
 	 * 	 	the line is defined by axis direction passing through the pivot
@@ -104,6 +102,8 @@ public:
 	 */
 	irr::core::vector3df getClosestPointOnLine(const irr::core::vector3df& axis,
 			const irr::core::vector3df& pivot, const irr::core::vector3df& point);
+
+	irr::core::vector3df getPosition();
 
 };
 
