@@ -30,9 +30,9 @@ ShootSpacerEvent::ShootSpacerEvent(ShootSpacer *gameInstance)
 
 bool ShootSpacerEvent::OnEvent(const SEvent& event)
 {
-//    // Remember whether each key is down or up
-//    if (event.EventType == irr::EET_KEY_INPUT_EVENT){
-//        KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
+    // Remember whether each key is down or up
+    if (event.EventType == irr::EET_KEY_INPUT_EVENT){
+        KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
 //
 //	if (!event.KeyInput.PressedDown) {
 //		if (event.KeyInput.Key == KEY_ESCAPE) {
@@ -46,6 +46,7 @@ bool ShootSpacerEvent::OnEvent(const SEvent& event)
 	gameInstance->handleEvent(event);
 
 
+    }
 
     return false;
 }

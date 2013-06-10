@@ -21,9 +21,9 @@ FiniteStateMachine::~FiniteStateMachine() {
 //	delete stateContainer;
 }
 
-void FiniteStateMachine::addState(FSMRunnableState* state) {
+void FiniteStateMachine::appendState(FSMRunnableState* state) {
 	if (state != 0)
-		stateContainer.push_back(state);
+		stateStack.push_back(state);
 	else {
 		//empty state!
 	}
@@ -31,15 +31,33 @@ void FiniteStateMachine::addState(FSMRunnableState* state) {
 
 FSMRunnableState* FiniteStateMachine::getCurrentState() {
 	if (hasNext()) {
-		return stateContainer.back();
+		return stateStack.back();
 	} else
 		return 0;
 }
 
+void FiniteStateMachine::appendStateWithName(irr::core::stringw name) {
+	appendState(getState(name));
+}
+
+void FiniteStateMachine::saveStateAs(irr::core::stringw name,
+		FSMRunnableState* pointer) {
+	availableStates[name] = pointer;
+}
+
+FSMRunnableState* FiniteStateMachine::getState(irr::core::stringw name) {
+	return availableStates[name];
+}
+
 bool shs::FiniteStateMachine::hasNext() {
-	if (stateContainer.size() > 0)
+	if (stateStack.size() > 0)
 		return true;
 	return false;
+}
+
+void FiniteStateMachine::exit() {
+	getCurrentState()->stop();
+	stateStack.clear();
 }
 
 } /* namespace shs */
@@ -58,19 +76,20 @@ void shs::FSMStateRunner::runCurrentState() {
 
 void shs::FSMStateRunner::runNext() {
 	runCurrentState();
-	stateContainer.pop_back();
+	stateStack.pop_back();
 }
 
 void shs::FSMStateRunner::handleEvent(const irr::SEvent& event) {
 	FSMRunnableState *state = getCurrentState();
-		if (state) {
-			state->handleEvent(event);
-		}
+	if (state) {
+		state->handleEvent(event);
+	}
 }
 
-void shs::FSMStateRunner::stopCurrentState() {
+void shs::FSMStateRunner::endCurrentState() {
 	FSMRunnableState *state = getCurrentState();
 	if (state) {
 		state->stop();
 	}
+	stateStack.pop_back();
 }

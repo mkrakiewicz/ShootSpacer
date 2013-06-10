@@ -8,6 +8,7 @@
 #include "Level.h"
 #include "Ship.h"
 #include "Planet.h"
+#include "FiniteStateMachine.h"
 
 using namespace irr;
 
@@ -73,6 +74,8 @@ void Level::afterRender() {
 }
 
 void Level::render() {
+	smgr->drawAll();
+	gui->drawAll();
 }
 
 void Level::beforeRun() {
@@ -92,28 +95,24 @@ Level::~Level() {
 //TestLevel::TestLevel() :
 //		Level() {
 //}
-
 TestLevel::TestLevel(const GameContext &context) :
 		Level(context) {
 
 	init();
 }
 
-TestLevel::~TestLevel()
-{
+TestLevel::~TestLevel() {
 	delete node;
 	delete testPlanet;
 
 }
 
-void TestLevel::render() {
-}
 
 void TestLevel::beforeRun() {
 
-		gui->clear();
+	gui->clear();
 
-		gui->addStaticText(L"Game", rect<s32>(10, 10, 260, 22), true);
+	gui->addStaticText(L"Game", rect<s32>(10, 10, 260, 22), true);
 
 }
 
@@ -165,8 +164,17 @@ void TestLevel::afterRender() {
 	}
 }
 
-void TestLevel::handleEvent(const irr::SEvent& event)
-{
+void TestLevel::handleEvent(const irr::SEvent& event) {
+	if (!event.KeyInput.PressedDown) {
+		if (event.KeyInput.Key == KEY_ESCAPE) {
+
+			context.stateRunner->appendStateWithName(L"menu");
+			this->stop();
+
+		} else if (event.KeyInput.Key == KEY_KEY_Q) {
+			context.stateRunner->endCurrentState();
+		}
+	}
 }
 
 } /* namespace shs */

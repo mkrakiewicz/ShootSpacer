@@ -41,7 +41,6 @@ protected:
 
 	void beforeRender();
 	void afterRender();
-	void render();
 
 	void beforeRun();
 	void beforeStop();

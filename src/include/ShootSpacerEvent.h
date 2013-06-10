@@ -10,7 +10,7 @@
 
 namespace shs {
 
-class irr::IEventReceiver;
+//class irr::IEventReceiver;
 class ShootSpacer;
 
 class ShootSpacerEvent: public irr::IEventReceiver {

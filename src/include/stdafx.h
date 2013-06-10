@@ -12,7 +12,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
-
+#include "GameContext.h"
 #include "SmartPointer.h"
 
 #include "version.h"
@@ -31,31 +31,12 @@
  * Set this in project build settings instead of here.
  */
 
-
 namespace shs {
 
-const irr::core::stringw windowTitle = ( irr::core::stringw(L"ShootSpacer ") + VERSION_INFO::CURRENT_VERSION_STRING + " ");
+const irr::core::stringw windowTitle = (irr::core::stringw(L"ShootSpacer ")
+		+ VERSION_INFO::CURRENT_VERSION_STRING + " ");
 
 
-class GameContext {
-public:
-	irr::IrrlichtDevice *device;
-	irr::video::IVideoDriver *driver;
-	irr::scene::ISceneManager *smgr;
-	irr::gui::IGUIEnvironment *gui;
-
-	GameContext(irr::IrrlichtDevice * context): device(context),
-	driver(device->getVideoDriver()),
-	smgr(device->getSceneManager()),
-	gui(device->getGUIEnvironment())
-	{}
-
-	virtual ~GameContext() {
-		device->drop();
-	}
-
-
-};
 
 } /* namespace ShootSpacer */
 #endif /* STDAFX_H_ */

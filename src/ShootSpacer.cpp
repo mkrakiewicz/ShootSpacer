@@ -10,6 +10,8 @@
 #include "Ship.h"
 #include "Planet.h"
 #include "ShootSpacerEvent.h"
+#include "Level.h"
+#include "LevelManager.h"
 
 #include "ShootSpacer.h"
 
@@ -28,7 +30,7 @@ int ShootSpacer::_referenceCount = 0;
 
 
 ShootSpacer::ShootSpacer():
-	context(this->createIrrlichtDevice())
+	context(this->createIrrlichtDevice(),&stateRunner)
 		{
 
 	/**
@@ -74,7 +76,7 @@ void ShootSpacer::toggleGameState() {
 
 void ShootSpacer::exit() {
 	if (stateRunner.hasNext())
-		stateRunner.stopCurrentState();
+		stateRunner.endCurrentState();
 
 }
 
@@ -113,13 +115,27 @@ IrrlichtDevice* ShootSpacer::createIrrlichtDevice() {
 
 void ShootSpacer::startGame() {
 
+	LevelManager mgr(context);
 
-	stateRunner.addState(menu);
+	//TODO: implement level manager
+	Level *testLevel = mgr.getTestLevel();
+
+	MainMenu main_menu(context);
+
+	stateRunner.saveStateAs(L"test_level",testLevel);
+	stateRunner.saveStateAs(L"menu",menu);
+	stateRunner.saveStateAs(L"main_menu", &main_menu);
+
+	stateRunner.appendStateWithName("main_menu");
+
+
 	bool run = true;
 
 	while (stateRunner.hasNext() && device->run()) {
-		stateRunner.runNext();
+		stateRunner.runCurrentState();
 	}
+
+	delete testLevel;
 
 }
 

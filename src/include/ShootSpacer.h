@@ -17,7 +17,6 @@ class Menu;
 class Ship;
 class Planet;
 
-
 /**
  * States used to identify current game state
  */
@@ -27,29 +26,16 @@ enum GameState {
 
 //TODO: perhaps should change pointers to variables if possible for safety.
 class ShootSpacer {
-private:
+public:
 
-	/**
-	 * Private constructor to implement Singleton pattern.
-	 */
-	ShootSpacer();
-	static ShootSpacer* _instance;
-	static int _referenceCount;
+	void toggleGameState();
+	void startGame();
+	void exit();
 
-	/**
-	 * Private copy constructor (singleton)
-	 */
-	inline ShootSpacer(const ShootSpacer&):context(0) {
-		initialize();
-	}
+	static ShootSpacer* getInstance();
+	static void releaseInstance();
 
-	/**
-	 *  Private assignment operator - singleton requirement
-	 */
-	inline ShootSpacer& operator=(const ShootSpacer&) {
-		return *this;
-	}
-
+	~ShootSpacer();
 protected:
 
 	irr::IrrlichtDevice *device;
@@ -69,6 +55,11 @@ protected:
 	void initialize();
 
 	/**
+	 * Manages and runs states.
+	 */
+	shs::FSMStateRunner stateRunner;
+
+	/**
 	 * A container to store game pointers (and other info)
 	 */
 	GameContext context;
@@ -83,11 +74,6 @@ protected:
 	 */
 	ShootSpacerEvent *eventReceiver;
 
-	/**
-	 * Manages and runs states.
-	 */
-	shs::FSMStateRunner stateRunner;
-
 	void cleanup();
 
 	/**
@@ -99,16 +85,30 @@ protected:
 
 	void handleEvent(const irr::SEvent& event);
 
-public:
+private:
 
-	void toggleGameState();
-	void startGame();
-	void exit();
+	/**
+	 * Private constructor to implement Singleton pattern.
+	 */
+	ShootSpacer();
+	static ShootSpacer* _instance;
+	static int _referenceCount;
 
-	static ShootSpacer* getInstance();
-	static void releaseInstance();
+	/**
+	 * Private copy constructor (singleton)
+	 */
+	inline ShootSpacer(const ShootSpacer& sh) :
+			context(sh.context) {
+		initialize();
+	}
 
-	~ShootSpacer();
+	/**
+	 *  Private assignment operator - singleton requirement
+	 */
+	inline ShootSpacer& operator=(const ShootSpacer&) {
+		return *this;
+	}
+
 };
 
 } /* namespace shs */

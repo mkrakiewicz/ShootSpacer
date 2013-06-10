@@ -7,7 +7,6 @@
 #include "stdafx.h"
 #include "RenderLoop.h"
 
-
 using namespace irr;
 
 using namespace core;
@@ -16,11 +15,9 @@ using namespace video;
 using namespace io;
 using namespace gui;
 
-
 namespace shs {
 
 irr::f32 RenderLoop::frameDeltaTime = 1.f;
-
 
 RenderLoop::RenderLoop(const GameContext & _context) :
 		isRunning(false), context(_context) {
@@ -42,7 +39,6 @@ f32 RenderLoop::getFrameDeltaTime() {
 	return frameDeltaTime;
 }
 
-
 RenderLoop::~RenderLoop() {
 
 }
@@ -61,17 +57,15 @@ void RenderLoop::run() {
 			const u32 now = device->getTimer()->getTime();
 			frameDeltaTime = (f32) (now - then) / 1000.f; // Time in seconds
 			then = now;
+			driver->beginScene(true, true, SColor(255, 100, 101, 140));
 
 			beforeRender();
 
-			driver->beginScene(true, true, SColor(255, 100, 101, 140));
-
 			render();
-
-			driver->endScene();
 
 			afterRender();
 
+			driver->endScene();
 
 		} else {
 			device->yield();
