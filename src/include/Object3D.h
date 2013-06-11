@@ -104,6 +104,7 @@ public:
 			const irr::core::vector3df& pivot, const irr::core::vector3df& point);
 
 	irr::core::vector3df getPosition();
+	irr::core::vector3df getRotation();
 
 };
 

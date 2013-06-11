@@ -124,7 +124,11 @@ void MovingObject3D::setSpeedVector(const vector3df& speedVector) {
 }
 
 irr::core::vector3df Object3D::getPosition() {
-	return node->getAbsolutePosition();
+	return node->getPosition();
+}
+
+irr::core::vector3df Object3D::getRotation() {
+	return node->getRotation();
 }
 
 } /* namespace shootspacer */

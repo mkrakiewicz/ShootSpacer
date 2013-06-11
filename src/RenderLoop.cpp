@@ -57,7 +57,7 @@ void RenderLoop::run() {
 			const u32 now = device->getTimer()->getTime();
 			frameDeltaTime = (f32) (now - then) / 1000.f; // Time in seconds
 			then = now;
-			driver->beginScene(true, true, SColor(255, 100, 101, 140));
+			driver->beginScene(true, true, SColor(255, 33, 33, 33));
 
 			beforeRender();
 

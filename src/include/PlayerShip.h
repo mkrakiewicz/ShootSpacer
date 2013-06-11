@@ -8,11 +8,30 @@
 #ifndef PLAYERSHIP_H_
 #define PLAYERSHIP_H_
 
+
 #include "Ship.h"
+#include <map>
 
 namespace shs {
 
+enum ShipKeys {
+	ACCELERATE = irr::KEY_SPACE,
+
+	PITCH_UPWARDS = irr::KEY_KEY_W,
+	PITCH_DOWNWARDS = irr::KEY_KEY_S,
+	TURN_RIGHT = irr::KEY_KEY_D,
+	TURN_LEFT = irr::KEY_KEY_A
+
+
+};
+
+
+
 class PlayerShip: public shs::Ship {
+protected:
+	std::map< irr::EKEY_CODE,ShipKeys> availableStates;
+
+	std::map<ShipKeys,bool> keyStates;
 public:
 	PlayerShip();
 	PlayerShip(irr::scene::IAnimatedMeshSceneNode *node);
@@ -22,6 +41,8 @@ public:
 	void attachCamera(irr::scene::ICameraSceneNode *camera);
 
 	static irr::scene::ISceneNode* createPlayerShip(GameContext *c);
+
+	virtual void update() = 0;
 
 };
 
@@ -35,6 +56,8 @@ public:
 			const GameContext & c);
 
 	virtual ~TestPlayerShip();
+
+	void update();
 };
 
 } /* namespace shootspacer */

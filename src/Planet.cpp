@@ -43,7 +43,7 @@ Planet* Planet::createTestPlanet(const GameContext &context) {
 
 		tmp->setMaterialTexture(0,
 				c->driver->getTexture(
-						"D:/Pliki/irrlicht-1.8/irrlicht-1.8/media/earth.jpg"));
+						"img/earth.jpg"));
 	}
 
 	Planet *p = new Planet(tmp);

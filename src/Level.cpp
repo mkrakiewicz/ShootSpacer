@@ -125,7 +125,7 @@ void TestLevel::beforeStop() {
 void TestLevel::init() {
 
 	IAnimatedMesh* mesh = smgr->getMesh(
-			"D:/Pliki/irrlicht-1.8/irrlicht-1.8/media/sydney.md2");
+			"img/sydney.md2");
 
 	IAnimatedMeshSceneNode * tmpnode = smgr->addAnimatedMeshSceneNode(mesh);
 
@@ -134,11 +134,12 @@ void TestLevel::init() {
 		tmpnode->setMD2Animation(scene::EMAT_STAND);
 		tmpnode->setMaterialTexture(0,
 				driver->getTexture(
-						"D:/Pliki/irrlicht-1.8/irrlicht-1.8/media/sydney.bmp"));
+						"img/sydney.bmp"));
 	}
 
-	cam = smgr->addCameraSceneNode(0,vector3df(0, 30, -240),ship.getPosition());
-	//ship.attachCamera(cam);
+	cam = smgr->addCameraSceneNode(0,ship.getPosition()+vector3df(0, 5, -10),ship.getPosition());
+	smgr->setActiveCamera(cam);
+
 
 	this->node = new Ship(tmpnode);
 	testPlanet = Planet::createTestPlanet(context);
@@ -153,8 +154,10 @@ void TestLevel::beforeRender() {
 
 	testPlanet->rotateNodeInLocalSpace(5, vector3df(0, 1, 0));
 
-	ship.moveNodeInLocalSpace(vector3df(0,0,1),15);
-	cam->setTarget(ship.getPosition());
+//	ship.moveNodeInLocalSpace(vector3df(0,0,1),15);
+	ship.update();
+	//cam->setTarget(ship.getPosition());
+
 }
 
 void TestLevel::afterRender() {
@@ -184,6 +187,8 @@ void TestLevel::handleEvent(const irr::SEvent& event) {
 			context.stateRunner->endCurrentState();
 		}
 	}
+
+	ship.handleInput(event);
 }
 
 } /* namespace shs */
