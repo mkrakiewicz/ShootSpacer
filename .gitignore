@@ -21,3 +21,6 @@ Release
 /*.exe
 /*.exe
 /*.dll
+/Debug Release
+/Debug Development
+/Run Development
