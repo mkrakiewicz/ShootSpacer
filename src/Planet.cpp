@@ -35,7 +35,7 @@ Planet* Planet::createTestPlanet(const GameContext &context) {
 
 	const GameContext * c = &context;
 
-	ISceneNode *tmp = (c->smgr->addSphereSceneNode(80,64));
+	ISceneNode *tmp = (c->smgr->addSphereSceneNode(180,128));
 
 	tmp->setPosition(vector3df(100,10,0));
 	if (tmp) {

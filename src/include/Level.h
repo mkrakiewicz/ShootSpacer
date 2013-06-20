@@ -52,7 +52,7 @@ protected:
 	Ship *node;
 	Planet *testPlanet;
 
-	TestPlayerShip ship;
+	TestPlayerShip *ship;
 	void init();
 
 

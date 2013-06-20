@@ -20,6 +20,15 @@ public:
 	Ship(irr::scene::ISceneNode *node);
 
 	virtual ~Ship();
+
+	virtual void update() = 0;
+};
+
+class NonPlayerShip : public  Ship {
+public:
+	NonPlayerShip(irr::scene::ISceneNode *node);
+
+	void update();
 };
 
 } /* namespace shootspacer */

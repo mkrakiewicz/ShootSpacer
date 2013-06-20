@@ -29,4 +29,13 @@ Ship::Ship(ISceneNode* node) : MovingObject3D(node) {
 Ship::~Ship() {
 }
 
+
+NonPlayerShip::NonPlayerShip(irr::scene::ISceneNode* node): Ship(node) {
+
+}
+
+void NonPlayerShip::update() {
+}
+
+
 } /* namespace shootspacer */

@@ -21,15 +21,13 @@ namespace shs {
 f32* Object3D::frameDeltaTime = 0;
 
 Object3D::Object3D(ISceneNode *createdNode) :
-		node(createdNode)
-{
+		node(createdNode) {
 //	this->node = node;
 }
 
 Object3D::~Object3D() {
 
 }
-
 
 void Object3D::rotateNodeInWorldSpace(f32 degs, const core::vector3df& axis) {
 
@@ -114,17 +112,90 @@ void Object3D::moveNodeInLocalSpace(const core::vector3df& dir, f32 dist) {
 	node->setPosition(pos);
 }
 
-
-const vector3df& MovingObject3D::getSpeedVector() const {
-	return speedVector;
+const vector3df& MovingObject3D::getVelocityVector() const {
+	return velocityVector;
 }
 
-void MovingObject3D::setSpeedVector(const vector3df& speedVector) {
-	this->speedVector = speedVector;
+void MovingObject3D::setVelocityVector(const vector3df& speedVector) {
+	this->velocityVector = speedVector;
 }
 
 irr::core::vector3df Object3D::getPosition() {
 	return node->getPosition();
+}
+
+void Object3D::revolveNodeInWorldSpace(irr::f32 degs,
+		const irr::core::vector3df& axis, const irr::core::vector3df& pivot) {
+
+	node->updateAbsolutePosition();
+	core::vector3df p1 = node->getAbsolutePosition();
+	core::vector3df p2 = getClosestPointOnLine(axis, pivot, p1);
+	core::vector3df vect = p1 - p2;
+
+	core::quaternion q;
+	q.fromAngleAxis(degs * core::DEGTORAD, axis);
+	q.getMatrix().rotateVect(vect);
+
+	node->setPosition(p2 + vect);
+
+}
+
+void Object3D::revolveNodeInLocalSpace(irr::f32 degs,
+		const irr::core::vector3df& axis, const irr::core::vector3df& pivot) {
+
+	moveNodeInLocalSpace(pivot);
+	rotateNodeInLocalSpace(degs, axis);
+	moveNodeInLocalSpace(-pivot);
+
+}
+
+void Object3D::revolveNodeAboutLocalAxis(irr::f32 degs,
+		const irr::core::vector3df& axis, const irr::core::vector3df& pivot) {
+
+	node->updateAbsolutePosition();
+	core::matrix4 m = node->getAbsoluteTransformation();
+	core::vector3df a = axis;
+	m.rotateVect(a);
+	a.normalize();
+
+	core::vector3df p1 = node->getAbsolutePosition();
+	core::vector3df p2 = getClosestPointOnLine(a, pivot, p1);
+	core::vector3df vect = p1 - p2;
+
+	core::quaternion q;
+	q.fromAngleAxis(degs * core::DEGTORAD, a);
+	q.getMatrix().rotateVect(vect);
+
+	node->setPosition(p2 + vect);
+
+}
+
+irr::core::vector3df Object3D::toWorldPos(
+		const irr::core::vector3df pos_in_node_space) {
+
+	core::vector3df pos_in_world_space(pos_in_node_space);
+	node->getAbsoluteTransformation().transformVect(pos_in_world_space);
+	return pos_in_world_space;
+
+}
+
+irr::core::vector3df Object3D::toWorldRot(
+		const irr::core::vector3df rot_in_node_space) {
+	core::vector3df rot_in_world_space(rot_in_node_space);
+	node->getAbsoluteTransformation().transformVect(rot_in_world_space);
+	return rot_in_world_space;
+}
+
+irr::core::vector3df Object3D::getIn() {
+
+	if (node) {
+		matrix4 mat = node->getRelativeTransformation();
+		vector3df in(mat[8], mat[9], mat[10]);
+		in.normalize();
+		return in;
+	} else
+		return vector3df(0, 0, 0);
+
 }
 
 irr::core::vector3df Object3D::getRotation() {

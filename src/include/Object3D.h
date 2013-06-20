@@ -24,6 +24,8 @@ protected:
 	 */
 	irr::scene::ISceneNode *node;
 
+	irr::core::vector3df getIn();
+
 public:
 
 	/**
@@ -103,8 +105,34 @@ public:
 	irr::core::vector3df getClosestPointOnLine(const irr::core::vector3df& axis,
 			const irr::core::vector3df& pivot, const irr::core::vector3df& point);
 
+
+
+
+	//both axis and pivot are in world space
+	void revolveNodeInWorldSpace(irr::f32 degs, const irr::core::vector3df& axis, const irr::core::vector3df& pivot);
+
+	//both axis and pivot are in local space
+	void revolveNodeInLocalSpace(irr::f32 degs, const irr::core::vector3df& axis, const irr::core::vector3df& pivot);
+
+	//axis is in local space and pivot in world space
+	void revolveNodeAboutLocalAxis(irr::f32 degs, const irr::core::vector3df& axis, const irr::core::vector3df& pivot);
+
+	irr::core::vector3df toWorldPos(const irr::core::vector3df pos_in_node_space);
+	irr::core::vector3df toWorldRot(const irr::core::vector3df rot_in_node_space);
+
 	irr::core::vector3df getPosition();
 	irr::core::vector3df getRotation();
+
+	/**
+	 *
+	 * TODO: TO BE REMOVED
+	 *
+	 * BREAKS ALL OOP RULES... need to refactor Object3D as derived from ISceneNode ............. !! ??
+	 * @return
+	 */
+	inline irr::scene::ISceneNode * getNode() {
+		return node;
+	}
 
 };
 
@@ -116,9 +144,10 @@ class MovingObject3D: public Object3D {
 protected:
 
 	/**
-	 * Vector along which the object is supposed to move each frame. Must be multiplied by frame delta.
+	 * Vector along which the object is supposed to move each frame. Must be multiplied by frame delta. TODO: ?
+	 * If
 	 */
-	irr::core::vector3df speedVector;
+	irr::core::vector3df velocityVector;
 
 public:
 
@@ -138,18 +167,18 @@ public:
 	}
 
 	/**
-	 * Get the speed vector
+	 * Get the velocity vector
 	 * TODO: Perhaps it should be already multiplied by frame delta?
 	 * TODO: check if returning reference is good practice. it's supposed to be faster than returning by value...
 	 * @return
 	 */
-	const irr::core::vector3df& getSpeedVector() const;
+	const irr::core::vector3df& getVelocityVector() const;
 
 	/**
 	 * Set the speed vector
 	 * @param speedVector
 	 */
-	void setSpeedVector(const irr::core::vector3df& speedVector);
+	void setVelocityVector(const irr::core::vector3df& vector);
 };
 
 } /* namespace shs */

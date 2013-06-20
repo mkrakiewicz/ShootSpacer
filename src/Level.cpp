@@ -97,9 +97,7 @@ Level::~Level() {
 //		Level() {
 //}
 TestLevel::TestLevel(const GameContext &context) :
-		Level(context),
-		ship(TestPlayerShip::createTestPlayerShipNode(context))
-{
+		Level(context) {
 
 	init();
 }
@@ -108,40 +106,52 @@ TestLevel::~TestLevel() {
 	delete node;
 	delete testPlanet;
 
+	delete ship;
 }
-
 
 void TestLevel::beforeRun() {
 
 	gui->clear();
 
+	device->getCursorControl()->setVisible(false);
 	gui->addStaticText(L"Game", rect<s32>(10, 10, 260, 22), true);
 
 }
 
 void TestLevel::beforeStop() {
+	device->getCursorControl()->setVisible(true);
 }
 
 void TestLevel::init() {
 
-	IAnimatedMesh* mesh = smgr->getMesh(
-			"img/sydney.md2");
+	IAnimatedMesh* mesh = smgr->getMesh("img/sydney.md2");
 
 	IAnimatedMeshSceneNode * tmpnode = smgr->addAnimatedMeshSceneNode(mesh);
 
 	if (tmpnode) {
 		tmpnode->setMaterialFlag(EMF_LIGHTING, false);
 		tmpnode->setMD2Animation(scene::EMAT_STAND);
-		tmpnode->setMaterialTexture(0,
-				driver->getTexture(
-						"img/sydney.bmp"));
+		tmpnode->setMaterialTexture(0, driver->getTexture("img/sydney.bmp"));
 	}
 
-	cam = smgr->addCameraSceneNode(0,ship.getPosition()+vector3df(0, 5, -10),ship.getPosition());
+	tmpnode->setPosition(vector3df(-222,0,0));
+
+
+
+	cam = smgr->addCameraSceneNode(0);
 	smgr->setActiveCamera(cam);
 
 
-	this->node = new Ship(tmpnode);
+	ship = new TestPlayerShip(TestPlayerShip::createTestPlayerShipNode(context),cam);
+	cam->setPosition(ship->getPosition()+vector3df(0,5,-10));
+
+	cam->setTarget(ship->getPosition());
+
+	cam->bindTargetAndRotation(true);
+
+//	ship.attachCamera(cam);
+
+	this->node = new NonPlayerShip(tmpnode);
 	testPlanet = Planet::createTestPlanet(context);
 
 }
@@ -154,8 +164,19 @@ void TestLevel::beforeRender() {
 
 	testPlanet->rotateNodeInLocalSpace(5, vector3df(0, 1, 0));
 
+
+	ship->update();
+
+
+//	vector3df npos = ship.toWorldPos(vector3df(0, 5, -20));
+
+//	cam->setPosition(npos);
+//	cam->setRotation(ship.toWorldRot(ship.getRotation()));
+//	cam->setTarget(ship.getPosition());
 //	ship.moveNodeInLocalSpace(vector3df(0,0,1),15);
-	ship.update();
+
+//cam->setRotation(ship.getNode()->getAbsoluteTransformation().g);
+
 	//cam->setTarget(ship.getPosition());
 
 }
@@ -188,7 +209,7 @@ void TestLevel::handleEvent(const irr::SEvent& event) {
 		}
 	}
 
-	ship.handleInput(event);
+	ship->handleInput(event);
 }
 
 } /* namespace shs */
