@@ -10,6 +10,7 @@
 #include "Planet.h"
 #include "FiniteStateMachine.h"
 #include "PlayerShip.h"
+#include "Camera.h"
 
 using namespace irr;
 
@@ -141,10 +142,9 @@ void TestLevel::init() {
 
 
 
-	ship = new TestPlayerShip(context, TestPlayerShip::createTestPlayerShipNode(context));
-	cam->setPosition(ship->getPosition()+vector3df(0,5,-10));
+	ship = new TestPlayerShip(TestPlayerShip::createTestPlayerShipNode(context));
+	ship->attachNewCamera(new StaticCamera(context,ship));
 
-	cam->setTarget(ship->getPosition());
 
 
 

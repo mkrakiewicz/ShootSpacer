@@ -10,12 +10,15 @@
 
 namespace shs {
 
+class Object3D;
+
 class Camera {
 protected:
-	const GameContext &context;
+	GameContext context;
 
 	irr::scene::ICameraSceneNode *camera;
 public:
+	Camera();
 	Camera(const GameContext& context);
 	virtual ~Camera();
 
@@ -30,8 +33,8 @@ protected:
 	irr::scene::ISceneNode * node;
 	irr::core::vector3df offset;
 public:
-	AttachableCamera(const GameContext & context, irr::scene::ISceneNode * node,
-			irr::core::vector3df offset = irr::core::vector3df(0, 5, -10));
+	AttachableCamera(const GameContext & context, shs::Object3D * obj,
+			irr::core::vector3df offset = irr::core::vector3df(0, 10, -40));
 
 	void setOffset(irr::core::vector3df offset);
 
@@ -43,8 +46,8 @@ public:
 
 class StaticCamera: public AttachableCamera {
 public:
-	StaticCamera(const GameContext & context, irr::scene::ISceneNode * node,
-			irr::core::vector3df offset = irr::core::vector3df(0, 5, -10));
+	StaticCamera(const GameContext & context, shs::Object3D * obj,
+			irr::core::vector3df offset = irr::core::vector3df(0, 10, -40));
 
 	virtual void update();
 	virtual void handleInput(const irr::SEvent& event);
@@ -58,4 +61,6 @@ public:
 //};
 
 } /* namespace shs */
+
+
 #endif /* CAMERA_H_ */

@@ -35,14 +35,13 @@ protected:
 	virtual void handleCamera() = 0;
 	virtual void handleMovement() = 0;
 
-	const GameContext &context;
-
 	AttachableCamera *camera;
+
+	bool isCameraHandled;
 
 public:
 
-	PlayerShip(const GameContext &context,
-			irr::scene::IAnimatedMeshSceneNode *node);
+	PlayerShip(irr::scene::IAnimatedMeshSceneNode *node);
 	virtual ~PlayerShip();
 
 //	void attachCamera(irr::scene::ICameraSceneNode *camera);
@@ -52,6 +51,9 @@ public:
 	virtual void update();
 
 	virtual void handleInput(const irr::SEvent& event) = 0;
+
+	void attachNewCamera(AttachableCamera *camera);
+
 
 };
 
@@ -64,10 +66,8 @@ protected:
 	TestPlayerShip();
 
 public:
-	bool handleCam;
 
-	TestPlayerShip(const GameContext &context,
-			irr::scene::IAnimatedMeshSceneNode *node);
+	TestPlayerShip(irr::scene::IAnimatedMeshSceneNode *node);
 
 	virtual void handleInput(const irr::SEvent& event);
 	static irr::scene::IAnimatedMeshSceneNode* createTestPlayerShipNode(

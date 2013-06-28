@@ -19,9 +19,8 @@ using namespace gui;
 
 namespace shs {
 
-PlayerShip::PlayerShip(const GameContext &context, IAnimatedMeshSceneNode *node) :
-		Ship(node), context(context), camera(
-				new StaticCamera(context, this->node)) {
+PlayerShip::PlayerShip(IAnimatedMeshSceneNode *node) :
+		Ship(node), camera(0), isCameraHandled(false) {
 
 }
 
@@ -57,9 +56,8 @@ void PlayerShip::update() {
 
 
 
-TestPlayerShip::TestPlayerShip(const GameContext &context,
-		irr::scene::IAnimatedMeshSceneNode* node) :
-		PlayerShip(context, node), handleCam(true) {
+TestPlayerShip::TestPlayerShip(irr::scene::IAnimatedMeshSceneNode* node) :
+		PlayerShip(node) {
 //	initKeys();
 }
 
@@ -83,7 +81,7 @@ void TestPlayerShip::handleInput(const irr::SEvent& event) {
 // debug - to be removed:
 		case KEY_KEY_G:
 			if (event.KeyInput.PressedDown) {
-				handleCam = !handleCam;
+				isCameraHandled = !isCameraHandled;
 //				if (handleCam)
 //					camera->setParent(node);
 //				else
@@ -96,8 +94,9 @@ void TestPlayerShip::handleInput(const irr::SEvent& event) {
 		}
 
 	}
-
-	camera->handleInput(event);
+	if (isCameraHandled) {
+		camera->handleInput(event);
+	}
 }
 
 //void PlayerShip::attachCamera(irr::scene::ICameraSceneNode* camera) {
@@ -131,7 +130,7 @@ IAnimatedMeshSceneNode* TestPlayerShip::createTestPlayerShipNode(
 //}
 
 void TestPlayerShip::handleCamera() {
-	if (handleCam) {
+	if (isCameraHandled) {
 		camera->update();
 //		node->updateAbsolutePosition();
 //		const core::matrix4 matr(node->getAbsoluteTransformation());
@@ -176,5 +175,10 @@ void TestPlayerShip::handleMovement() {
 //availableStates[KEY_KEY_A] = TURN_LEFT;
 //
 //}
+
+void PlayerShip::attachNewCamera(AttachableCamera* camera) {
+	this->camera = camera;
+	isCameraHandled = true;
+}
 
 } /* namespace shootspacer */

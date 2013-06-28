@@ -6,6 +6,7 @@
  */
 #include "stdafx.h"
 #include "Camera.h"
+#include "Object3D.h"
 
 using namespace irr;
 
@@ -26,7 +27,6 @@ Camera::Camera(const GameContext& context) :
 Camera::~Camera() {
 	// TODO Auto-generated destructor stub
 }
-
 
 
 void AttachableCamera::setPositionAtOffset() {
@@ -65,8 +65,8 @@ void AttachableCamera::handleInput(const irr::SEvent& event) {
 }
 
 AttachableCamera::AttachableCamera(const GameContext& context,
-		irr::scene::ISceneNode* node, irr::core::vector3df offset) :
-		Camera(context), node(node) {
+		shs::Object3D * obj, irr::core::vector3df offset) :
+		Camera(context), node(obj->getNode()) {
 
 	camera->setPosition(node->getPosition() + offset);
 	camera->setTarget(node->getPosition());
@@ -79,12 +79,13 @@ AttachableCamera::~AttachableCamera() {
 } /* namespace shs */
 
 shs::StaticCamera::StaticCamera(const GameContext& context,
-		irr::scene::ISceneNode* node, irr::core::vector3df offset) :
+		shs::Object3D * obj, irr::core::vector3df offset) :
 
-		AttachableCamera(context, node, offset) {
+		AttachableCamera(context, obj, offset) {
 }
 
 void shs::StaticCamera::update() {
+	setPositionAtOffset();
 }
 
 void shs::StaticCamera::handleInput(const irr::SEvent& event) {
