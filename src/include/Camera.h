@@ -34,7 +34,7 @@ protected:
 	irr::core::vector3df offset;
 public:
 	AttachableCamera(const GameContext & context, shs::Object3D * obj,
-			irr::core::vector3df offset = irr::core::vector3df(0, 10, -40));
+			irr::core::vector3df offset);
 
 	void setOffset(irr::core::vector3df offset);
 
@@ -47,7 +47,7 @@ public:
 class StaticCamera: public AttachableCamera {
 public:
 	StaticCamera(const GameContext & context, shs::Object3D * obj,
-			irr::core::vector3df offset = irr::core::vector3df(0, 10, -40));
+			irr::core::vector3df offset = irr::core::vector3df(0.f, 10.f, -40.f));
 
 	virtual void update();
 	virtual void handleInput(const irr::SEvent& event);

@@ -140,7 +140,7 @@ void TestLevel::init() {
 
 
 
-
+	vector3df wsp(0,5,-10);
 
 	ship = new TestPlayerShip(TestPlayerShip::createTestPlayerShipNode(context));
 	ship->attachNewCamera(new StaticCamera(context,ship));
