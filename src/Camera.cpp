@@ -31,6 +31,7 @@ Camera::~Camera() {
 
 void AttachableCamera::setPositionAtOffset() {
 
+	vector3df offset = this->offset;
 	//get rotation matrix of node - Zeuss must be getRotation not getRelativeTransformation
 	irr::core::matrix4 m;
 	m.setRotationDegrees(node->getRotation());
