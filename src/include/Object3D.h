@@ -26,14 +26,13 @@ protected:
 
 	irr::core::vector3df getIn();
 
-public:
-
 	/**
 	 * Default constructor
 	 */
 	Object3D() :
 			node(0) {
 	}
+public:
 
 	/**
 	 * Constructor
@@ -73,13 +72,15 @@ public:
 	 * @param degs
 	 * @param axis
 	 */
-	void rotateNodeInLocalSpace(irr::f32 degs, const irr::core::vector3df& axis);
+	void rotateNodeInLocalSpace(irr::f32 degs,
+			const irr::core::vector3df& axis);
 	/**
 	 *
 	 * @param degs
 	 * @param axis
 	 */
-	void rotateNodeInWorldSpace(irr::f32 degs, const irr::core::vector3df& axis);
+	void rotateNodeInWorldSpace(irr::f32 degs,
+			const irr::core::vector3df& axis);
 	/**
 	 *
 	 * @param node
@@ -103,22 +104,28 @@ public:
 	 * @return
 	 */
 	irr::core::vector3df getClosestPointOnLine(const irr::core::vector3df& axis,
-			const irr::core::vector3df& pivot, const irr::core::vector3df& point);
-
-
-
+			const irr::core::vector3df& pivot,
+			const irr::core::vector3df& point);
 
 	//both axis and pivot are in world space
-	void revolveNodeInWorldSpace(irr::f32 degs, const irr::core::vector3df& axis, const irr::core::vector3df& pivot);
+	void revolveNodeInWorldSpace(irr::f32 degs,
+			const irr::core::vector3df& axis,
+			const irr::core::vector3df& pivot);
 
 	//both axis and pivot are in local space
-	void revolveNodeInLocalSpace(irr::f32 degs, const irr::core::vector3df& axis, const irr::core::vector3df& pivot);
+	void revolveNodeInLocalSpace(irr::f32 degs,
+			const irr::core::vector3df& axis,
+			const irr::core::vector3df& pivot);
 
 	//axis is in local space and pivot in world space
-	void revolveNodeAboutLocalAxis(irr::f32 degs, const irr::core::vector3df& axis, const irr::core::vector3df& pivot);
+	void revolveNodeAboutLocalAxis(irr::f32 degs,
+			const irr::core::vector3df& axis,
+			const irr::core::vector3df& pivot);
 
-	irr::core::vector3df toWorldPos(const irr::core::vector3df pos_in_node_space);
-	irr::core::vector3df toWorldRot(const irr::core::vector3df rot_in_node_space);
+	irr::core::vector3df toWorldPos(
+			const irr::core::vector3df pos_in_node_space);
+	irr::core::vector3df toWorldRot(
+			const irr::core::vector3df rot_in_node_space);
 
 	irr::core::vector3df getPosition();
 	irr::core::vector3df getRotation();
@@ -149,14 +156,13 @@ protected:
 	 */
 	irr::core::vector3df velocityVector;
 
-public:
-
 	/**
 	 * Default constructor
 	 */
 	MovingObject3D() :
 			Object3D(0) {
 	}
+public:
 
 	/**
 	 * Constructor

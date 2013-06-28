@@ -7,6 +7,7 @@
 
 #include "stdafx.h"
 #include "PlayerShip.h"
+#include "Camera.h"
 
 using namespace irr;
 
@@ -18,17 +19,17 @@ using namespace gui;
 
 namespace shs {
 
-PlayerShip::PlayerShip(IAnimatedMeshSceneNode *node,
-		irr::scene::ICameraSceneNode *camera) :
-		Ship(node), camera(camera) {
+PlayerShip::PlayerShip(const GameContext &context, IAnimatedMeshSceneNode *node) :
+		Ship(node), context(context), camera(
+				new StaticCamera(context, this->node)) {
 
 }
 
-PlayerShip::PlayerShip() :
-		Ship(), camera(0) {
-}
+
 
 PlayerShip::~PlayerShip() {
+	if (camera)
+		delete camera;
 }
 
 ISceneNode* PlayerShip::createPlayerShip(GameContext* c) {
@@ -48,44 +49,17 @@ ISceneNode* PlayerShip::createPlayerShip(GameContext* c) {
 	return node;
 }
 
-void PlayerShip::setCameraBehind(irr::core::vector3df offset) {
-
-	//get rotation matrix of node - Zeuss must be getRotation not getRelativeTransformation
-	irr::core::matrix4 m;
-	m.setRotationDegrees(node->getRotation());
-
-	// transform forward vector of camera
-	irr::core::vector3df frv = irr::core::vector3df(0.0f, 0.0f, 1.0f);
-	m.transformVect(frv);
-
-	// transform upvector of camera
-	irr::core::vector3df upv = irr::core::vector3df(0.0f, 1.0f, 0.0f);
-	m.transformVect(upv);
-
-	// transform camera offset (thanks to Zeuss for finding it was missing)
-	m.transformVect(offset);
-
-	// set camera
-	camera->setPosition(node->getPosition() + offset); //position camera in front of the ship
-	camera->setUpVector(upv); //set up vector of camera >> Zeuss - tested with +node->getPostion() and it didnt work, but this works fine.
-	camera->setTarget(node->getPosition() + frv); //set target of camera (look at point) >> Zeuss - Dont forget to add the node positiob
-
-}
-
 void PlayerShip::update() {
 
 	handleMovement();
 	handleCamera();
 }
 
-TestPlayerShip::TestPlayerShip() :
-		PlayerShip() {
-//	initKeys();
-}
 
-TestPlayerShip::TestPlayerShip(irr::scene::IAnimatedMeshSceneNode* node,
-		irr::scene::ICameraSceneNode *camera) :
-		PlayerShip(node, camera), handleCam(true) {
+
+TestPlayerShip::TestPlayerShip(const GameContext &context,
+		irr::scene::IAnimatedMeshSceneNode* node) :
+		PlayerShip(context, node), handleCam(true) {
 //	initKeys();
 }
 
@@ -116,19 +90,19 @@ void TestPlayerShip::handleInput(const irr::SEvent& event) {
 //					camera->setParent(0);
 			}
 			break;
-		case KEY_KEY_T:
-			camera->setTarget(getPosition());
-			break;
+
 		default:
 			break;
 		}
 
 	}
+
+	camera->handleInput(event);
 }
 
-void PlayerShip::attachCamera(irr::scene::ICameraSceneNode* camera) {
-	camera->setParent(node);
-}
+//void PlayerShip::attachCamera(irr::scene::ICameraSceneNode* camera) {
+//	camera->setParent(node);
+//}
 
 TestPlayerShip::~TestPlayerShip() {
 }
@@ -153,17 +127,18 @@ IAnimatedMeshSceneNode* TestPlayerShip::createTestPlayerShipNode(
 	return node;
 }
 
-void TestPlayerShip::bindCamera(irr::scene::ICameraSceneNode* cam) {
-}
+//void TestPlayerShip::bindCamera(irr::scene::ICameraSceneNode* cam) {
+//}
 
 void TestPlayerShip::handleCamera() {
 	if (handleCam) {
+		camera->update();
 //		node->updateAbsolutePosition();
 //		const core::matrix4 matr(node->getAbsoluteTransformation());
-		setCameraBehind(vector3df(0,5,-10));
-		//camera->setPosition(getIn() * vector3df(0, 2, -5));
-		//	camera->setRotation(node->getRotation());
-		//	camera->setUpVector(getIn() * vector3df(0, 1, 0));
+
+//camera->setPosition(getIn() * vector3df(0, 2, -5));
+//	camera->setRotation(node->getRotation());
+//	camera->setUpVector(getIn() * vector3df(0, 1, 0));
 //	camera->updateAbsolutePosition();
 	}
 //	node->setPosition(matr.getTranslation());

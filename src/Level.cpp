@@ -138,16 +138,15 @@ void TestLevel::init() {
 
 
 
-	cam = smgr->addCameraSceneNode(0);
-	smgr->setActiveCamera(cam);
 
 
-	ship = new TestPlayerShip(TestPlayerShip::createTestPlayerShipNode(context),cam);
+
+	ship = new TestPlayerShip(context, TestPlayerShip::createTestPlayerShipNode(context));
 	cam->setPosition(ship->getPosition()+vector3df(0,5,-10));
 
 	cam->setTarget(ship->getPosition());
 
-	cam->bindTargetAndRotation(true);
+
 
 //	ship.attachCamera(cam);
 

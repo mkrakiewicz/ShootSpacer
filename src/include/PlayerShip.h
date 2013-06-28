@@ -9,6 +9,7 @@
 #define PLAYERSHIP_H_
 
 #include "Ship.h"
+
 #include <map>
 
 namespace shs {
@@ -23,6 +24,8 @@ enum ShipKeys {
 
 };
 
+class AttachableCamera;
+
 class PlayerShip: public shs::Ship {
 protected:
 	std::map<irr::EKEY_CODE, ShipKeys> availableStates;
@@ -32,17 +35,17 @@ protected:
 	virtual void handleCamera() = 0;
 	virtual void handleMovement() = 0;
 
-	 irr::scene::ICameraSceneNode *camera;
+	const GameContext &context;
 
-	 //--- set camera to behave as cockpit camera of ship ---
-	void setCameraBehind(irr::core::vector3df offset); //relative position of camera to node (ship)
+	AttachableCamera *camera;
 
 public:
-	PlayerShip();
-	PlayerShip(irr::scene::IAnimatedMeshSceneNode *node, irr::scene::ICameraSceneNode *camera);
+
+	PlayerShip(const GameContext &context,
+			irr::scene::IAnimatedMeshSceneNode *node);
 	virtual ~PlayerShip();
 
-	void attachCamera(irr::scene::ICameraSceneNode *camera);
+//	void attachCamera(irr::scene::ICameraSceneNode *camera);
 
 	static irr::scene::ISceneNode* createPlayerShip(GameContext *c);
 
@@ -57,17 +60,20 @@ protected:
 
 	virtual void handleCamera();
 	virtual void handleMovement();
+
+	TestPlayerShip();
+
 public:
 	bool handleCam;
 
-	TestPlayerShip();
-	TestPlayerShip(irr::scene::IAnimatedMeshSceneNode *node, irr::scene::ICameraSceneNode *camera);
+	TestPlayerShip(const GameContext &context,
+			irr::scene::IAnimatedMeshSceneNode *node);
 
 	virtual void handleInput(const irr::SEvent& event);
 	static irr::scene::IAnimatedMeshSceneNode* createTestPlayerShipNode(
 			const GameContext & c);
 
-	void bindCamera(irr::scene::ICameraSceneNode *cam);
+//	void bindCamera(irr::scene::ICameraSceneNode *cam);
 
 	virtual ~TestPlayerShip();
 

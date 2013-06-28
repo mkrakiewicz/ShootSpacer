@@ -12,10 +12,11 @@
 
 namespace shs {
 
-class Ship : public MovingObject3D {
-public:
-
+class Ship: public MovingObject3D {
+protected:
 	Ship();
+
+public:
 
 	Ship(irr::scene::ISceneNode *node);
 
@@ -24,7 +25,7 @@ public:
 	virtual void update() = 0;
 };
 
-class NonPlayerShip : public  Ship {
+class NonPlayerShip: public Ship {
 public:
 	NonPlayerShip(irr::scene::ISceneNode *node);
 
