@@ -11,3 +11,16 @@
 *.lai
 *.la
 *.a
+
+# Eclipse project related
+.settings
+Debug
+Release
+/.cproject
+/.project
+/*.exe
+/*.exe
+/*.dll
+/Debug Release
+/Debug Development
+/Run Development
