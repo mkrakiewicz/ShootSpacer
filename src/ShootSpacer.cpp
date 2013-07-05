@@ -118,7 +118,7 @@ void ShootSpacer::startGame() {
 	LevelManager mgr(context);
 
 	//TODO: implement level manager
-	Level *testLevel = mgr.getTestLevel();
+	Level *testLevel = mgr.getCurrentLevel();
 
 	MainMenu main_menu(context);
 

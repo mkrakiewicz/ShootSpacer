@@ -22,6 +22,10 @@ LevelManager::~LevelManager() {
 	}
 }
 
+Level* LevelManager::getCurrentLevel() {
+	return getTestLevel();
+}
+
 Level* LevelManager::getTestLevel() {
 	if (testLevel) {
 		delete testLevel;
