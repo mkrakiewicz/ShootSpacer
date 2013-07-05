@@ -17,22 +17,27 @@ class Level;
  *  - Manages generated levels by itself!
  *  - Adds them to array/queue/vector
  *  - Deletes them in destructor OR if necessary before replacing them with another level
- *
+ *  - Will store level number, current bonuses, etc....
  */
-class LevelManager : protected FiniteStateMachine {
-protected:
-//need to be replaced later with some sort of management of levels
-	Level *testLevel;
+class LevelManager: protected FiniteStateMachine {
 public:
 	LevelManager(const GameContext & context);
 	virtual ~LevelManager();
 
+	/**
+	 * Gives current level
+	 * DO NOT DELETE the object, deletion is handled by this manager
+	 * @return pointer to current level
+	 */
 	Level* getCurrentLevel();
 
 protected:
 
 	Level *getTestLevel();
 	const GameContext & context;
+
+	//need to be replaced later with some sort of management of levels
+	Level *testLevel;
 
 };
 
