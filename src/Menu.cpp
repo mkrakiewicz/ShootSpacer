@@ -136,7 +136,7 @@ void shs::MainMenu::handleEvent(const irr::SEvent& event) {
 			context.stateRunner->exit();
 			break;
 		case KEY_RETURN:
-			context.stateRunner->appendStateWithName(L"test_level");
+			context.stateRunner->appendStateWithName(L"current_level");
 			this->stop();
 			break;
 		default:
