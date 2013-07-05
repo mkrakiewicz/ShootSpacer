@@ -13,15 +13,25 @@
 namespace shs {
 
 class Level;
-
+/**
+ *  - Manages generated levels by itself!
+ *  - Adds them to array/queue/vector
+ *  - Deletes them in destructor OR if necessary before replacing them with another level
+ *
+ */
 class LevelManager : protected FiniteStateMachine {
+protected:
+//need to be replaced later with some sort of management of levels
+	Level *testLevel;
 public:
 	LevelManager(const GameContext & context);
 	virtual ~LevelManager();
 
-	Level *getTestLevel();
+	Level* getCurrentLevel();
+
 protected:
 
+	Level *getTestLevel();
 	const GameContext & context;
 
 };

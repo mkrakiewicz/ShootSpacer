@@ -122,20 +122,16 @@ void ShootSpacer::startGame() {
 
 	MainMenu main_menu(context);
 
-	stateRunner.saveStateAs(L"test_level",testLevel);
+	stateRunner.saveStateAs(L"current_level",testLevel);
 	stateRunner.saveStateAs(L"menu",menu);
 	stateRunner.saveStateAs(L"main_menu", &main_menu);
 
 	stateRunner.appendStateWithName("main_menu");
 
-
-	bool run = true;
-
 	while (stateRunner.hasNext() && device->run()) {
 		stateRunner.runCurrentState();
 	}
 
-	delete testLevel;
 
 }
 
