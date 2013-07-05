@@ -10,7 +10,8 @@
 
 namespace shs {
 
-LevelManager::LevelManager(const GameContext & context) :context(context),testLevel(0) {
+LevelManager::LevelManager(const GameContext & context) :
+		testLevel(0), context(context) {
 	// TODO Auto-generated constructor stub
 
 }
@@ -23,7 +24,7 @@ LevelManager::~LevelManager() {
 
 Level* LevelManager::getTestLevel() {
 	if (testLevel) {
-			delete testLevel;
+		delete testLevel;
 	}
 	Level *tmp = new TestLevel(context);
 	testLevel = tmp;
