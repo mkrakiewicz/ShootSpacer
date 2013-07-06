@@ -146,7 +146,9 @@ void TestPlayerShip::handleCamera() {
 void TestPlayerShip::handleMovement() {
 
 	if (keyStates[ACCELERATE] == true) {
-		moveNodeInLocalSpace(vector3df(0, 0, 1), 35);
+		setVelocityVector( getIn());
+
+		currentVelocity=30;
 	}
 
 	if (keyStates[PITCH_UPWARDS] == true) {
@@ -165,6 +167,8 @@ void TestPlayerShip::handleMovement() {
 		rotateNodeInLocalSpace(-30, vector3df(0, 1, 0));
 
 	}
+
+	moveByVelocityVector();
 }
 
 //void TestPlayerShip::initKeys() {

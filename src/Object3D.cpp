@@ -112,12 +112,13 @@ void Object3D::moveNodeInLocalSpace(const core::vector3df& dir, f32 dist) {
 	node->setPosition(pos);
 }
 
-const vector3df& MovingObject3D::getVelocityVector() const {
+const vector3df MovingObject3D::getVelocityVector() const {
 	return velocityVector;
 }
 
 void MovingObject3D::setVelocityVector(const vector3df& speedVector) {
-	this->velocityVector = speedVector;
+
+	this->velocityVector = vector3df(speedVector).normalize();
 }
 
 irr::core::vector3df Object3D::getPosition() {
@@ -200,6 +201,18 @@ irr::core::vector3df Object3D::getIn() {
 
 irr::core::vector3df Object3D::getRotation() {
 	return node->getRotation();
+}
+
+irr::f32 MovingObject3D::getVelocity() const {
+	return currentVelocity;
+}
+
+void MovingObject3D::setVelocity(irr::f32 currentVelocity) {
+	this->currentVelocity = currentVelocity;
+}
+
+void MovingObject3D::moveByVelocityVector() {
+		moveNodeInLocalSpace(velocityVector);
 }
 
 } /* namespace shootspacer */
