@@ -12,10 +12,10 @@
 
 namespace shs {
 
+/**
+ * Abstract class to represent general Ship object without handling input or control
+ */
 class Ship: public MovingObject3D {
-protected:
-	Ship();
-
 public:
 
 	Ship(irr::scene::ISceneNode *node);
@@ -23,8 +23,23 @@ public:
 	virtual ~Ship();
 
 	virtual void update() = 0;
+protected:
+	Ship();
+
+	irr::f32 maxSpeed;
+	irr::f32 maxRotationSpeed;
+	irr::f32 maxAcceleration;
+	irr::f32 acceleration;
+
+	inline irr::f32 calculateAccelerationNonLinear();
+
+private:
+	void init();
 };
 
+/**
+ * Class to be later implemented as AI ship etc...
+ */
 class NonPlayerShip: public Ship {
 public:
 	NonPlayerShip(irr::scene::ISceneNode *node);

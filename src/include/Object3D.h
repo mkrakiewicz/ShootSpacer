@@ -151,16 +151,21 @@ class MovingObject3D: public Object3D {
 protected:
 
 	/**
-	 * Vector along which the object is supposed to move each frame. Must be multiplied by frame delta. TODO: ?
-	 * If
+	 * Vector along which the object is supposed to move each frame.
+	 * Must be normalized! - it is done in set method
 	 */
 	irr::core::vector3df velocityVector;
+
+	/**
+	 * Velocity,Speed
+	 */
+	irr::f32 currentVelocity;
 
 	/**
 	 * Default constructor
 	 */
 	MovingObject3D() :
-			Object3D(0) {
+			Object3D(0), velocityVector(0, 0, 0), currentVelocity(0) {
 	}
 public:
 
@@ -169,7 +174,7 @@ public:
 	 * @param node
 	 */
 	MovingObject3D(irr::scene::ISceneNode *node) :
-			Object3D(node) {
+			Object3D(node), velocityVector(0, 0, 0), currentVelocity(0) {
 	}
 
 	/**
@@ -178,13 +183,30 @@ public:
 	 * TODO: check if returning reference is good practice. it's supposed to be faster than returning by value...
 	 * @return
 	 */
-	const irr::core::vector3df& getVelocityVector() const;
+	const irr::core::vector3df getVelocityVector() const;
 
 	/**
 	 * Set the speed vector
 	 * @param speedVector
 	 */
 	void setVelocityVector(const irr::core::vector3df& vector);
+
+	/**
+	 * Moves by velocityVector
+	 */
+	void moveByVelocityVector();
+
+	/**
+	 * Getter
+	 * @return
+	 */
+	irr::f32 getVelocity() const;
+
+	/**
+	 * Setter
+	 * @param currentVelocity
+	 */
+	void setVelocity(irr::f32 currentVelocity);
 };
 
 } /* namespace shs */
