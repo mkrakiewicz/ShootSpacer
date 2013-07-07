@@ -1,2 +1,2 @@
-const irr::core::stringw VERSION = "0.1.1" ;
-const irr::core::stringw VERSION_HASH = "f872f12";
+const irr::core::stringw VERSION = "0.1.2" ;
+const irr::core::stringw VERSION_HASH = "09af161";
