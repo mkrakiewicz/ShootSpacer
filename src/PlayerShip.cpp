@@ -146,9 +146,9 @@ void TestPlayerShip::handleCamera() {
 void TestPlayerShip::handleMovement() {
 
 	if (keyStates[ACCELERATE] == true) {
-		setVelocityVector( getIn());
+		calculateVelocityVector();
 
-		currentVelocity=30;
+//		currentVelocity=30;
 	}
 
 	if (keyStates[PITCH_UPWARDS] == true) {
@@ -168,6 +168,7 @@ void TestPlayerShip::handleMovement() {
 
 	}
 
+//	node->setPosition(node->getPosition() + velocityVector*2);
 	moveByVelocityVector();
 }
 
