@@ -67,6 +67,7 @@ protected:
 
 public:
 
+
 	TestPlayerShip(irr::scene::IAnimatedMeshSceneNode *node);
 
 	virtual void handleInput(const irr::SEvent& event);

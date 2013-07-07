@@ -19,19 +19,19 @@ using namespace gui;
 namespace shs {
 
 Ship::Ship() :
-		MovingObject3D() {
+		AcceleratingObject3D() {
 	init();
 }
 
 Ship::Ship(ISceneNode* node) :
-		MovingObject3D(node) {
+		AcceleratingObject3D(node) {
 	init();
 }
 
 f32 Ship::calculateAccelerationNonLinear() {
 	if (maxSpeed != 0.f) {
-		f32 f = 1 - pow((f32)(currentVelocity / maxSpeed), 2);
-		return f * maxAcceleration;
+		f32 f = 1 - pow((f32) (currentSpeed / maxSpeed), 2);
+		return (f * maxAcceleration * getFrameDelta());
 	}
 	return 0.f;
 }
@@ -39,16 +39,36 @@ f32 Ship::calculateAccelerationNonLinear() {
 Ship::~Ship() {
 }
 
+
+
+void Ship::setMaxAcceleration(irr::f32 maxAcceleration) {
+	this->maxAcceleration = maxAcceleration;
+}
+
+void Ship::setMaxRotationSpeed(irr::f32 maxRotationSpeed) {
+	this->maxRotationSpeed = maxRotationSpeed;
+}
+
+void Ship::setMaxSpeed(irr::f32 maxSpeed) {
+	this->maxSpeed = maxSpeed;
+}
+
+
+void Ship::accelerate() {
+}
+
+void Ship::init() {
+	maxAcceleration = maxRotationSpeed = maxSpeed = 0;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
 NonPlayerShip::NonPlayerShip(irr::scene::ISceneNode* node) :
 		Ship(node) {
 
 }
 
 void NonPlayerShip::update() {
-}
-
-void Ship::init() {
-	maxAcceleration = maxRotationSpeed = maxSpeed = 0;
 }
 
 } /* namespace shootspacer */

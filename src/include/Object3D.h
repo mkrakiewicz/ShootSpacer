@@ -11,27 +11,6 @@
 namespace shs {
 
 class Object3D {
-private:
-
-	/**
-	 * "Global" private reference for all 3D objects. only accessible by getFrameDelta()
-	 */
-	static irr::f32 *frameDeltaTime;
-
-protected:
-	/**
-	 * Irrlicht engine node type that will be a base for all objects.
-	 */
-	irr::scene::ISceneNode *node;
-
-	irr::core::vector3df getIn();
-
-	/**
-	 * Default constructor
-	 */
-	Object3D() :
-			node(0) {
-	}
 public:
 
 	/**
@@ -39,6 +18,7 @@ public:
 	 * @param node
 	 */
 	Object3D(irr::scene::ISceneNode *node);
+
 	virtual ~Object3D();
 
 	/**
@@ -141,6 +121,28 @@ public:
 		return node;
 	}
 
+protected:
+	/**
+	 * Irrlicht engine node type that will be a base for all objects.
+	 */
+	irr::scene::ISceneNode *node;
+
+	irr::core::vector3df getIn();
+
+	/**
+	 * Default constructor - can't create without node as all operations rely on it
+	 */
+	Object3D() :
+			node(0) {
+	}
+
+private:
+
+	/**
+	 * "Global" private reference for all 3D objects. only accessible by getFrameDelta()
+	 */
+	static irr::f32 *frameDeltaTime;
+
 };
 
 /*******************************************
@@ -148,6 +150,51 @@ public:
  *
  */
 class MovingObject3D: public Object3D {
+public:
+
+	/**
+	 * Constructor
+	 * @param node
+	 */
+	MovingObject3D(irr::scene::ISceneNode *node);
+
+	~MovingObject3D();
+	/**
+	 *  Created new velocity vector from vector. vector(0,0,1) - front by default
+	 */
+	void makeVelocityVector(irr::core::vector3df localDirection =
+			irr::core::vector3df(0, 0, 1));
+
+	/**
+	 * Get the velocity vector
+	 * TODO: Perhaps it should be already multiplied by frame delta
+	 * @return
+	 */
+	const irr::core::vector3df getVelocityVector() const;
+
+	/**
+	 * Set the velocity vector (will be normalized)
+	 * @param speedVector
+	 */
+	void setVelocityVector(const irr::core::vector3df& vector);
+
+	/**
+	 * Moves by velocityVector
+	 */
+	void move();
+
+	/**
+	 * Getter
+	 * @return
+	 */
+	irr::f32 getSpeed() const;
+
+	/**
+	 * Setter for speed. Move direction is unchanged
+	 * @param currentVelocity
+	 */
+	void setSpeed(irr::f32 currentVelocity);
+
 protected:
 
 	/**
@@ -159,55 +206,39 @@ protected:
 	/**
 	 * Velocity,Speed
 	 */
-	irr::f32 currentVelocity;
+	irr::f32 currentSpeed;
 
 	/**
 	 * Default constructor
 	 */
-	MovingObject3D() :
-			Object3D(0), velocityVector(0, 0, 0), currentVelocity(0) {
-	}
+	MovingObject3D();
+
+};
+
+class AcceleratingObject3D: public MovingObject3D {
 public:
+	AcceleratingObject3D(irr::scene::ISceneNode *node);
+	~AcceleratingObject3D();
+
+	void setAcceleration(const irr::core::vector3df& vector);
+	irr::f32 getAcceleration();
+
+	void clearAcceleration();
+
+	void makeVelocityVector(irr::core::vector3df localDirection =
+			irr::core::vector3df(0, 0, 1));
+
+	void makeAccelerationVector(irr::core::vector3df localDirection);
+
+protected:
+	irr::f32 acceleration;
+	irr::core::vector3df accelerationVector;
 
 	/**
-	 * Constructor
-	 * @param node
+	 * Default constructor
 	 */
-	MovingObject3D(irr::scene::ISceneNode *node) :
-			Object3D(node), velocityVector(0, 0, 0), currentVelocity(0) {
-	}
+	AcceleratingObject3D();
 
-	void calculateVelocityVector();
-
-	/**
-	 * Get the velocity vector
-	 * TODO: Perhaps it should be already multiplied by frame delta
-	 * @return
-	 */
-	const irr::core::vector3df getVelocityVector() const;
-
-	/**
-	 * Set the speed vector
-	 * @param speedVector
-	 */
-	void setVelocityVector(const irr::core::vector3df& vector);
-
-	/**
-	 * Moves by velocityVector
-	 */
-	void moveByVelocityVector();
-
-	/**
-	 * Getter
-	 * @return
-	 */
-	irr::f32 getVelocity() const;
-
-	/**
-	 * Setter
-	 * @param currentVelocity
-	 */
-	void setVelocity(irr::f32 currentVelocity);
 };
 
 } /* namespace shs */

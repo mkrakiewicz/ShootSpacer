@@ -15,7 +15,7 @@ namespace shs {
 /**
  * Abstract class to represent general Ship object without handling input or control
  */
-class Ship: public MovingObject3D {
+class Ship: public AcceleratingObject3D {
 public:
 
 	Ship(irr::scene::ISceneNode *node);
@@ -23,15 +23,25 @@ public:
 	virtual ~Ship();
 
 	virtual void update() = 0;
+	void setMaxAcceleration(irr::f32 maxAcceleration);
+	void setMaxRotationSpeed(irr::f32 maxRotationSpeed);
+	void setMaxSpeed(irr::f32 maxSpeed);
+
+	void accelerate();
+
 protected:
 	Ship();
 
 	irr::f32 maxSpeed;
 	irr::f32 maxRotationSpeed;
 	irr::f32 maxAcceleration;
-	irr::f32 acceleration;
+
 
 	inline irr::f32 calculateAccelerationNonLinear();
+
+
+//	virtual void makeVelocityVector(irr::core::vector3df localDirection =
+//			irr::core::vector3df(0, 0, 1));
 
 private:
 	void init();
