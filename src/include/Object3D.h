@@ -177,10 +177,11 @@ public:
 			Object3D(node), velocityVector(0, 0, 0), currentVelocity(0) {
 	}
 
+	void calculateVelocityVector();
+
 	/**
 	 * Get the velocity vector
-	 * TODO: Perhaps it should be already multiplied by frame delta?
-	 * TODO: check if returning reference is good practice. it's supposed to be faster than returning by value...
+	 * TODO: Perhaps it should be already multiplied by frame delta
 	 * @return
 	 */
 	const irr::core::vector3df getVelocityVector() const;
