@@ -125,13 +125,13 @@ void TestLevel::beforeStop() {
 
 void TestLevel::init() {
 
-	IAnimatedMesh* mesh = smgr->getMesh("img/sydney.md2");
+//	IAnimatedMesh* mesh = smgr->getMesh("img/sydney.md2");
 
-	IAnimatedMeshSceneNode * tmpnode = smgr->addAnimatedMeshSceneNode(mesh);
+	IMeshSceneNode * tmpnode = smgr->addCubeSceneNode(40);
 
 	if (tmpnode) {
 		tmpnode->setMaterialFlag(EMF_LIGHTING, false);
-		tmpnode->setMD2Animation(scene::EMAT_STAND);
+//		tmpnode->setMD2Animation(scene::EMAT_STAND);
 		tmpnode->setMaterialTexture(0, driver->getTexture("img/sydney.bmp"));
 	}
 
@@ -150,7 +150,7 @@ void TestLevel::init() {
 
 //	ship.attachCamera(cam);
 
-	this->node = new NonPlayerShip(tmpnode);
+	this->node = new Planet(tmpnode);
 	testPlanet = Planet::createTestPlanet(context);
 
 }

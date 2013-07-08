@@ -55,6 +55,13 @@ void Ship::setMaxSpeed(irr::f32 maxSpeed) {
 
 
 void Ship::accelerate() {
+	acceleration = calculateAccelerationNonLinear();
+	makeAccelerationVector();
+}
+
+void Ship::update() {
+	updateMovement();
+	clearAcceleration();
 }
 
 void Ship::init() {
@@ -68,7 +75,5 @@ NonPlayerShip::NonPlayerShip(irr::scene::ISceneNode* node) :
 
 }
 
-void NonPlayerShip::update() {
-}
 
 } /* namespace shootspacer */
