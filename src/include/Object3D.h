@@ -159,6 +159,14 @@ public:
 	MovingObject3D(irr::scene::ISceneNode *node);
 
 	~MovingObject3D();
+
+	/**
+	 * function to be called every frame
+	 */
+	virtual void updateMovement();
+
+protected:
+
 	/**
 	 *  Created new velocity vector from vector. vector(0,0,1) - front by default
 	 */
@@ -195,8 +203,6 @@ public:
 	 */
 	void setSpeed(irr::f32 currentVelocity);
 
-protected:
-
 	/**
 	 * Vector along which the object is supposed to move each frame.
 	 * Must be normalized! - it is done in set method
@@ -220,17 +226,38 @@ public:
 	AcceleratingObject3D(irr::scene::ISceneNode *node);
 	~AcceleratingObject3D();
 
+	/**
+	 * function to be called every frame
+	 */
+	virtual void updateMovement();
+
+protected:
+
+	/**
+	 *
+	 * @param vector
+	 */
 	void setAcceleration(const irr::core::vector3df& vector);
+
+	/**
+	 *
+	 * @param acceleration
+	 */
+	void setAcceleration(irr::f32 acceleration);
+
 	irr::f32 getAcceleration();
 
 	void clearAcceleration();
 
-	void makeVelocityVector(irr::core::vector3df localDirection =
+	/**
+	 *
+	 * @param localDirection
+	 */
+	void makeAccelerationVector(irr::core::vector3df localDirection =
 			irr::core::vector3df(0, 0, 1));
 
-	void makeAccelerationVector(irr::core::vector3df localDirection);
+	void accelerationToVelocity();
 
-protected:
 	irr::f32 acceleration;
 	irr::core::vector3df accelerationVector;
 

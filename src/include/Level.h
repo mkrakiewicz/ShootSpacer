@@ -49,7 +49,7 @@ protected:
 
 	irr::scene::ICameraSceneNode *cam;
 
-	Ship *node;
+	Planet *node;
 	Planet *testPlanet;
 
 	TestPlayerShip *ship;

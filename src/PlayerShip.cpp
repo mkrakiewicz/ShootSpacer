@@ -50,7 +50,11 @@ ISceneNode* PlayerShip::createPlayerShip(GameContext* c) {
 
 void PlayerShip::update() {
 
-	handleMovement();
+	handleKeystates();
+
+	updateMovement();
+	clearAcceleration();
+
 	handleCamera();
 }
 
@@ -58,8 +62,8 @@ void PlayerShip::update() {
 
 TestPlayerShip::TestPlayerShip(irr::scene::IAnimatedMeshSceneNode* node) :
 		PlayerShip(node) {
-	currentSpeed = 15;
-	setMaxAcceleration(10);
+	currentSpeed = 0;
+	setMaxAcceleration(30);
 	setMaxRotationSpeed(20);
 	setMaxSpeed(50);
 //	initKeys();
@@ -147,10 +151,10 @@ void TestPlayerShip::handleCamera() {
 //	node->setPosition(matr.getTranslation());
 }
 
-void TestPlayerShip::handleMovement() {
+void TestPlayerShip::handleKeystates() {
 
 	if (keyStates[ACCELERATE] == true) {
-		makeVelocityVector();
+		accelerate();
 
 //		currentVelocity=30;
 	}
@@ -173,7 +177,6 @@ void TestPlayerShip::handleMovement() {
 	}
 
 //	node->setPosition(node->getPosition() + velocityVector*2);
-	move();
 }
 
 //void TestPlayerShip::initKeys() {

@@ -241,6 +241,10 @@ void MovingObject3D::setVelocityVector(const vector3df& velocityVector) {
 	this->currentSpeed = velocityVector.getLength();
 }
 
+void MovingObject3D::updateMovement() {
+	move();
+}
+
 MovingObject3D::MovingObject3D() :
 		Object3D(0), velocityVector(0, 0, 0), currentSpeed(0) {
 }
@@ -259,26 +263,18 @@ void AcceleratingObject3D::setAcceleration(const irr::core::vector3df& vector) {
 	acceleration = accelerationVector.getLength();
 }
 
+void AcceleratingObject3D::setAcceleration(irr::f32 acceleration) {
+	this->acceleration = acceleration;
+	this->accelerationVector = (accelerationVector.normalize())*acceleration;
+
+}
+
 irr::f32 AcceleratingObject3D::getAcceleration() {
 	return acceleration;
 }
 
 void AcceleratingObject3D::clearAcceleration() {
 	setAcceleration(vector3df(0, 0, 0));
-}
-
-void AcceleratingObject3D::makeVelocityVector(
-		irr::core::vector3df localDirection) {
-	node->updateAbsolutePosition();
-	core::matrix4 m = node->getAbsoluteTransformation();
-	core::vector3df d = vector3df(localDirection).normalize();
-	m.rotateVect(d);
-
-	velocityVector = (d * currentSpeed) ;
-
-	/*node->setPosition(pos);
-	 setVelocityVector(node->getRotation().rotationToDirection());*/
-	//	setVelocityVector( node->getAbsoluteTransformation().getTranslation() );
 }
 
 void AcceleratingObject3D::makeAccelerationVector(
@@ -294,6 +290,15 @@ void AcceleratingObject3D::makeAccelerationVector(
 	/*node->setPosition(pos);
 	 setVelocityVector(node->getRotation().rotationToDirection());*/
 	//	setVelocityVector( node->getAbsoluteTransformation().getTranslation() );
+}
+
+void AcceleratingObject3D::accelerationToVelocity() {
+	velocityVector += accelerationVector;
+}
+
+void AcceleratingObject3D::updateMovement() {
+	accelerationToVelocity();
+	move();
 }
 
 AcceleratingObject3D::AcceleratingObject3D() :

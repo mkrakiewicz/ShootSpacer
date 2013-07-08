@@ -22,7 +22,7 @@ public:
 
 	virtual ~Ship();
 
-	virtual void update() = 0;
+	virtual void update();
 	void setMaxAcceleration(irr::f32 maxAcceleration);
 	void setMaxRotationSpeed(irr::f32 maxRotationSpeed);
 	void setMaxSpeed(irr::f32 maxSpeed);
@@ -54,7 +54,7 @@ class NonPlayerShip: public Ship {
 public:
 	NonPlayerShip(irr::scene::ISceneNode *node);
 
-	void update();
+
 };
 
 } /* namespace shootspacer */
