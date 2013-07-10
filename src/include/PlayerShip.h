@@ -25,11 +25,12 @@ enum ShipKeys {
 };
 
 class AttachableCamera;
+class Loader;
 
 class PlayerShip: public shs::Ship {
 public:
 
-	PlayerShip(irr::scene::IAnimatedMeshSceneNode *node);
+	PlayerShip(irr::scene::IAnimatedMeshSceneNode *node, Loader *loader);
 	virtual ~PlayerShip();
 
 //	void attachCamera(irr::scene::ICameraSceneNode *camera);
@@ -43,6 +44,8 @@ public:
 	void attachNewCamera(AttachableCamera *camera);
 
 protected:
+	Loader *loader;
+
 	std::map<irr::EKEY_CODE, ShipKeys> availableStates;
 
 	std::map<ShipKeys, bool> keyStates;
@@ -59,7 +62,7 @@ protected:
 class TestPlayerShip: public PlayerShip {
 public:
 
-	TestPlayerShip(irr::scene::IAnimatedMeshSceneNode *node);
+	TestPlayerShip(irr::scene::IAnimatedMeshSceneNode *node, Loader *loader);
 
 	virtual void handleInput(const irr::SEvent& event);
 	static irr::scene::IAnimatedMeshSceneNode* createTestPlayerShipNode(

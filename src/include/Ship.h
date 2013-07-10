@@ -13,6 +13,7 @@
 namespace shs {
 
 /**
+ * Ship : short of "SpaceShip". It doesn't float on water :D
  * Abstract class to represent general Ship object without handling input or control
  */
 class Ship: public AcceleratingObject3D {

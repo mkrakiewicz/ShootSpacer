@@ -19,8 +19,8 @@ using namespace gui;
 
 namespace shs {
 
-PlayerShip::PlayerShip(IAnimatedMeshSceneNode *node) :
-		Ship(node), camera(0), isCameraHandled(false) {
+PlayerShip::PlayerShip(IAnimatedMeshSceneNode *node, Loader *loader) :
+		Ship(node), camera(0), isCameraHandled(false), loader(loader) {
 
 }
 
@@ -60,10 +60,10 @@ void PlayerShip::update() {
 
 
 
-TestPlayerShip::TestPlayerShip(irr::scene::IAnimatedMeshSceneNode* node) :
-		PlayerShip(node) {
+TestPlayerShip::TestPlayerShip(irr::scene::IAnimatedMeshSceneNode* node, Loader *loader) :
+		PlayerShip(node, loader) {
 	currentSpeed = 0;
-	setMaxAcceleration(30);
+	setMaxAcceleration(30 );
 	setMaxRotationSpeed(20);
 	setMaxSpeed(50);
 //	initKeys();

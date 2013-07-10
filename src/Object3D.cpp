@@ -265,7 +265,7 @@ void AcceleratingObject3D::setAcceleration(const irr::core::vector3df& vector) {
 
 void AcceleratingObject3D::setAcceleration(irr::f32 acceleration) {
 	this->acceleration = acceleration;
-	this->accelerationVector = (accelerationVector.normalize())*acceleration;
+	this->accelerationVector = (accelerationVector.normalize()) * acceleration;
 
 }
 
@@ -274,7 +274,8 @@ irr::f32 AcceleratingObject3D::getAcceleration() {
 }
 
 void AcceleratingObject3D::clearAcceleration() {
-	setAcceleration(vector3df(0, 0, 0));
+	if (acceleration != 0)
+		setAcceleration(vector3df(0, 0, 0));
 }
 
 void AcceleratingObject3D::makeAccelerationVector(
@@ -293,7 +294,8 @@ void AcceleratingObject3D::makeAccelerationVector(
 }
 
 void AcceleratingObject3D::accelerationToVelocity() {
-	velocityVector += accelerationVector;
+	if (acceleration != 0.f)
+		velocityVector += accelerationVector;
 }
 
 void AcceleratingObject3D::updateMovement() {
