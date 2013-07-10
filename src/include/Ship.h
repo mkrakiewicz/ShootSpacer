@@ -9,6 +9,7 @@
 #define SHIP_H_
 
 #include "Object3D.h"
+#include <map>
 
 namespace shs {
 
@@ -37,16 +38,41 @@ protected:
 	irr::f32 maxRotationSpeed;
 	irr::f32 maxAcceleration;
 
-
 	inline irr::f32 calculateAccelerationNonLinear();
-
 
 //	virtual void makeVelocityVector(irr::core::vector3df localDirection =
 //			irr::core::vector3df(0, 0, 1));
 
-private:
 	void init();
 };
+
+/**
+ *
+ */
+class ShipWithGuns: public Ship {
+public:
+	ShipWithGuns(irr::scene::ISceneNode *node, Loader *loader,
+			irr::scene::ISceneManager *smgr);
+
+	virtual void update();
+
+protected:
+
+	void updateGuns();
+
+	// loader to get models and textures for internal objects/guns
+	Loader *loader;
+
+	// scene manager to create scene nodes for internal objects/guns
+	irr::scene::ISceneManager *smgr;
+
+	std::map<irr::core::stringw,Gun*> guns;
+
+
+
+	ShipWithGuns():loader(0),smgr(0){}
+};
+
 
 /**
  * Class to be later implemented as AI ship etc...
@@ -54,7 +80,6 @@ private:
 class NonPlayerShip: public Ship {
 public:
 	NonPlayerShip(irr::scene::ISceneNode *node);
-
 
 };
 
