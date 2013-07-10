@@ -66,7 +66,7 @@ namespace shs {
 //
 //}
 Level::Level(const GameContext &context) :
-		FSMStateRenderLoop(context) {
+		FSMStateRenderLoop(context), loader(context) {
 }
 
 void Level::beforeRender() {
@@ -125,6 +125,10 @@ void TestLevel::beforeStop() {
 
 void TestLevel::init() {
 
+
+	loader.loadTexture("orange_particle","img/orange_projectile.bmp");
+	loader.loadTexture("sydney","img/sydney.bmp");
+
 //	IAnimatedMesh* mesh = smgr->getMesh("img/sydney.md2");
 
 	IMeshSceneNode * tmpnode = smgr->addCubeSceneNode(40);
@@ -132,7 +136,7 @@ void TestLevel::init() {
 	if (tmpnode) {
 		tmpnode->setMaterialFlag(EMF_LIGHTING, false);
 //		tmpnode->setMD2Animation(scene::EMAT_STAND);
-		tmpnode->setMaterialTexture(0, driver->getTexture("img/sydney.bmp"));
+		tmpnode->setMaterialTexture(0, loader.getTexture("sydney"));
 	}
 
 	tmpnode->setPosition(vector3df(-222,0,0));

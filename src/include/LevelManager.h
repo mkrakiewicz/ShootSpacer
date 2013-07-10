@@ -12,6 +12,7 @@
 
 namespace shs {
 
+
 class Level;
 /**
  *  - Manages generated levels by itself!

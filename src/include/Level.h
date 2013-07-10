@@ -10,12 +10,14 @@
 
 #include "FSMState.h"
 #include "PlayerShip.h"
+#include "Loader.h"
 
 namespace shs {
 
 class Ship;
 class Planet;
 class TestPlayerShip;
+class Loader;
 
 class Level: public shs::FSMStateRenderLoop {
 protected:
@@ -28,6 +30,8 @@ protected:
 
 	void beforeRun();
 	void beforeStop();
+
+	Loader loader;
 
 
 
