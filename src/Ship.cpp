@@ -39,8 +39,6 @@ f32 Ship::calculateAccelerationNonLinear() {
 Ship::~Ship() {
 }
 
-
-
 void Ship::setMaxAcceleration(irr::f32 maxAcceleration) {
 	this->maxAcceleration = maxAcceleration;
 }
@@ -52,7 +50,6 @@ void Ship::setMaxRotationSpeed(irr::f32 maxRotationSpeed) {
 void Ship::setMaxSpeed(irr::f32 maxSpeed) {
 	this->maxSpeed = maxSpeed;
 }
-
 
 void Ship::accelerate() {
 	acceleration = calculateAccelerationNonLinear();
@@ -75,5 +72,21 @@ NonPlayerShip::NonPlayerShip(irr::scene::ISceneNode* node) :
 
 }
 
-
 } /* namespace shootspacer */
+
+shs::ShipWithGuns::ShipWithGuns(irr::scene::ISceneNode* node, Loader* loader,
+		irr::scene::ISceneManager* smgr) {
+}
+
+void shs::ShipWithGuns::update() {
+	Ship::update();
+	updateGuns();
+}
+
+void shs::ShipWithGuns::updateGuns() {
+	std::map<irr::core::stringw,Gun*>::iterator gun;
+
+	for (gun = guns.begin(); gun != guns.end(); gun++) {
+		gun->second->
+	}
+}

@@ -17,16 +17,23 @@ class Projectile;
 class Gun {
 public:
 	// pass pointer to parent node.
-	Gun(Object3D *node, Loader *loader, irr::u32 limit);
+	Gun(Object3D *node, irr::u32 limit);
 	virtual ~Gun();
 
 	virtual void shoot() = 0;
+
+	void makeProjectiles(Loader *loader, irr::scene::ISceneManager *smgr) = 0;
+	void deleteProjectiles() = 0;
+
+	void updateProjectiles();
 
 protected:
 
 	/**
 	 * maybe when we have some models there should be a gun model
 	 */
+
+	//TODO: add Type, etc
 
 	// pointer to parent node.
 	// if Object3D is refactored to derived ISceneNode, this should also be changed to Object3D.
@@ -43,28 +50,28 @@ protected:
 	// projectile limit in pool
 	irr::u32 projectileLimit;
 
-	// loader
-	Loader *loader,
-
-	Gun():node(0),projectileLimit(0){};
+	Gun() :
+			node(0), projectileLimit(0), loader(0), smgr(0) {
+	};
 
 };
 
-
-class SimpleGun : public Gun {
+class SimpleGun: public Gun {
 public:
 	SimpleGun(Object3D *node, irr::u32 limit = 50);
 	virtual ~SimpleGun();
 
 	void shoot();
 
-protected:
-	void makeProjectiles();
+	void makeProjectiles(Loader *loader, irr::scene::ISceneManager *smgr);
 	void deleteProjectiles();
 
-	SimpleGun(){}
-};
 
+protected:
+
+	SimpleGun() {
+	}
+};
 
 /**
  * This class extends Ship because of it "free-flight" functions.
@@ -83,7 +90,7 @@ public:
 	//method to be called when shot
 	void start(irr::core::vector3df & startPos);
 
-	void move();
+	virtual void move();
 
 protected:
 
@@ -92,6 +99,12 @@ protected:
 
 	//distance to be added instead of calculating vector length all the time
 	irr::f32 distanceTravelled;
+
+	//distance after which projectile will be destroyed
+	irr::f32 maxDistance;
+
+	// time in miliseconds at which
+	irr::u32 startTime;
 
 };
 
