@@ -11,6 +11,7 @@
 #include "FiniteStateMachine.h"
 #include "PlayerShip.h"
 #include "Camera.h"
+#include "ShootSpacer.h"
 
 using namespace irr;
 
@@ -65,8 +66,8 @@ namespace shs {
 //
 //
 //}
-Level::Level(const GameContext &context) :
-		FSMStateRenderLoop(context) {
+Level::Level(const ShootSpacer* parent) :
+		FSMStateRenderLoop(parent) {
 }
 
 void Level::beforeRender() {
@@ -97,8 +98,8 @@ Level::~Level() {
 //TestLevel::TestLevel() :
 //		Level() {
 //}
-TestLevel::TestLevel(const GameContext &context) :
-		Level(context) {
+TestLevel::TestLevel(const ShootSpacer* parent) :
+		Level(parent) {
 
 	init();
 }
@@ -142,8 +143,8 @@ void TestLevel::init() {
 
 	vector3df wsp(0,5,-10);
 
-	ship = new TestPlayerShip(TestPlayerShip::createTestPlayerShipNode(context));
-	ship->attachNewCamera(new StaticCamera(context,ship));
+	ship = new TestPlayerShip(TestPlayerShip::createTestPlayerShipNode(parent));
+	ship->attachNewCamera(new StaticCamera(parent,ship));
 
 
 
@@ -151,7 +152,7 @@ void TestLevel::init() {
 //	ship.attachCamera(cam);
 
 	this->node = new Planet(tmpnode);
-	testPlanet = Planet::createTestPlanet(context);
+	testPlanet = Planet::createTestPlanet(parent);
 
 }
 
@@ -200,11 +201,11 @@ void TestLevel::handleEvent(const irr::SEvent& event) {
 	if (!event.KeyInput.PressedDown) {
 		if (event.KeyInput.Key == KEY_ESCAPE) {
 
-			context.stateRunner->appendStateWithName(L"menu");
+			parent->getStateRunner().appendStateWithName(L"menu");
 			this->stop();
 
 		} else if (event.KeyInput.Key == KEY_KEY_Q) {
-			context.stateRunner->endCurrentState();
+			parent->getStateRunner().endCurrentState();
 		}
 	}
 

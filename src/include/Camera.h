@@ -8,18 +8,20 @@
 #ifndef CAMERA_H_
 #define CAMERA_H_
 
+#include "RenderLoop.h"
+
 namespace shs {
 
 class Object3D;
 
-class Camera {
+class Camera : public IrrlichtClassBase {
 protected:
-	GameContext context;
+
 
 	irr::scene::ICameraSceneNode *camera;
 public:
 	Camera();
-	Camera(const GameContext& context);
+	Camera(const ShootSpacer* parent);
 	virtual ~Camera();
 
 	virtual void update() = 0;
@@ -33,7 +35,7 @@ protected:
 	irr::scene::ISceneNode * node;
 	irr::core::vector3df offset;
 public:
-	AttachableCamera(const GameContext & context, shs::Object3D * obj,
+	AttachableCamera(const ShootSpacer* parent, shs::Object3D * obj,
 			irr::core::vector3df offset);
 
 	void setOffset(irr::core::vector3df offset);
@@ -46,7 +48,7 @@ public:
 
 class StaticCamera: public AttachableCamera {
 public:
-	StaticCamera(const GameContext & context, shs::Object3D * obj,
+	StaticCamera(const ShootSpacer* parent, shs::Object3D * obj,
 			irr::core::vector3df offset = irr::core::vector3df(0.f, 10.f, -40.f));
 
 	virtual void update();

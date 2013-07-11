@@ -25,32 +25,27 @@ using namespace gui;
 
 namespace shs {
 
-const irr::IrrlichtDevice*& ShootSpacer::getDevice() const {
+irr::IrrlichtDevice* ShootSpacer::getDevice() const {
 	return device;
 }
 
-const irr::video::IVideoDriver*& ShootSpacer::getDriver() const {
+irr::video::IVideoDriver* ShootSpacer::getDriver() const {
 	return driver;
 }
 
-const ShootSpacerEvent*& ShootSpacer::getEventReceiver() const {
+ShootSpacerEvent* ShootSpacer::getEventReceiver() const {
 	return eventReceiver;
 }
 
-const irr::gui::IGUIEnvironment*& ShootSpacer::getGui() const {
+irr::gui::IGUIEnvironment* ShootSpacer::getGui() const {
 	return gui;
 }
 
-const Menu*& ShootSpacer::getMenu() const {
-	return menu;
-}
-
-const irr::scene::ISceneManager*& ShootSpacer::getSmgr() const {
+irr::scene::ISceneManager* ShootSpacer::getSmgr() const {
 	return smgr;
 }
-
-const shs::FSMStateRunner& ShootSpacer::getStateRunner() const {
-	return stateRunner;
+ FSMStateRunner& ShootSpacer::getStateRunner() const {
+	return const_cast<FSMStateRunner&>(stateRunner);
 }
 
 ShootSpacer::ShootSpacer() {
@@ -77,8 +72,6 @@ void ShootSpacer::initialize() {
 	device->setEventReceiver(eventReceiver);
 	device->setWindowCaption(windowTitle.c_str());
 
-	menu = new Menu(this);
-
 }
 
 void ShootSpacer::toggleGameState() {
@@ -94,7 +87,6 @@ void ShootSpacer::exit() {
 void ShootSpacer::cleanup() {
 
 	// all objects created with "new" operator must be deleted
-	delete menu;
 	delete eventReceiver;
 	device->drop();
 
@@ -129,16 +121,14 @@ void ShootSpacer::startGame() {
 
 		hasGameStarted = true;
 
-		LevelManager mgr(context);
+		LevelManager mgr(this);
 
 		//TODO: implement level manager
 		Level *testLevel = mgr.getCurrentLevel();
 
-		MainMenu main_menu(context);
-
 		stateRunner.saveStateAs(L"current_level", testLevel);
-		stateRunner.saveStateAs(L"menu", menu);
-		stateRunner.saveStateAs(L"main_menu", &main_menu);
+		stateRunner.saveStateAs(L"menu", new Menu(this));
+		stateRunner.saveStateAs(L"main_menu", new MainMenu(this));
 
 		stateRunner.appendStateWithName("main_menu");
 

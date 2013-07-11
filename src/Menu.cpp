@@ -5,6 +5,7 @@
  *      Author: Micha³
  */
 #include "stdafx.h"
+#include "ShootSpacer.h"
 #include "Menu.h"
 #include "FiniteStateMachine.h"
 
@@ -93,35 +94,33 @@ void Menu::handleEvent(const irr::SEvent& event) {
 		if (event.KeyInput.Key == KEY_ESCAPE) {
 
 			//	context.stateRunner->appendStateWithName(L"test_level");
-			context.stateRunner->endCurrentState();
+			parent->getStateRunner().endCurrentState();
 
 		} else if (event.KeyInput.Key == KEY_KEY_Q) {
-			context.stateRunner->exit();
+			parent->getStateRunner().exit();
 		}
 	}
 }
 
-} /* namespace shootspacer */
-
-shs::MainMenu::MainMenu(const GameContext& context) :
-		Menu(context) {
+MainMenu::MainMenu(const ShootSpacer* parent) :
+		Menu(parent) {
 
 	menu_test_string = L"MAIN MENU: ShootSpacer ";
 	menu_test_string += VERSION_INFO::CURRENT_VERSION_STRING;
 	menu_test_string += "\nmenu to be implemented...";
 }
 
-shs::MainMenu::~MainMenu() {
+MainMenu::~MainMenu() {
 }
 
-void shs::MainMenu::displayMenu() {
+void MainMenu::displayMenu() {
 	gui->clear();
 
 	//	gui->addStaticText(L"SPACESHOOTER", rect<s32>(400, 400, 700, 722), true);
 
 }
 
-void shs::MainMenu::afterRender() {
+void MainMenu::afterRender() {
 	if (builtInFont) {
 		builtInFont->draw(menu_test_string, core::rect<s32>(10, 10, 400, 400),
 				video::SColor(255, 255, 255, 255));
@@ -133,16 +132,16 @@ void shs::MainMenu::afterRender() {
 
 }
 
-void shs::MainMenu::handleEvent(const irr::SEvent& event) {
+void MainMenu::handleEvent(const irr::SEvent& event) {
 	if (!event.KeyInput.PressedDown) {
 
 		switch (event.KeyInput.Key) {
 		case KEY_ESCAPE:
 		case KEY_KEY_Q:
-			context.stateRunner->exit();
+			parent->getStateRunner().exit();
 			break;
 		case KEY_RETURN:
-			context.stateRunner->appendStateWithName(L"current_level");
+			parent->getStateRunner().appendStateWithName(L"current_level");
 			this->stop();
 			break;
 		default:
@@ -151,3 +150,5 @@ void shs::MainMenu::handleEvent(const irr::SEvent& event) {
 
 	}
 }
+
+} /* namespace shs */

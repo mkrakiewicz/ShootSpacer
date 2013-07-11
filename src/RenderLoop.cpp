@@ -5,6 +5,7 @@
  *      Author: Micha³
  */
 #include "stdafx.h"
+#include "ShootSpacer.h"
 #include "RenderLoop.h"
 
 using namespace irr;
@@ -20,19 +21,7 @@ namespace shs {
 irr::f32 RenderLoop::frameDeltaTime = 1.f;
 
 RenderLoop::RenderLoop(const ShootSpacer* parent) :
-		isRunning(false), parent(parent) {
-
-	device = this->parent->getDevice();
-
-	if (device) {
-
-		driver = parent->getDriver();
-		smgr = parent->getSmgr();
-		gui = parent->getGui();
-	} else {
-		//Perhaps there should be some exceptions
-	}
-
+		isRunning(false), IrrlichtClassBase(parent) {
 }
 
 f32 RenderLoop::getFrameDeltaTime() {
@@ -83,4 +72,25 @@ void RenderLoop::stop() {
 	isRunning = false;
 }
 
+/////////////////////////////////////////////////////
+
+IrrlichtClassBase::IrrlichtClassBase(const ShootSpacer* parent) :
+		parent(parent), device(0), driver(0), smgr(0), gui(0) {
+
+	this->device = this->parent->getDevice();
+
+	if (device) {
+
+		driver = parent->getDriver();
+		smgr = parent->getSmgr();
+		gui = parent->getGui();
+	} else {
+		//Perhaps there should be some exceptions
+	}
+}
+
+IrrlichtClassBase::~IrrlichtClassBase() {
+}
+
 } /* namespace ShootSpacer */
+
