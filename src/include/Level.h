@@ -37,7 +37,7 @@ protected:
 
 public:
 //	Level();
-	Level(const GameContext &context);
+	Level(const ShootSpacer* parent);
 
 	virtual ~Level();
 };
@@ -62,7 +62,7 @@ protected:
 
 public:
 //	TestLevel();
-	TestLevel(const GameContext &context);
+	TestLevel(const ShootSpacer* parent);
 
 	virtual ~TestLevel();
 

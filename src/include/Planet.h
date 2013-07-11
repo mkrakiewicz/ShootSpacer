@@ -12,12 +12,14 @@
 
 namespace shs {
 
+class ShootSpacer;
+
 class Planet: public Object3D {
 public:
 	Planet(irr::scene::ISceneNode *createdNode);
 	virtual ~Planet();
 
-	static Planet* createTestPlanet(const GameContext &context);
+	static Planet* createTestPlanet(const ShootSpacer* parent);
 };
 
 } /* namespace shootspacer */

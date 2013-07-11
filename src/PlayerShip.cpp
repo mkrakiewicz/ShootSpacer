@@ -6,6 +6,7 @@
  */
 
 #include "stdafx.h"
+#include "ShootSpacer.h"
 #include "PlayerShip.h"
 #include "Camera.h"
 
@@ -31,17 +32,17 @@ PlayerShip::~PlayerShip() {
 		delete camera;
 }
 
-ISceneNode* PlayerShip::createPlayerShip(GameContext* c) {
+ISceneNode* PlayerShip::createPlayerShip(const ShootSpacer* parent) {
 
 	ISceneNode * node = NULL;
 
-	node = c->smgr->addCubeSceneNode(50);
+	node = parent->getSmgr()->addCubeSceneNode(50);
 
 	if (node) {
 		node->setMaterialFlag(EMF_LIGHTING, false);
 
 		node->setMaterialTexture(0,
-				c->driver->getTexture(
+				parent->getDriver()->getTexture(
 						"D:/Pliki/irrlicht-1.8/irrlicht-1.8/media/wall.bmp"));
 	}
 
@@ -115,18 +116,18 @@ TestPlayerShip::~TestPlayerShip() {
 }
 
 IAnimatedMeshSceneNode* TestPlayerShip::createTestPlayerShipNode(
-		const shs::GameContext & c) {
+		const ShootSpacer* parent) {
 
 	IAnimatedMeshSceneNode * node = NULL;
 
-	IAnimatedMesh* mesh = c.smgr->getMesh("img/rusty_ship.3ds");
+	IAnimatedMesh* mesh = parent->getSmgr()->getMesh("img/rusty_ship.3ds");
 
-	node = c.smgr->addAnimatedMeshSceneNode(mesh);
+	node = parent->getSmgr()->addAnimatedMeshSceneNode(mesh);
 
 	if (node) {
 		node->setMaterialFlag(EMF_LIGHTING, false);
 
-		node->setMaterialTexture(0, c.driver->getTexture("img/tex.png"));
+		node->setMaterialTexture(0,  parent->getDriver()->getTexture("img/tex.png"));
 	}
 
 	node->setPosition(vector3df(0, 30, -340));

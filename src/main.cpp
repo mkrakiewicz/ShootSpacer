@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "ShootSpacer.h"
 
-
 using namespace std;
 
 using namespace irr;
@@ -15,15 +14,17 @@ using namespace gui;
 using namespace shs;
 
 
-
+/**
+ * Main function. This file should not be changed. Here is created game instance.
+ * @param argc
+ * @param argv
+ * @return 0
+ */
 int main(int argc, char **argv) {
 
-//	setvbuf(stdout, NULL, _IONBF, 0);
-//	setvbuf(stderr, NULL, _IONBF, 0);
-
-	ShootSpacer *s = ShootSpacer::getInstance();
+	ShootSpacerInstance *s = ShootSpacerInstance::getInstance();
 	s->startGame();
-	ShootSpacer::releaseInstance();
+	ShootSpacerInstance::releaseInstance();
 
 	return 0;
 }

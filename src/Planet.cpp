@@ -6,6 +6,7 @@
  */
 
 #include "stdafx.h"
+#include "ShootSpacer.h"
 #include "Planet.h"
 
 using namespace irr;
@@ -31,18 +32,17 @@ Planet::Planet(ISceneNode *createdNode):Object3D(createdNode)
 Planet::~Planet() {
 }
 
-Planet* Planet::createTestPlanet(const GameContext &context) {
+Planet* Planet::createTestPlanet(const ShootSpacer* parent) {
 
-	const GameContext * c = &context;
 
-	ISceneNode *tmp = (c->smgr->addSphereSceneNode(180,128));
+	ISceneNode *tmp = parent->getSmgr()->addSphereSceneNode(180,128);
 
 	tmp->setPosition(vector3df(100,10,0));
 	if (tmp) {
 		tmp->setMaterialFlag(EMF_LIGHTING, false);
 
 		tmp->setMaterialTexture(0,
-				c->driver->getTexture(
+				parent->getDriver()->getTexture(
 						"img/earth.jpg"));
 	}
 

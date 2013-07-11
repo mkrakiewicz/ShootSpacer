@@ -35,7 +35,7 @@ public:
 
 //	void attachCamera(irr::scene::ICameraSceneNode *camera);
 
-	static irr::scene::ISceneNode* createPlayerShip(GameContext *c);
+	static irr::scene::ISceneNode* createPlayerShip(const ShootSpacer* parent);
 
 	virtual void update();
 
@@ -66,7 +66,7 @@ public:
 
 	virtual void handleInput(const irr::SEvent& event);
 	static irr::scene::IAnimatedMeshSceneNode* createTestPlayerShipNode(
-			const GameContext & c);
+			const ShootSpacer* parent);
 
 //	void bindCamera(irr::scene::ICameraSceneNode *cam);
 

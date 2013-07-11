@@ -18,26 +18,38 @@ class Ship;
 class Planet;
 
 /**
- * States used to identify current game state
+ * Main game class. Has protected contructors and assinment operator. Singleton functionality is implemented
+ * in derived class in this file.
  */
-enum GameState {
-	INIT, RUN, MENU, EXIT
-};
-
-//TODO: perhaps should change pointers to variables if possible for safety.
 class ShootSpacer {
 public:
 
-	void toggleGameState();
-	void startGame();
-	void exit();
+	/**
+	 *  Start the game. All main objects are supposed to be created by this time.
+	 */
+	virtual void startGame();
 
-	static ShootSpacer* getInstance();
-	static void releaseInstance();
+	/**
+	 * Virtual destructor so that memory is cleaned after derived class is destroyed
+	 */
+	virtual ~ShootSpacer();
 
-	~ShootSpacer();
+	/**
+	 * getters for device, driver,gui,smgr...
+	 * @return
+	 */
+	irr::IrrlichtDevice* getDevice() const;
+	irr::video::IVideoDriver* getDriver() const;
+	ShootSpacerEvent* getEventReceiver() const;
+	irr::gui::IGUIEnvironment* getGui() const;
+	irr::scene::ISceneManager* getSmgr() const;
+	FSMStateRunner& getStateRunner() const;
+
 protected:
 
+	/**
+	 * Irrlicht Engine necessary pointers.
+	 */
 	irr::IrrlichtDevice *device;
 	irr::video::IVideoDriver *driver;
 	irr::scene::ISceneManager *smgr;
@@ -50,29 +62,26 @@ protected:
 	irr::IrrlichtDevice* createIrrlichtDevice();
 
 	/**
-	 * Sets some params, creates main objects
+	 * Creates main objects, assigns pointers
 	 */
 	void initialize();
+
+/////////////////////////////////////////////////////////////////////////////////
+
+//TODO: add Loader
 
 	/**
 	 * Manages and runs states.
 	 */
-	shs::FSMStateRunner stateRunner;
-
-	/**
-	 * A container to store game pointers (and other info)
-	 */
-	GameContext context;
-
-	/**
-	 * Pointer to menu object
-	 */
-	Menu *menu;
-
+	FSMStateRunner stateRunner;
 	/**
 	 * Event listener/receiver.
 	 */
 	ShootSpacerEvent *eventReceiver;
+
+	void exit();
+
+	void toggleGameState();
 
 	void cleanup();
 
@@ -85,30 +94,71 @@ protected:
 
 	void handleEvent(const irr::SEvent& event);
 
-private:
+	/**
+	 * Variable to ensure the game is not started twice.
+	 */
+	bool hasGameStarted;
+
+	//////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Private constructor to implement Singleton pattern.
+	 * Protected constructor to implement Singleton pattern.
 	 */
 	ShootSpacer();
-	static ShootSpacer* _instance;
-	static int _referenceCount;
 
 	/**
-	 * Private copy constructor (singleton)
+	 * Protected copy constructor (singleton)
 	 */
-	inline ShootSpacer(const ShootSpacer& sh) :
-			context(sh.context) {
+	inline ShootSpacer(const ShootSpacer& sh) {
 		initialize();
 	}
 
 	/**
-	 *  Private assignment operator - singleton requirement
+	 *  Protected assignment operator - singleton requirement
 	 */
 	inline ShootSpacer& operator=(const ShootSpacer&) {
 		return *this;
 	}
 
+};
+
+class ShootSpacerInstance: protected ShootSpacer {
+public:
+
+	static ShootSpacerInstance* getInstance();
+	static void releaseInstance();
+
+	virtual ~ShootSpacerInstance();
+
+	/**
+	 *  Start the game. All main objects are supposed to be created by this time.
+	 */
+	virtual void startGame() {
+		ShootSpacer::startGame();
+	}
+
+private:
+
+	/**
+	 * Private constructor to implement Singleton pattern.
+	 */
+	ShootSpacerInstance();
+	static ShootSpacerInstance* _instance;
+	static int _referenceCount;
+
+	/**
+	 * Private copy constructor (singleton)
+	 */
+	inline ShootSpacerInstance(const ShootSpacerInstance& sh) {
+		// nothing here
+	}
+
+	/**
+	 *  Private assignment operator - singleton requirement
+	 */
+	inline ShootSpacerInstance& operator=(const ShootSpacerInstance&) {
+		return *this;
+	}
 };
 
 } /* namespace shs */
