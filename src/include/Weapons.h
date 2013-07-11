@@ -26,12 +26,23 @@ public:
 	void deleteProjectiles() = 0;
 
 	void updateProjectiles();
+	irr::f32 getRpm() const;
+	void setRpm(irr::f32 rpm);
 
 protected:
 
 	/**
 	 * maybe when we have some models there should be a gun model
 	 */
+
+	// rate per minute
+	irr::f32 rpm;
+
+	// in miliseconds? rpm/60*1000 ?
+	irr::u32 delay;
+
+	//to wait accordingly to delay
+	irr::u32 lastShotTime;
 
 	//TODO: add Type, etc
 
@@ -51,7 +62,7 @@ protected:
 	irr::u32 projectileLimit;
 
 	Gun() :
-			node(0), projectileLimit(0), loader(0), smgr(0) {
+			node(0), projectileLimit(0), rpm(setRpm(120)) {
 	};
 
 };
