@@ -19,16 +19,16 @@ namespace shs {
 
 irr::f32 RenderLoop::frameDeltaTime = 1.f;
 
-RenderLoop::RenderLoop(const GameContext & _context) :
-		isRunning(false), context(_context) {
+RenderLoop::RenderLoop(const ShootSpacer* parent) :
+		isRunning(false), parent(parent) {
 
-	device = this->context.device;
+	device = this->parent->getDevice();
 
 	if (device) {
 
-		driver = context.driver;
-		smgr = context.smgr;
-		gui = context.gui;
+		driver = parent->getDriver();
+		smgr = parent->getSmgr();
+		gui = parent->getGui();
 	} else {
 		//Perhaps there should be some exceptions
 	}

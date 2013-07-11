@@ -32,7 +32,7 @@ void FSMStateRenderLoop::run() {
 	RenderLoop::run();
 }
 
-FSMStateRenderLoop::FSMStateRenderLoop(const GameContext &context) : FSMRunnableState(), RenderLoop(context)
+FSMStateRenderLoop::FSMStateRenderLoop(const ShootSpacer* parent) : FSMRunnableState(), RenderLoop(parent)
 {
 }
 

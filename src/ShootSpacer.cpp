@@ -25,8 +25,35 @@ using namespace gui;
 
 namespace shs {
 
-ShootSpacer::ShootSpacer() :
-		context(this->createIrrlichtDevice(), &stateRunner) {
+const irr::IrrlichtDevice*& ShootSpacer::getDevice() const {
+	return device;
+}
+
+const irr::video::IVideoDriver*& ShootSpacer::getDriver() const {
+	return driver;
+}
+
+const ShootSpacerEvent*& ShootSpacer::getEventReceiver() const {
+	return eventReceiver;
+}
+
+const irr::gui::IGUIEnvironment*& ShootSpacer::getGui() const {
+	return gui;
+}
+
+const Menu*& ShootSpacer::getMenu() const {
+	return menu;
+}
+
+const irr::scene::ISceneManager*& ShootSpacer::getSmgr() const {
+	return smgr;
+}
+
+const shs::FSMStateRunner& ShootSpacer::getStateRunner() const {
+	return stateRunner;
+}
+
+ShootSpacer::ShootSpacer() {
 
 	/**
 	 *  Init the game
@@ -36,12 +63,12 @@ ShootSpacer::ShootSpacer() :
 
 void ShootSpacer::initialize() {
 
-	device = context.device;
-	smgr = context.smgr;
-	driver = context.driver;
-	gui = context.gui;
-
 	hasGameStarted = false;
+
+	device = this->createIrrlichtDevice();
+	smgr = device->getSceneManager();
+	driver = device->getVideoDriver();
+	gui = device->getGUIEnvironment();
 
 	enableFrameIndependentMovement();
 
@@ -50,22 +77,12 @@ void ShootSpacer::initialize() {
 	device->setEventReceiver(eventReceiver);
 	device->setWindowCaption(windowTitle.c_str());
 
-	menu = new Menu(context);
+	menu = new Menu(this);
 
-	ICameraSceneNode *cam = smgr->addCameraSceneNode(0, vector3df(0, 30, -140),
-			vector3df(0, 5, 0));
-
-//	cam->setAspectRatio(16/9.f);
 }
 
 void ShootSpacer::toggleGameState() {
-//	if (state == MENU) {
-//		state = RUN;
-//		menu->stop();
-//	} else {
-//		state = MENU;
-//		stop();
-//	}
+
 }
 
 void ShootSpacer::exit() {
@@ -76,9 +93,10 @@ void ShootSpacer::exit() {
 
 void ShootSpacer::cleanup() {
 
+	// all objects created with "new" operator must be deleted
 	delete menu;
-
 	delete eventReceiver;
+	device->drop();
 
 }
 

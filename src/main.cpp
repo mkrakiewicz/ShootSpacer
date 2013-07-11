@@ -13,14 +13,17 @@ using namespace gui;
 
 using namespace shs;
 
-int main(int argc, char **argv) {
 
-//	setvbuf(stdout, NULL, _IONBF, 0);
-//	setvbuf(stderr, NULL, _IONBF, 0);
+/**
+ * Main function. This file should not be changed. Here is created game instance.
+ * @param argc
+ * @param argv
+ * @return 0
+ */
+int main(int argc, char **argv) {
 
 	ShootSpacerInstance *s = ShootSpacerInstance::getInstance();
 	s->startGame();
-	s->exit();
 	ShootSpacerInstance::releaseInstance();
 
 	return 0;
