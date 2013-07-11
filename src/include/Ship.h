@@ -56,6 +56,8 @@ public:
 
 	virtual void update();
 
+	void addGun(irr::core::stringw name, )
+
 protected:
 
 	void updateGuns();

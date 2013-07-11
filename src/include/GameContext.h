@@ -20,6 +20,7 @@ public:
 	irr::gui::IGUIEnvironment *gui;
 
 	FSMStateRunner *stateRunner;
+	Loader *loader;
 
 	GameContext(irr::IrrlichtDevice * context, FSMStateRunner *stateRunner);
 
