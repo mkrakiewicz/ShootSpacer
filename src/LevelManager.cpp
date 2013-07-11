@@ -10,16 +10,16 @@
 
 namespace shs {
 
-LevelManager::LevelManager(const GameContext & context) :
-		testLevel(0), context(context) {
+LevelManager::LevelManager(const ShootSpacer* parent) :
+		testLevel(0), IrrlichtClassBase(parent) {
 	// TODO Auto-generated constructor stub
-
+	testLevel = new TestLevel(parent);
 }
 
 LevelManager::~LevelManager() {
-	if (testLevel) {
-		delete testLevel;
-	}
+//	if (testLevel) {
+//		delete testLevel;
+//	}
 }
 
 Level* LevelManager::getCurrentLevel() {
@@ -27,12 +27,8 @@ Level* LevelManager::getCurrentLevel() {
 }
 
 Level* LevelManager::getTestLevel() {
-	if (testLevel) {
-		delete testLevel;
-	}
-	Level *tmp = new TestLevel(context);
-	testLevel = tmp;
-	return tmp;
+
+	return testLevel;
 }
 
 } /* namespace shs */

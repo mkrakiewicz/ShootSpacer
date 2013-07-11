@@ -5,6 +5,7 @@
  *      Author: Micha³
  */
 #include "stdafx.h"
+#include "ShootSpacer.h"
 #include "Camera.h"
 #include "Object3D.h"
 
@@ -18,10 +19,10 @@ using namespace gui;
 
 namespace shs {
 
-Camera::Camera(const GameContext& context) :
-		context(context) {
-	camera = context.smgr->addCameraSceneNode(0);
-	context.smgr->setActiveCamera(camera);
+Camera::Camera(const ShootSpacer* parent) :
+		IrrlichtClassBase(parent) {
+	camera = smgr->addCameraSceneNode(0);
+	smgr->setActiveCamera(camera);
 }
 
 Camera::~Camera() {
@@ -65,9 +66,9 @@ void AttachableCamera::update() {
 void AttachableCamera::handleInput(const irr::SEvent& event) {
 }
 
-AttachableCamera::AttachableCamera(const GameContext& context,
+AttachableCamera::AttachableCamera(const ShootSpacer* parent,
 		shs::Object3D * obj, irr::core::vector3df offset) :
-		Camera(context), node(obj->getNode()), offset(offset) {
+		Camera(parent), node(obj->getNode()), offset(offset) {
 
 	camera->setPosition(node->getPosition() + offset);
 	camera->setTarget(node->getPosition());
@@ -79,10 +80,10 @@ AttachableCamera::~AttachableCamera() {
 
 } /* namespace shs */
 
-shs::StaticCamera::StaticCamera(const GameContext& context,
+shs::StaticCamera::StaticCamera(const ShootSpacer* parent,
 		shs::Object3D * obj, irr::core::vector3df offset) :
 
-		AttachableCamera(context, obj, offset) {
+		AttachableCamera(parent, obj, offset) {
 }
 
 void shs::StaticCamera::update() {
