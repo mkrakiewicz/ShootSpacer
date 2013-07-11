@@ -18,14 +18,12 @@ class ShootSpacer;
 class Menu: public FSMStateRenderLoop {
 protected:
 
-	ShootSpacer *parent;
 	irr::video::ITexture *backgroundImg;
 
 	void beforeRender();
 	void afterRender();
 	void render();
 
-	irr::scene::ISceneManager *smgr;
 //	IGUIEnvironment *gui;
 
 	void beforeRun();
@@ -36,7 +34,7 @@ protected:
 	irr::gui::IGUIFont* builtInFont;
 
 public:
-	Menu(GameContext *parent);
+	Menu(const ShootSpacer* parent);
 	virtual ~Menu();
 
 	virtual void displayMenu();
@@ -51,7 +49,7 @@ protected:
 
 
 public:
-	MainMenu(const GameContext &context);
+	MainMenu(const ShootSpacer* parent);
 	virtual ~MainMenu();
 
 	void displayMenu();

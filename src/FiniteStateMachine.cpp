@@ -18,7 +18,11 @@ FiniteStateMachine::FiniteStateMachine() {
 
 FiniteStateMachine::~FiniteStateMachine() {
 
-//	delete stateContainer;
+	/**
+	 * WARNING! deleting handled by the manager
+	 */
+	deleteAllStates();
+
 }
 
 void FiniteStateMachine::appendState(FSMRunnableState* state) {
@@ -60,6 +64,27 @@ void FiniteStateMachine::exit() {
 	stateStack.clear();
 }
 
+void FiniteStateMachine::deleteAllStates() {
+	map<irr::core::stringw, FSMRunnableState*>::iterator itr;
+
+	itr = availableStates.begin();
+
+	while (itr != availableStates.end()) {
+		FSMRunnableState* tmp = 0;
+		tmp = itr->second;
+		if (tmp != 0) {
+
+//			availableStates.erase(itr);
+
+			delete tmp;
+		}
+
+		itr++;
+
+	}
+
+}
+
 } /* namespace shs */
 
 shs::FSMStateRunner::FSMStateRunner() :
@@ -84,6 +109,9 @@ void shs::FSMStateRunner::handleEvent(const irr::SEvent& event) {
 	if (state) {
 		state->handleEvent(event);
 	}
+}
+
+shs::FSMStateRunner::~FSMStateRunner() {
 }
 
 void shs::FSMStateRunner::endCurrentState() {

@@ -16,17 +16,6 @@ namespace shs {
 class FSMRunnableState;
 
 class FiniteStateMachine {
-protected:
-
-
-	/**
-	 * Hashmap of available states...
-	 */
-	std::map<irr::core::stringw,FSMRunnableState*> availableStates;
-	/**
-	 * Last element is current State.
-	 */
-	std::vector<FSMRunnableState*> stateStack;
 public:
 	FiniteStateMachine();
 	virtual ~FiniteStateMachine();
@@ -43,6 +32,20 @@ public:
 	bool hasNext();
 
 	void exit();
+protected:
+
+
+	/**
+	 * Hashmap of available states...
+	 */
+	std::map<irr::core::stringw,FSMRunnableState*> availableStates;
+	/**
+	 * Last element is current State.
+	 */
+	std::vector<FSMRunnableState*> stateStack;
+
+	void deleteAllStates();
+
 };
 
 class FSMStateRunner: public FiniteStateMachine {
@@ -52,6 +55,7 @@ protected:
 
 public:
 	FSMStateRunner();
+	virtual ~FSMStateRunner();
 
 	void handleEvent(const irr::SEvent& event);
 	void runCurrentState();

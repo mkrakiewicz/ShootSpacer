@@ -9,9 +9,11 @@
 #define LEVELMANAGER_H_
 
 #include "FiniteStateMachine.h"
+#include "RenderLoop.h"
 
 namespace shs {
 
+class ShootSpacer;
 class Level;
 /**
  *  - Manages generated levels by itself!
@@ -19,9 +21,9 @@ class Level;
  *  - Deletes them in destructor OR if necessary before replacing them with another level
  *  - Will store level number, current bonuses, etc....
  */
-class LevelManager: protected FiniteStateMachine {
+class LevelManager: protected FiniteStateMachine, public IrrlichtClassBase {
 public:
-	LevelManager(const GameContext & context);
+	LevelManager(const ShootSpacer* parent);
 	virtual ~LevelManager();
 
 	/**
@@ -34,7 +36,6 @@ public:
 protected:
 
 	Level *getTestLevel();
-	const GameContext & context;
 
 	//need to be replaced later with some sort of management of levels
 	Level *testLevel;

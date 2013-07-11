@@ -10,29 +10,35 @@
 
 namespace shs {
 
-class GameContext;
+class ShootSpacer;
 
-/**
- * Abstract base class for Menu and ShootSpacer
- */
-class RenderLoop {
-private:
-	static irr::f32 frameDeltaTime;
+class IrrlichtClassBase {
+public:
+	IrrlichtClassBase(const ShootSpacer* parent);
+	virtual ~IrrlichtClassBase();
 protected:
-	bool isRunning;
-
-	const ShootSpacer* parent;
-
 	irr::IrrlichtDevice *device;
 	irr::video::IVideoDriver *driver;
 	irr::scene::ISceneManager *smgr;
 	irr::gui::IGUIEnvironment *gui;
 
+	const ShootSpacer* parent;
+
+};
+
+/**
+ * Abstract base class for Menu and ShootSpacer
+ */
+class RenderLoop: protected IrrlichtClassBase {
+private:
+	static irr::f32 frameDeltaTime;
+protected:
+	bool isRunning;
+
 	void run();
 	virtual void beforeRender() = 0;
 	virtual void afterRender() = 0;
 	virtual void render() = 0;
-
 
 //	RenderLoop():isRunning(false),device(0),driver(0),smgr(0),gui(0){
 //	}

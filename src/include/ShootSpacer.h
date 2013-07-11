@@ -38,13 +38,12 @@ public:
 	 * getters for device, driver,gui,smgr...
 	 * @return
 	 */
-	const irr::IrrlichtDevice*& getDevice() const;
-	const irr::video::IVideoDriver*& getDriver() const;
-	const ShootSpacerEvent*& getEventReceiver() const;
-	const irr::gui::IGUIEnvironment*& getGui() const;
-	const Menu*& getMenu() const;
-	const irr::scene::ISceneManager*& getSmgr() const;
-	const shs::FSMStateRunner& getStateRunner() const;
+	irr::IrrlichtDevice* getDevice() const;
+	irr::video::IVideoDriver* getDriver() const;
+	ShootSpacerEvent* getEventReceiver() const;
+	irr::gui::IGUIEnvironment* getGui() const;
+	irr::scene::ISceneManager* getSmgr() const;
+	FSMStateRunner& getStateRunner() const;
 
 protected:
 
@@ -69,16 +68,12 @@ protected:
 
 /////////////////////////////////////////////////////////////////////////////////
 
+//TODO: add Loader
+
 	/**
 	 * Manages and runs states.
 	 */
-	shs::FSMStateRunner stateRunner;
-
-	/**
-	 * Pointer to menu object
-	 */
-	Menu *menu;
-
+	FSMStateRunner stateRunner;
 	/**
 	 * Event listener/receiver.
 	 */
