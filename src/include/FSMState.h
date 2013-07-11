@@ -42,7 +42,7 @@ protected:
 	virtual void beforeStop() = 0;
 public:
 //	FSMStateRenderLoop();
-	FSMStateRenderLoop(const GameContext &context);
+	FSMStateRenderLoop(const ShootSpacer* parent);
 	virtual ~FSMStateRenderLoop();
 
 	void run();

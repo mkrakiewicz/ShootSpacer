@@ -13,9 +13,12 @@
 
 namespace shs {
 
+class ShootSpacer;
+
 class Menu: public FSMStateRenderLoop {
 protected:
 
+	ShootSpacer *parent;
 	irr::video::ITexture *backgroundImg;
 
 	void beforeRender();
@@ -33,13 +36,13 @@ protected:
 	irr::gui::IGUIFont* builtInFont;
 
 public:
-	Menu(const GameContext &context);
+	Menu(GameContext *parent);
 	virtual ~Menu();
 
 	virtual void displayMenu();
 
 	virtual void handleEvent(const irr::SEvent& event);
-
+	void setParent(const ShootSpacer* parent);
 };
 
 class MainMenu: public Menu {

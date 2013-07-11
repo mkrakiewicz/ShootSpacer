@@ -21,7 +21,7 @@ private:
 protected:
 	bool isRunning;
 
-	const GameContext &context;
+	const ShootSpacer* parent;
 
 	irr::IrrlichtDevice *device;
 	irr::video::IVideoDriver *driver;
@@ -38,7 +38,7 @@ protected:
 //	}
 
 public:
-	RenderLoop(const GameContext & context);
+	RenderLoop(const ShootSpacer* parent);
 	virtual ~RenderLoop();
 
 	static irr::f32 getFrameDeltaTime();
