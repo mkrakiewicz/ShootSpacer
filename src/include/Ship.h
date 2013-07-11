@@ -13,6 +13,9 @@
 
 namespace shs {
 
+class Gun;
+class Loader;
+
 /**
  * Ship : short of "SpaceShip". It doesn't float on water :D
  * Abstract class to represent general Ship object without handling input or control
@@ -56,7 +59,7 @@ public:
 
 	virtual void update();
 
-	void addGun(irr::core::stringw name, )
+//	void addGun(irr::core::stringw name, )
 
 protected:
 
