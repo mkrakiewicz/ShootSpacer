@@ -28,16 +28,15 @@ enum GameState {
 class ShootSpacer {
 public:
 
-	void toggleGameState();
 	void startGame();
-	void exit();
-
-	static ShootSpacer* getInstance();
-	static void releaseInstance();
 
 	~ShootSpacer();
 protected:
 
+	void exit();
+
+
+	void toggleGameState();
 	irr::IrrlichtDevice *device;
 	irr::video::IVideoDriver *driver;
 	irr::scene::ISceneManager *smgr;
@@ -85,17 +84,15 @@ protected:
 
 	void handleEvent(const irr::SEvent& event);
 
-private:
+	bool hasGameStarted;
 
 	/**
-	 * Private constructor to implement Singleton pattern.
+	 * Protected constructor to implement Singleton pattern.
 	 */
 	ShootSpacer();
-	static ShootSpacer* _instance;
-	static int _referenceCount;
 
 	/**
-	 * Private copy constructor (singleton)
+	 * Protected copy constructor (singleton)
 	 */
 	inline ShootSpacer(const ShootSpacer& sh) :
 			context(sh.context) {
@@ -103,12 +100,43 @@ private:
 	}
 
 	/**
-	 *  Private assignment operator - singleton requirement
+	 *  Protected assignment operator - singleton requirement
 	 */
 	inline ShootSpacer& operator=(const ShootSpacer&) {
 		return *this;
 	}
 
+};
+
+class ShootSpacerInstance: public ShootSpacer {
+public:
+	static ShootSpacerInstance* getInstance();
+	static void releaseInstance();
+
+	virtual ~ShootSpacerInstance();
+
+private:
+
+	/**
+	 * Private constructor to implement Singleton pattern.
+	 */
+	ShootSpacerInstance();
+	static ShootSpacerInstance* _instance;
+	static int _referenceCount;
+
+	/**
+	 * Private copy constructor (singleton)
+	 */
+	inline ShootSpacerInstance(const ShootSpacerInstance& sh) {
+		// nothing here
+	}
+
+	/**
+	 *  Private assignment operator - singleton requirement
+	 */
+	inline ShootSpacerInstance& operator=(const ShootSpacerInstance&) {
+		return *this;
+	}
 };
 
 } /* namespace shs */
