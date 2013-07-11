@@ -25,13 +25,8 @@ using namespace gui;
 
 namespace shs {
 
-ShootSpacer* ShootSpacer::_instance = NULL;
-int ShootSpacer::_referenceCount = 0;
-
-
-ShootSpacer::ShootSpacer():
-	context(this->createIrrlichtDevice(),&stateRunner)
-		{
+ShootSpacer::ShootSpacer() :
+		context(this->createIrrlichtDevice(), &stateRunner) {
 
 	/**
 	 *  Init the game
@@ -46,6 +41,7 @@ void ShootSpacer::initialize() {
 	driver = context.driver;
 	gui = context.gui;
 
+	hasGameStarted = false;
 
 	enableFrameIndependentMovement();
 
@@ -62,7 +58,6 @@ void ShootSpacer::initialize() {
 //	cam->setAspectRatio(16/9.f);
 }
 
-
 void ShootSpacer::toggleGameState() {
 //	if (state == MENU) {
 //		state = RUN;
@@ -72,7 +67,6 @@ void ShootSpacer::toggleGameState() {
 //		stop();
 //	}
 }
-
 
 void ShootSpacer::exit() {
 	if (stateRunner.hasNext())
@@ -100,8 +94,6 @@ ShootSpacer::~ShootSpacer() {
 	cleanup();
 }
 
-
-
 IrrlichtDevice* ShootSpacer::createIrrlichtDevice() {
 
 	SIrrlichtCreationParameters params = SIrrlichtCreationParameters();
@@ -115,43 +107,59 @@ IrrlichtDevice* ShootSpacer::createIrrlichtDevice() {
 
 void ShootSpacer::startGame() {
 
-	LevelManager mgr(context);
+	if (!hasGameStarted) {
 
-	//TODO: implement level manager
-	Level *testLevel = mgr.getCurrentLevel();
+		hasGameStarted = true;
 
-	MainMenu main_menu(context);
+		LevelManager mgr(context);
 
-	stateRunner.saveStateAs(L"current_level",testLevel);
-	stateRunner.saveStateAs(L"menu",menu);
-	stateRunner.saveStateAs(L"main_menu", &main_menu);
+		//TODO: implement level manager
+		Level *testLevel = mgr.getCurrentLevel();
 
-	stateRunner.appendStateWithName("main_menu");
+		MainMenu main_menu(context);
 
-	while (stateRunner.hasNext() && device->run()) {
-		stateRunner.runCurrentState();
+		stateRunner.saveStateAs(L"current_level", testLevel);
+		stateRunner.saveStateAs(L"menu", menu);
+		stateRunner.saveStateAs(L"main_menu", &main_menu);
+
+		stateRunner.appendStateWithName("main_menu");
+
+		while (stateRunner.hasNext() && device->run()) {
+			stateRunner.runCurrentState();
+		}
 	}
-
 
 }
 
-ShootSpacer* shs::ShootSpacer::getInstance() {
+//////////////////////////////////////////////////////////////////////////////
+
+ShootSpacerInstance* ShootSpacerInstance::_instance = NULL;
+int ShootSpacerInstance::_referenceCount = 0;
+
+ShootSpacerInstance* shs::ShootSpacerInstance::getInstance() {
 
 	if (NULL == _instance) {
-		_instance = new ShootSpacer();
+		_instance = new ShootSpacerInstance();
 	}
 	_referenceCount++;
 	return _instance;
 
 }
 
-void shs::ShootSpacer::releaseInstance() {
+void shs::ShootSpacerInstance::releaseInstance() {
 	_referenceCount--;
 	if ((0 == _referenceCount) && (NULL != _instance)) {
-//		_instance->cleanup();
 		delete _instance;
 		_instance = NULL;
 	}
 }
 
-} /* namespace shootspacer */
+ShootSpacerInstance::~ShootSpacerInstance() {
+}
+
+ShootSpacerInstance::ShootSpacerInstance() :
+		ShootSpacer() {
+	// creates the instance
+}
+
+} /* namespace shs */
