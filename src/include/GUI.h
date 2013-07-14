@@ -51,7 +51,7 @@ protected:
 	/**
 	 *
 	 */
-	irr::u32 lineHeight = 15;
+	irr::u32 lineHeight;
 
 public:
 	//virtual void handleEvent(const irr::SEvent& event) = 0;

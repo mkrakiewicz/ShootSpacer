@@ -12,7 +12,6 @@
 #include "ShootSpacerEvent.h"
 #include "Level.h"
 #include "LevelManager.h"
-
 #include "ShootSpacer.h"
 
 using namespace irr;
@@ -44,11 +43,15 @@ irr::gui::IGUIEnvironment* ShootSpacer::getGui() const {
 irr::scene::ISceneManager* ShootSpacer::getSmgr() const {
 	return smgr;
 }
- FSMStateRunner& ShootSpacer::getStateRunner() const {
+FSMStateRunner& ShootSpacer::getStateRunner() const {
 	return const_cast<FSMStateRunner&>(stateRunner);
 }
 
-ShootSpacer::ShootSpacer() {
+Loader& ShootSpacer::getLoader() const {
+	return const_cast<Loader&>(loader);
+}
+
+ShootSpacer::ShootSpacer():loader(*this) {
 
 	/**
 	 *  Init the game

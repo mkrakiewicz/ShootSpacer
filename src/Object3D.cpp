@@ -113,7 +113,7 @@ void Object3D::moveNodeInLocalSpace(const core::vector3df& dir, f32 dist) {
 	node->setPosition(pos);
 }
 
-irr::core::vector3df Object3D::getPosition() {
+const irr::core::vector3df& Object3D::getPosition() {
 	return node->getPosition();
 }
 
@@ -232,7 +232,7 @@ void MovingObject3D::move() {
 	node->setPosition(node->getPosition() + (velocityVector * getFrameDelta()));
 }
 
-const vector3df MovingObject3D::getVelocityVector() const {
+vector3df& MovingObject3D::getVelocityVector() {
 	return velocityVector;
 }
 
@@ -295,7 +295,7 @@ void AcceleratingObject3D::makeAccelerationVector(
 
 void AcceleratingObject3D::accelerationToVelocity() {
 	if (acceleration != 0.f) {
-		velocityVector += accelerationVector;
+		velocityVector += (accelerationVector * getFrameDelta());
 		currentSpeed = velocityVector.getLength();
 	}
 }

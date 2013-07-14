@@ -67,7 +67,7 @@ namespace shs {
 //
 //}
 Level::Level(const ShootSpacer &parent) :
-		FSMStateRenderLoop(parent), loader(parent) {
+		FSMStateRenderLoop(parent), loader(parent.getLoader()) {
 }
 
 void Level::beforeRender() {

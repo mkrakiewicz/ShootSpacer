@@ -18,18 +18,16 @@ class Loader;
 class Object3D;
 class ShootSpacer;
 
-
 class Gun {
 public:
 	// pass pointer to parent node.
-	Gun(Object3D *node, irr::u32 limit);
+	Gun(MovingObject3D *node, irr::ITimer &timer, irr::u32 limit);
 	virtual ~Gun();
 
 	virtual void shoot() = 0;
 
 	virtual void makeProjectiles(const ShootSpacer &parent) = 0;
 	void deleteProjectiles();
-
 
 	void updateProjectiles();
 	irr::f32 getRpm() const;
@@ -56,10 +54,10 @@ protected:
 	// if Object3D is refactored to derived ISceneNode, this should also be changed to Object3D.
 	// but it's not necessary because of polymorphism...
 	// this is also needed to set parent if model is applied later
-	irr::scene::ISceneNode *node;
+	MovingObject3D *node;
 
 	// Pool of all projectiles. maybe this should be just an array?
-	std::vector<Projectile*> projectilePool;
+	std::vector<Projectile*> remainingProjectilePool;
 
 	// Pool of shoot projectiles. to process only those that were shot
 	std::vector<Projectile*> activeProjectilePool;
@@ -67,15 +65,13 @@ protected:
 	// projectile limit in pool
 	irr::u32 projectileLimit;
 
-	Gun(): node(0), projectileLimit(0), rpm(setRpm(120)) {
-	}
-	;
+	irr::ITimer &timer;
 
 };
 
 class SimpleGun: public Gun {
 public:
-	SimpleGun(Object3D *node, irr::u32 limit = 50);
+	SimpleGun(MovingObject3D *node, irr::ITimer &timer, irr::u32 limit = 50);
 	virtual ~SimpleGun();
 
 	void shoot();
@@ -84,8 +80,6 @@ public:
 
 protected:
 
-	SimpleGun() {
-	}
 };
 
 /**
@@ -99,11 +93,12 @@ class Projectile: public Ship {
 public:
 
 	// node of projectile, it could be billboard 2d...
-	Projectile(irr::scene::ISceneNode *node);
+	Projectile(irr::scene::ISceneNode *node, irr::ITimer &timer);
 	virtual ~Projectile();
 
 	//method to be called when shot
-	void start(irr::core::vector3df & startPos);
+	void start(const irr::core::vector3df & startPos,
+			const irr::core::vector3df & startVect);
 
 	virtual void move();
 
@@ -120,6 +115,8 @@ protected:
 
 	// time in miliseconds at which
 	irr::u32 startTime;
+
+	irr::ITimer &timer;
 
 };
 

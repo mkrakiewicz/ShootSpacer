@@ -26,7 +26,7 @@ public:
 	irr::video::ITexture* getTexture(irr::core::stringw name) const;
 	void addTexture(irr::core::stringw name, irr::video::ITexture* texture);
 
-	bool loadTexture(irr::core::stringw name, irr::core::stringw path);
+	irr::video::ITexture* loadTexture(irr::core::stringw name, irr::core::stringw path);
 	bool loadMesh(irr::core::stringw name, irr::core::stringw path);
 
 protected:

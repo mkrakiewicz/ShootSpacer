@@ -35,9 +35,9 @@ void Loader::addTexture(irr::core::stringw name,
 	textures[name] = texture;
 }
 
-bool Loader::loadTexture(irr::core::stringw name, irr::core::stringw path) {
+irr::video::ITexture* Loader::loadTexture(irr::core::stringw name, irr::core::stringw path) {
 	addTexture(name,parent.getDriver()->getTexture(path));
-	return true;
+	return getTexture(name);
 }
 
 bool Loader::loadMesh(irr::core::stringw name, irr::core::stringw path) {

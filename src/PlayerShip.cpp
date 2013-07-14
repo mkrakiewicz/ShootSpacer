@@ -50,8 +50,10 @@ ISceneNode* PlayerShip::createPlayerShip(const ShootSpacer &parent) {
 void PlayerShip::update() {
 
 	handleKeystates();
-	ShipWithGuns::update();
 	shipGUI.updateSpeed(currentSpeed);
+	shipGUI.updateAcceleration(acceleration);
+
+	ShipWithGuns::update();
 
 	handleCamera();
 
@@ -64,11 +66,20 @@ void PlayerShip::attachNewCamera(AttachableCamera* camera) {
 }
 
 void PlayerShip::createGUI(const ShootSpacer& parent) {
-	IGUIStaticText *tmp = parent.getGui()->addStaticText(L"Speed:",recti(5, 5, 200, 200),true,true);
-	tmp->setBackgroundColor(SColor(159,255,0,0));
+	IGUIStaticText *tmp = parent.getGui()->addStaticText(L"Speed:",
+			recti(5, 5, 200, 50), true, true);
+	tmp->setBackgroundColor(SColor(22, 255, 255, 0));
 	tmp->setDrawBorder(true);
-	shipGUI.addTextElement(stringw(L"speed"),tmp);
 
+	shipGUI.addTextElement(stringw(L"speed"), tmp);
+
+	tmp = 0;
+	tmp = parent.getGui()->addStaticText(L"Acceleration:",
+			recti(5, 60, 200, 110), true, true);
+
+	tmp->setBackgroundColor(SColor(22, 255, 255, 0));
+	tmp->setDrawBorder(true);
+	shipGUI.addTextElement(stringw(L"acceleration"), tmp);
 
 	//shipGUI.addTextElement(L"speed",tmp);
 }
@@ -78,7 +89,7 @@ TestPlayerShip::TestPlayerShip(irr::scene::IAnimatedMeshSceneNode* node) :
 	currentSpeed = 0;
 	setMaxAcceleration(30);
 	setMaxRotationSpeed(50);
-	setMaxSpeed(50);
+	setMaxSpeed(150);
 //	initKeys();
 }
 
@@ -163,19 +174,19 @@ void TestPlayerShip::handleKeystates() {
 	}
 
 	if (keyStates[PITCH_UPWARDS] == true) {
-		rotateNodeInLocalSpace(maxRotationSpeed, vector3df(1, 0, 0));
+		rotateNodeInLocalSpace(-maxRotationSpeed, vector3df(1, 0, 0));
 	}
 
 	if (keyStates[PITCH_DOWNWARDS] == true) {
-		rotateNodeInLocalSpace(-maxRotationSpeed, vector3df(1, 0, 0));
+		rotateNodeInLocalSpace(maxRotationSpeed, vector3df(1, 0, 0));
 
 	}
 	if (keyStates[TURN_RIGHT] == true) {
-		rotateNodeInLocalSpace(-maxRotationSpeed, vector3df(0, 1, 0));
+		rotateNodeInLocalSpace(maxRotationSpeed, vector3df(0, 1, 0));
 
 	}
 	if (keyStates[TURN_LEFT] == true) {
-		rotateNodeInLocalSpace(maxRotationSpeed, vector3df(0, 1, 0));
+		rotateNodeInLocalSpace(-maxRotationSpeed, vector3df(0, 1, 0));
 
 	}
 
@@ -190,7 +201,5 @@ void TestPlayerShip::handleKeystates() {
 //availableStates[KEY_KEY_A] = TURN_LEFT;
 //
 //}
-
-
 
 } /* namespace shootspacer */
