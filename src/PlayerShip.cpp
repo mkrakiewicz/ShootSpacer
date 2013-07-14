@@ -9,6 +9,7 @@
 #include "ShootSpacer.h"
 #include "PlayerShip.h"
 #include "Camera.h"
+#include "Weapons.h"
 
 using namespace irr;
 
@@ -104,6 +105,7 @@ void TestPlayerShip::handleInput(const irr::SEvent& event) {
 		case PITCH_DOWNWARDS:
 		case TURN_RIGHT:
 		case TURN_LEFT:
+		case SHOOT:
 			keyStates[(ShipKeys) event.KeyInput.Key] = true;
 			if (!event.KeyInput.PressedDown) {
 				keyStates[(ShipKeys) event.KeyInput.Key] = false;
@@ -171,6 +173,12 @@ void TestPlayerShip::handleKeystates() {
 		accelerate();
 
 //		currentVelocity=30;
+	}
+
+	if (keyStates[SHOOT]) {
+
+		//TODO: force creation of a gun
+		guns["main"]->shoot();
 	}
 
 	if (keyStates[PITCH_UPWARDS] == true) {

@@ -7,7 +7,6 @@
 
 #include "stdafx.h"
 #include "Loader.h"
-#include "Ship.h"
 #include "Weapons.h"
 #include "Object3D.h"
 #include "ShootSpacer.h"
@@ -25,12 +24,13 @@ namespace shs {
 Gun::Gun(MovingObject3D *node, irr::ITimer &timer, u32 limit) :
 		node(node), //if Object3D is refactored to derived ISceneNode, the GetNode method should be removed
 		projectileLimit(limit), rpm(setRpm(120)), lastShotTime(0), timer(timer) {
-	// TODO Auto-generated constructor stub
+
+	lastShotTime = timer.getTime();
 
 }
 
 void Gun::updateProjectiles() {
-	for (std::vector<Projectile*>::iterator it = activeProjectilePool.begin();
+	for (std::list<Projectile*>::iterator it = activeProjectilePool.begin();
 			it != activeProjectilePool.end(); ++it) {
 		(*it)->move();
 
@@ -79,12 +79,32 @@ SimpleGun::SimpleGun(MovingObject3D* node, irr::ITimer &timer, u32 limit) :
 
 void SimpleGun::shoot() {
 
-	if (remainingProjectilePool.empty()) {
-		// do something
-	} else {
+	u32 time = timer.getTime();
+
+	if ((time - lastShotTime) > delay) {
+		if (remainingProjectilePool.empty()) {
+			// do something
+			//
+
+			for (int i = 0; i < (projectileLimit / 3); i++) {
+				Projectile * tmp = *activeProjectilePool.begin();
+				activeProjectilePool.pop_front();
+				remainingProjectilePool.push_back(tmp);
+			}
+		}
 		Projectile * tmp = remainingProjectilePool.back();
 		remainingProjectilePool.pop_back();
-		tmp->start(node->getPosition(), node->getVelocityVector());
+		activeProjectilePool.push_back(tmp);
+		irr::core::matrix4 m;
+		m.setRotationDegrees(node->getRotation());
+
+		// transform forward vector of camera
+		irr::core::vector3df frv = irr::core::vector3df(0.0f, 0.0f, 1.0f);
+		m.transformVect(frv);
+
+		tmp->start(node->getPosition(), node->getVelocityVector(), frv);
+
+		lastShotTime = timer.getTime();
 	}
 
 }
@@ -100,13 +120,14 @@ void SimpleGun::makeProjectiles(const ShootSpacer &parent) {
 //		bill->setID(ID_IsNotPickable); // This ensures that we don't accidentally ray-pick it
 
 	Loader &l = parent.getLoader();
-	l.loadTexture("orange_particle", "img/orange_projectile.bmp");
+	l.loadTexture("blue_particle", "img/blue_projectile.bmp");
 
 	IBillboardSceneNode* tmp = 0;
 	tmp = parent.getSmgr()->addBillboardSceneNode();
-	tmp->setMaterialTexture(0, l.getTexture("orange_particle"));
+	tmp->setMaterialTexture(0, l.getTexture("blue_particle"));
 	tmp->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
-	tmp->setMaterialFlag(video::EMF_ZBUFFER, false);
+	tmp->setMaterialFlag(video::EMF_LIGHTING, false);
+//	tmp->setMaterialFlag(video::EMF_ZBUFFER, false);
 	tmp->setSize(core::dimension2d<f32>(20.0f, 20.0f));
 	tmp->setVisible(false);
 
@@ -116,7 +137,7 @@ void SimpleGun::makeProjectiles(const ShootSpacer &parent) {
 		remainingProjectilePool.push_back(new Projectile(tmp->clone(), timer));
 	}
 
-	tmp->drop();
+//	tmp->drop();
 }
 
 SimpleGun::~SimpleGun() {
@@ -134,9 +155,11 @@ Projectile::~Projectile() {
 }
 
 void Projectile::start(const core::vector3df& startPos,
-		const irr::core::vector3df & startVect) {
+		const irr::core::vector3df & startVect,
+		const irr::core::vector3df &direction) {
 	this->startPos = startPos;
-	setVelocityVector(startVect);
+	node->setPosition(startPos);
+	setVelocityVector(startVect + (direction * 200));
 	node->setVisible(true);
 
 }

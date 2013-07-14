@@ -15,7 +15,6 @@
 namespace shs {
 
 class Menu;
-class Ship;
 class Planet;
 /**
  * Main game class. Has protected contructors and assinment operator. Singleton functionality is implemented
