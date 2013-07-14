@@ -47,9 +47,11 @@ public:
 
 	void attachNewCamera(AttachableCamera *camera);
 	void createGUI(const ShootSpacer &parent);
-	ShipGUI shipGUI;
+
 
 protected:
+
+	ShipGUI shipGUI;
 
 	std::map<irr::EKEY_CODE, ShipKeys> availableStates;
 

@@ -107,7 +107,7 @@ public:
 	irr::core::vector3df toWorldRot(
 			const irr::core::vector3df rot_in_node_space);
 
-	irr::core::vector3df getPosition();
+	const irr::core::vector3df& getPosition();
 	irr::core::vector3df getRotation();
 
 	/**
@@ -165,6 +165,13 @@ public:
 	 */
 	virtual void updateMovement();
 
+	/**
+	 * Get the velocity vector
+	 * TODO: Perhaps it should be already multiplied by frame delta
+	 * @return
+	 */
+	irr::core::vector3df& getVelocityVector();
+
 protected:
 
 	/**
@@ -172,13 +179,6 @@ protected:
 	 */
 	void makeVelocityVector(irr::core::vector3df localDirection =
 			irr::core::vector3df(0, 0, 1));
-
-	/**
-	 * Get the velocity vector
-	 * TODO: Perhaps it should be already multiplied by frame delta
-	 * @return
-	 */
-	const irr::core::vector3df getVelocityVector() const;
 
 	/**
 	 * Set the velocity vector (will be normalized)

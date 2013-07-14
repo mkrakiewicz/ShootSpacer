@@ -30,7 +30,7 @@ protected:
 	void beforeRun();
 	void beforeStop();
 
-	Loader loader;
+	Loader &loader;
 
 public:
 //	Level();

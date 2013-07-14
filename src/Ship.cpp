@@ -32,7 +32,7 @@ Ship::Ship(ISceneNode* node) :
 f32 Ship::calculateAccelerationNonLinear() {
 	if (maxSpeed != 0.f) {
 		f32 f = 1 - pow((f32) (currentSpeed / maxSpeed), 2);
-		return (f * maxAcceleration * getFrameDelta());
+		return (f * maxAcceleration);
 	}
 	return 0.f;
 }

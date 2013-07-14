@@ -10,13 +10,13 @@
 #include "FSMState.h"
 #include "FiniteStateMachine.h"
 #include "ShootSpacerEvent.h"
+#include "Loader.h"
 
 namespace shs {
 
 class Menu;
 class Ship;
 class Planet;
-
 /**
  * Main game class. Has protected contructors and assinment operator. Singleton functionality is implemented
  * in derived class in this file.
@@ -45,6 +45,7 @@ public:
 	irr::scene::ISceneManager* getSmgr() const;
 	FSMStateRunner& getStateRunner() const;
 
+	Loader& getLoader() const;
 protected:
 
 	/**
@@ -68,7 +69,7 @@ protected:
 
 /////////////////////////////////////////////////////////////////////////////////
 
-//TODO: add Loader
+	Loader loader;
 
 	/**
 	 * Manages and runs states.
@@ -109,7 +110,7 @@ protected:
 	/**
 	 * Protected copy constructor (singleton)
 	 */
-	inline ShootSpacer(const ShootSpacer& sh) {
+	inline ShootSpacer(const ShootSpacer& sh):loader(*this) {
 		initialize();
 	}
 
