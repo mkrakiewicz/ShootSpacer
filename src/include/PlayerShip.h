@@ -18,6 +18,8 @@ namespace shs {
 enum ShipKeys {
 	ACCELERATE = irr::KEY_SPACE,
 
+	SHOOT = irr::KEY_KEY_C,
+
 	PITCH_UPWARDS = irr::KEY_KEY_W,
 	PITCH_DOWNWARDS = irr::KEY_KEY_S,
 	TURN_RIGHT = irr::KEY_KEY_D,

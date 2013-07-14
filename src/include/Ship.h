@@ -13,8 +13,9 @@
 
 namespace shs {
 
-class Gun;
+
 class Loader;
+class Gun;
 
 /**
  * Ship : short of "SpaceShip". It doesn't float on water :D

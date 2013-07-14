@@ -5,6 +5,7 @@
  *      Author: Micha�
  */
 #include "stdafx.h"
+#include "Weapons.h"
 #include "Level.h"
 #include "Ship.h"
 #include "Planet.h"
@@ -147,6 +148,10 @@ void TestLevel::init() {
 
 	ship = new TestPlayerShip(TestPlayerShip::createTestPlayerShipNode(parent));
 	ship->attachNewCamera(new StaticCamera(parent, ship));
+	Gun * tmp = new SimpleGun(ship,*parent.getDevice()->getTimer());
+	tmp->makeProjectiles(parent);
+	tmp->setRpm(500);
+	ship->addGun("main",tmp);
 //	ship.attachCamera(cam);
 
 	this->node = new Planet(tmpnode);

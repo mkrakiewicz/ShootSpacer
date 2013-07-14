@@ -38,6 +38,7 @@ f32 Ship::calculateAccelerationNonLinear() {
 }
 
 Ship::~Ship() {
+
 }
 
 void Ship::setMaxAcceleration(irr::f32 maxAcceleration) {
@@ -93,6 +94,7 @@ void ShipWithGuns::addGun(irr::core::stringw name, Gun* gun) {
 }
 
 ShipWithGuns::~ShipWithGuns() {
+	delete guns["main"];
 }
 
 void ShipWithGuns::updateGuns() {

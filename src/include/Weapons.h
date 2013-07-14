@@ -8,8 +8,9 @@
 #ifndef WEAPONS_H_
 #define WEAPONS_H_
 
-#include <vector>
 #include "Ship.h"
+#include <list>
+#include <vector>
 
 namespace shs {
 
@@ -60,7 +61,7 @@ protected:
 	std::vector<Projectile*> remainingProjectilePool;
 
 	// Pool of shoot projectiles. to process only those that were shot
-	std::vector<Projectile*> activeProjectilePool;
+	std::list<Projectile*> activeProjectilePool;
 
 	// projectile limit in pool
 	irr::u32 projectileLimit;
@@ -71,14 +72,14 @@ protected:
 
 class SimpleGun: public Gun {
 public:
-	SimpleGun(MovingObject3D *node, irr::ITimer &timer, irr::u32 limit = 50);
+	SimpleGun(MovingObject3D *node, irr::ITimer &timer, irr::u32 limit = 70);
 	virtual ~SimpleGun();
 
 	void shoot();
 
 	void makeProjectiles(const ShootSpacer &parent);
 
-protected:
+
 
 };
 
@@ -98,7 +99,7 @@ public:
 
 	//method to be called when shot
 	void start(const irr::core::vector3df & startPos,
-			const irr::core::vector3df & startVect);
+			const irr::core::vector3df & startVect,const irr::core::vector3df &direction);
 
 	virtual void move();
 
