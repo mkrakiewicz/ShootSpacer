@@ -2,7 +2,7 @@
  * PlayerShip.cpp
  *
  *  Created on: 17-05-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #include "stdafx.h"
@@ -20,29 +20,27 @@ using namespace gui;
 
 namespace shs {
 
-PlayerShip::PlayerShip(IAnimatedMeshSceneNode *node, Loader *loader) :
-		Ship(node), camera(0), isCameraHandled(false), loader(loader) {
+PlayerShip::PlayerShip(IAnimatedMeshSceneNode *node) :
+		ShipWithGuns(node), camera(0), isCameraHandled(false) {
 
 }
-
-
 
 PlayerShip::~PlayerShip() {
 	if (camera)
 		delete camera;
 }
 
-ISceneNode* PlayerShip::createPlayerShip(const ShootSpacer* parent) {
+ISceneNode* PlayerShip::createPlayerShip(const ShootSpacer &parent) {
 
-	ISceneNode * node = NULL;
+	ISceneNode * node = 0;
 
-	node = parent->getSmgr()->addCubeSceneNode(50);
+	node = parent.getSmgr()->addCubeSceneNode(50);
 
 	if (node) {
 		node->setMaterialFlag(EMF_LIGHTING, false);
 
 		node->setMaterialTexture(0,
-				parent->getDriver()->getTexture(
+				parent.getDriver()->getTexture(
 						"D:/Pliki/irrlicht-1.8/irrlicht-1.8/media/wall.bmp"));
 	}
 
@@ -52,20 +50,34 @@ ISceneNode* PlayerShip::createPlayerShip(const ShootSpacer* parent) {
 void PlayerShip::update() {
 
 	handleKeystates();
-
-	updateMovement();
-	clearAcceleration();
+	ShipWithGuns::update();
+	shipGUI.updateSpeed(currentSpeed);
 
 	handleCamera();
+
+//	shipGUI.updateAcceleration(acceleration);
 }
 
+void PlayerShip::attachNewCamera(AttachableCamera* camera) {
+	this->camera = camera;
+	isCameraHandled = true;
+}
+
+void PlayerShip::createGUI(const ShootSpacer& parent) {
+	IGUIStaticText *tmp = parent.getGui()->addStaticText(L"Speed:",recti(5, 5, 200, 200),true,true);
+	tmp->setBackgroundColor(SColor(159,255,0,0));
+	tmp->setDrawBorder(true);
+	shipGUI.addTextElement(stringw(L"speed"),tmp);
 
 
-TestPlayerShip::TestPlayerShip(irr::scene::IAnimatedMeshSceneNode* node, Loader *loader) :
-		PlayerShip(node, loader) {
+	//shipGUI.addTextElement(L"speed",tmp);
+}
+
+TestPlayerShip::TestPlayerShip(irr::scene::IAnimatedMeshSceneNode* node) :
+		PlayerShip(node) {
 	currentSpeed = 0;
-	setMaxAcceleration(30 );
-	setMaxRotationSpeed(20);
+	setMaxAcceleration(30);
+	setMaxRotationSpeed(50);
 	setMaxSpeed(50);
 //	initKeys();
 }
@@ -116,18 +128,19 @@ TestPlayerShip::~TestPlayerShip() {
 }
 
 IAnimatedMeshSceneNode* TestPlayerShip::createTestPlayerShipNode(
-		const ShootSpacer* parent) {
+		const ShootSpacer &parent) {
 
-	IAnimatedMeshSceneNode * node = NULL;
+	IAnimatedMeshSceneNode * node = 0;
 
-	IAnimatedMesh* mesh = parent->getSmgr()->getMesh("img/rusty_ship.3ds");
+	IAnimatedMesh* mesh = parent.getSmgr()->getMesh("img/rusty_ship.3ds");
 
-	node = parent->getSmgr()->addAnimatedMeshSceneNode(mesh);
+	node = parent.getSmgr()->addAnimatedMeshSceneNode(mesh);
 
 	if (node) {
 		node->setMaterialFlag(EMF_LIGHTING, false);
 
-		node->setMaterialTexture(0,  parent->getDriver()->getTexture("img/tex.png"));
+		node->setMaterialTexture(0,
+				parent.getDriver()->getTexture("img/tex.png"));
 	}
 
 	node->setPosition(vector3df(0, 30, -340));
@@ -135,21 +148,10 @@ IAnimatedMeshSceneNode* TestPlayerShip::createTestPlayerShipNode(
 	return node;
 }
 
-//void TestPlayerShip::bindCamera(irr::scene::ICameraSceneNode* cam) {
-//}
-
 void TestPlayerShip::handleCamera() {
 	if (isCameraHandled) {
 		camera->update();
-//		node->updateAbsolutePosition();
-//		const core::matrix4 matr(node->getAbsoluteTransformation());
-
-//camera->setPosition(getIn() * vector3df(0, 2, -5));
-//	camera->setRotation(node->getRotation());
-//	camera->setUpVector(getIn() * vector3df(0, 1, 0));
-//	camera->updateAbsolutePosition();
 	}
-//	node->setPosition(matr.getTranslation());
 }
 
 void TestPlayerShip::handleKeystates() {
@@ -161,19 +163,19 @@ void TestPlayerShip::handleKeystates() {
 	}
 
 	if (keyStates[PITCH_UPWARDS] == true) {
-		rotateNodeInLocalSpace(-30, vector3df(1, 0, 0));
+		rotateNodeInLocalSpace(maxRotationSpeed, vector3df(1, 0, 0));
 	}
 
 	if (keyStates[PITCH_DOWNWARDS] == true) {
-		rotateNodeInLocalSpace(30, vector3df(1, 0, 0));
+		rotateNodeInLocalSpace(-maxRotationSpeed, vector3df(1, 0, 0));
 
 	}
 	if (keyStates[TURN_RIGHT] == true) {
-		rotateNodeInLocalSpace(30, vector3df(0, 1, 0));
+		rotateNodeInLocalSpace(-maxRotationSpeed, vector3df(0, 1, 0));
 
 	}
 	if (keyStates[TURN_LEFT] == true) {
-		rotateNodeInLocalSpace(-30, vector3df(0, 1, 0));
+		rotateNodeInLocalSpace(maxRotationSpeed, vector3df(0, 1, 0));
 
 	}
 
@@ -189,9 +191,6 @@ void TestPlayerShip::handleKeystates() {
 //
 //}
 
-void PlayerShip::attachNewCamera(AttachableCamera* camera) {
-	this->camera = camera;
-	isCameraHandled = true;
-}
+
 
 } /* namespace shootspacer */

@@ -2,7 +2,7 @@
  * Ship.h
  *
  *  Created on: 18-05-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #ifndef SHIP_H_
@@ -54,28 +54,24 @@ protected:
  */
 class ShipWithGuns: public Ship {
 public:
-	ShipWithGuns(irr::scene::ISceneNode *node, Loader *loader,
-			irr::scene::ISceneManager *smgr);
+	ShipWithGuns(irr::scene::ISceneNode *node);
+	virtual ~ShipWithGuns();
 
 	virtual void update();
 
-//	void addGun(irr::core::stringw name, )
+	/**
+	 * Deletes previous gun if same name is found
+	 */
+	void addGun(irr::core::stringw name, Gun* gun);
+
 
 protected:
 
 	void updateGuns();
 
-	// loader to get models and textures for internal objects/guns
-	Loader *loader;
-
-	// scene manager to create scene nodes for internal objects/guns
-	irr::scene::ISceneManager *smgr;
-
 	std::map<irr::core::stringw,Gun*> guns;
 
-
-
-	ShipWithGuns():loader(0),smgr(0){}
+	ShipWithGuns(){}
 };
 
 
@@ -85,6 +81,7 @@ protected:
 class NonPlayerShip: public Ship {
 public:
 	NonPlayerShip(irr::scene::ISceneNode *node);
+	virtual ~NonPlayerShip();
 
 };
 

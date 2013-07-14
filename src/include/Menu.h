@@ -2,7 +2,7 @@
  * Menu.h
  *
  *  Created on: 18-05-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #ifndef MENU_H_
@@ -16,6 +16,13 @@ namespace shs {
 class ShootSpacer;
 
 class Menu: public FSMStateRenderLoop {
+public:
+	Menu(const ShootSpacer &parent);
+	virtual ~Menu();
+
+	virtual void displayMenu();
+
+	virtual void handleEvent(const irr::SEvent& event);
 protected:
 
 	irr::video::ITexture *backgroundImg;
@@ -33,14 +40,7 @@ protected:
 
 	irr::gui::IGUIFont* builtInFont;
 
-public:
-	Menu(const ShootSpacer* parent);
-	virtual ~Menu();
 
-	virtual void displayMenu();
-
-	virtual void handleEvent(const irr::SEvent& event);
-	void setParent(const ShootSpacer* parent);
 };
 
 class MainMenu: public Menu {
@@ -49,7 +49,7 @@ protected:
 
 
 public:
-	MainMenu(const ShootSpacer* parent);
+	MainMenu(const ShootSpacer &parent);
 	virtual ~MainMenu();
 
 	void displayMenu();

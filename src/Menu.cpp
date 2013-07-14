@@ -2,7 +2,7 @@
  * Menu.cpp
  *
  *  Created on: 18-05-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 #include "stdafx.h"
 #include "ShootSpacer.h"
@@ -19,7 +19,7 @@ using namespace gui;
 
 namespace shs {
 
-Menu::Menu(const ShootSpacer* parent) :
+Menu::Menu(const ShootSpacer &parent) :
 		FSMStateRenderLoop(parent) {
 
 	/**
@@ -54,6 +54,7 @@ void Menu::afterRender() {
 }
 
 Menu::~Menu() {
+	smgr->drop();
 
 }
 
@@ -78,9 +79,6 @@ void Menu::beforeRun() {
 void Menu::beforeStop() {
 }
 
-void Menu::setParent(const ShootSpacer* parent) {
-	this->parent = parent;
-}
 
 void Menu::handleEvent(const irr::SEvent& event) {
 	//TODO: handel events. need to pass state manager with game context??
@@ -94,15 +92,15 @@ void Menu::handleEvent(const irr::SEvent& event) {
 		if (event.KeyInput.Key == KEY_ESCAPE) {
 
 			//	context.stateRunner->appendStateWithName(L"test_level");
-			parent->getStateRunner().endCurrentState();
+			parent.getStateRunner().endCurrentState();
 
 		} else if (event.KeyInput.Key == KEY_KEY_Q) {
-			parent->getStateRunner().exit();
+			parent.getStateRunner().exit();
 		}
 	}
 }
 
-MainMenu::MainMenu(const ShootSpacer* parent) :
+MainMenu::MainMenu(const ShootSpacer &parent) :
 		Menu(parent) {
 
 	menu_test_string = L"MAIN MENU: ShootSpacer ";
@@ -138,10 +136,10 @@ void MainMenu::handleEvent(const irr::SEvent& event) {
 		switch (event.KeyInput.Key) {
 		case KEY_ESCAPE:
 		case KEY_KEY_Q:
-			parent->getStateRunner().exit();
+			parent.getStateRunner().exit();
 			break;
 		case KEY_RETURN:
-			parent->getStateRunner().appendStateWithName(L"current_level");
+			parent.getStateRunner().appendStateWithName(L"current_level");
 			this->stop();
 			break;
 		default:

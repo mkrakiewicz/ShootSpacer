@@ -2,7 +2,7 @@
  * TimedLoop.cpp
  *
  *  Created on: 18-05-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 #include "stdafx.h"
 #include "ShootSpacer.h"
@@ -20,7 +20,7 @@ namespace shs {
 
 irr::f32 RenderLoop::frameDeltaTime = 1.f;
 
-RenderLoop::RenderLoop(const ShootSpacer* parent) :
+RenderLoop::RenderLoop(const ShootSpacer &parent) :
 		isRunning(false), IrrlichtClassBase(parent) {
 }
 
@@ -74,16 +74,16 @@ void RenderLoop::stop() {
 
 /////////////////////////////////////////////////////
 
-IrrlichtClassBase::IrrlichtClassBase(const ShootSpacer* parent) :
+IrrlichtClassBase::IrrlichtClassBase(const ShootSpacer &parent) :
 		parent(parent), device(0), driver(0), smgr(0), gui(0) {
 
-	this->device = this->parent->getDevice();
+	this->device = this->parent.getDevice();
 
 	if (device) {
 
-		driver = parent->getDriver();
-		smgr = parent->getSmgr();
-		gui = parent->getGui();
+		driver = parent.getDriver();
+		smgr = parent.getSmgr();
+		gui = parent.getGui();
 	} else {
 		//Perhaps there should be some exceptions
 	}

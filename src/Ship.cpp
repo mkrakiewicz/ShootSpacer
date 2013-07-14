@@ -2,10 +2,11 @@
  * Ship.cpp
  *
  *  Created on: 18-05-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #include "stdafx.h"
+#include "Weapons.h"
 #include "Ship.h"
 
 using namespace irr;
@@ -67,26 +68,50 @@ void Ship::init() {
 
 //////////////////////////////////////////////////////////////////////////
 
+
+ShipWithGuns::ShipWithGuns(irr::scene::ISceneNode* node):Ship(node) {
+}
+
+void ShipWithGuns::update() {
+	Ship::update();
+	updateGuns();
+}
+
+void ShipWithGuns::addGun(irr::core::stringw name, Gun* gun) {
+	std::map<irr::core::stringw, Gun*>::iterator i;
+	i = guns.find(name);
+	if (i == guns.end()) {
+		// not found
+		guns[name] = gun;
+
+	} else {
+		Gun *tmp = i->second;
+		guns[name] = gun;
+		delete tmp;
+	}
+
+}
+
+ShipWithGuns::~ShipWithGuns() {
+}
+
+void ShipWithGuns::updateGuns() {
+	std::map<irr::core::stringw, Gun*>::iterator gun;
+
+	for (gun = guns.begin(); gun != guns.end(); gun++) {
+		gun->second->updateProjectiles();
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
 NonPlayerShip::NonPlayerShip(irr::scene::ISceneNode* node) :
 		Ship(node) {
 
 }
 
-} /* namespace shootspacer */
-
-shs::ShipWithGuns::ShipWithGuns(irr::scene::ISceneNode* node, Loader* loader,
-		irr::scene::ISceneManager* smgr) {
+NonPlayerShip::~NonPlayerShip() {
 }
 
-void shs::ShipWithGuns::update() {
-	Ship::update();
-	updateGuns();
-}
+} /* namespace shs */
 
-void shs::ShipWithGuns::updateGuns() {
-	std::map<irr::core::stringw,Gun*>::iterator gun;
-
-	for (gun = guns.begin(); gun != guns.end(); gun++) {
-		gun->second->
-	}
-}

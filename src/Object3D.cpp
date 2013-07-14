@@ -2,7 +2,7 @@
  * Object3D.cpp
  *
  *  Created on: 17-05-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #include "stdafx.h"
@@ -294,8 +294,10 @@ void AcceleratingObject3D::makeAccelerationVector(
 }
 
 void AcceleratingObject3D::accelerationToVelocity() {
-	if (acceleration != 0.f)
+	if (acceleration != 0.f) {
 		velocityVector += accelerationVector;
+		currentSpeed = velocityVector.getLength();
+	}
 }
 
 void AcceleratingObject3D::updateMovement() {

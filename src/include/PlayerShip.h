@@ -2,7 +2,7 @@
  * PlayerShip.h
  *
  *  Created on: 17-05-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #ifndef PLAYERSHIP_H_
@@ -11,6 +11,7 @@
 #include "Ship.h"
 
 #include <map>
+#include "GUI.h"
 
 namespace shs {
 
@@ -27,24 +28,28 @@ enum ShipKeys {
 class AttachableCamera;
 class Loader;
 
-class PlayerShip: public shs::Ship {
+/**
+ * PlayerShip will always have guns!
+ */
+class PlayerShip: public ShipWithGuns {
 public:
 
-	PlayerShip(irr::scene::IAnimatedMeshSceneNode *node, Loader *loader);
+	PlayerShip(irr::scene::IAnimatedMeshSceneNode *node);
 	virtual ~PlayerShip();
 
 //	void attachCamera(irr::scene::ICameraSceneNode *camera);
 
-	static irr::scene::ISceneNode* createPlayerShip(const ShootSpacer* parent);
+	static irr::scene::ISceneNode* createPlayerShip(const ShootSpacer &parent);
 
 	virtual void update();
 
 	virtual void handleInput(const irr::SEvent& event) = 0;
 
 	void attachNewCamera(AttachableCamera *camera);
+	void createGUI(const ShootSpacer &parent);
+	ShipGUI shipGUI;
 
 protected:
-	Loader *loader;
 
 	std::map<irr::EKEY_CODE, ShipKeys> availableStates;
 
@@ -57,16 +62,18 @@ protected:
 
 	bool isCameraHandled;
 
+
+
 };
 
 class TestPlayerShip: public PlayerShip {
 public:
 
-	TestPlayerShip(irr::scene::IAnimatedMeshSceneNode *node, Loader *loader);
+	TestPlayerShip(irr::scene::IAnimatedMeshSceneNode *node);
 
 	virtual void handleInput(const irr::SEvent& event);
 	static irr::scene::IAnimatedMeshSceneNode* createTestPlayerShipNode(
-			const ShootSpacer* parent);
+			const ShootSpacer &parent);
 
 //	void bindCamera(irr::scene::ICameraSceneNode *cam);
 

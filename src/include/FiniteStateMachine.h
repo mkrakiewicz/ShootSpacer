@@ -2,7 +2,7 @@
  * FiniteStateMachine.h
  *
  *  Created on: 09-06-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #ifndef FINITESTATEMACHINE_H_
@@ -34,11 +34,10 @@ public:
 	void exit();
 protected:
 
-
 	/**
 	 * Hashmap of available states...
 	 */
-	std::map<irr::core::stringw,FSMRunnableState*> availableStates;
+	std::map<irr::core::stringw, FSMRunnableState*> availableStates;
 	/**
 	 * Last element is current State.
 	 */
@@ -51,7 +50,6 @@ protected:
 class FSMStateRunner: public FiniteStateMachine {
 protected:
 	void runNext();
-
 
 public:
 	FSMStateRunner();

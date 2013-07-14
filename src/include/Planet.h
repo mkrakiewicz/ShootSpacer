@@ -2,7 +2,7 @@
  * Planet.h
  *
  *  Created on: 18-05-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #ifndef PLANET_H_
@@ -19,7 +19,7 @@ public:
 	Planet(irr::scene::ISceneNode *createdNode);
 	virtual ~Planet();
 
-	static Planet* createTestPlanet(const ShootSpacer* parent);
+	static Planet* createTestPlanet(const ShootSpacer &parent);
 };
 
 } /* namespace shootspacer */

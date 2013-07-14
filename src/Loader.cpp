@@ -2,16 +2,16 @@
  * Loader.cpp
  *
  *  Created on: 10-07-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #include "stdafx.h"
-#include "GameContext.h"
+#include "ShootSpacer.h"
 #include "Loader.h"
 
 namespace shs {
 
-Loader::Loader(const GameContext& _context): context(_context) {
+Loader::Loader(const ShootSpacer &parent): parent(parent) {
 }
 
 Loader::~Loader() {
@@ -36,12 +36,13 @@ void Loader::addTexture(irr::core::stringw name,
 }
 
 bool Loader::loadTexture(irr::core::stringw name, irr::core::stringw path) {
-	addTexture(name,context.driver->getTexture(path));
+	addTexture(name,parent.getDriver()->getTexture(path));
 	return true;
 }
 
 bool Loader::loadMesh(irr::core::stringw name, irr::core::stringw path) {
-	addMesh(name,context.smgr->getMesh(path));
+	addMesh(name,parent.getSmgr()->getMesh(path));
+	return true;
 }
 
 } /* namespace shs */
