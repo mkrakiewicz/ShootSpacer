@@ -2,7 +2,7 @@
  * ShootSpacer.h
  *
  *  Created on: 18-05-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #ifndef SHOOTSPACER_H_
@@ -27,7 +27,7 @@ public:
 	/**
 	 *  Start the game. All main objects are supposed to be created by this time.
 	 */
-	virtual void startGame();
+	void startGame();
 
 	/**
 	 * Virtual destructor so that memory is cleaned after derived class is destroyed

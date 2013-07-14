@@ -2,7 +2,7 @@
  * EventReceiver.cpp
  *
  *  Created on: 19-05-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 #include "stdafx.h"
 #include "ShootSpacerEvent.h"
@@ -18,10 +18,10 @@ using namespace gui;
 
 namespace shs {
 
-ShootSpacerEvent::ShootSpacerEvent(ShootSpacer *gameInstance) {
+ShootSpacerEvent::ShootSpacerEvent(ShootSpacer &parent) : gameInstance(parent) {
 	for (u32 i = 0; i < KEY_KEY_CODES_COUNT; ++i)
 		KeyIsDown[i] = false;
-	this->gameInstance = gameInstance;
+
 }
 
 bool ShootSpacerEvent::OnEvent(const SEvent& event) {
@@ -30,7 +30,7 @@ bool ShootSpacerEvent::OnEvent(const SEvent& event) {
 		KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
 	}
 
-	gameInstance->handleEvent(event);
+	gameInstance.handleEvent(event);
 
 	return false;
 }

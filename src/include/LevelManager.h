@@ -2,7 +2,7 @@
  * LevelManager.h
  *
  *  Created on: 10-06-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #ifndef LEVELMANAGER_H_
@@ -23,7 +23,7 @@ class Level;
  */
 class LevelManager: protected FiniteStateMachine, public IrrlichtClassBase {
 public:
-	LevelManager(const ShootSpacer* parent);
+	LevelManager(const ShootSpacer &parent);
 	virtual ~LevelManager();
 
 	/**

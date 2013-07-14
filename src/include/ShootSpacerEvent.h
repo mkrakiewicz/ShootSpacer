@@ -2,7 +2,7 @@
  * EventReceiver.h
  *
  *  Created on: 19-05-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #ifndef SHOOTSPACEREVENT_H_
@@ -18,7 +18,7 @@ private:
 	// We use this array to store the current state of each key
 	bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
 
-	ShootSpacer *gameInstance;
+	ShootSpacer &gameInstance;
 public:
 	// This is the one method that we have to implement
 	virtual bool OnEvent(const irr::SEvent& event);
@@ -28,7 +28,7 @@ public:
 		return KeyIsDown[keyCode];
 	}
 
-	ShootSpacerEvent(ShootSpacer *gameInstance);
+	ShootSpacerEvent(ShootSpacer &parent);
 
 	virtual ~ShootSpacerEvent();
 

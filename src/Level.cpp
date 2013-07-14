@@ -2,7 +2,7 @@
  * Level.cpp
  *
  *  Created on: 09-06-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 #include "stdafx.h"
 #include "Level.h"
@@ -66,8 +66,8 @@ namespace shs {
 //
 //
 //}
-Level::Level(const ShootSpacer* parent) :
-		FSMStateRenderLoop(parent) {
+Level::Level(const ShootSpacer &parent) :
+		FSMStateRenderLoop(parent), loader(parent) {
 }
 
 void Level::beforeRender() {
@@ -98,7 +98,7 @@ Level::~Level() {
 //TestLevel::TestLevel() :
 //		Level() {
 //}
-TestLevel::TestLevel(const ShootSpacer* parent) :
+TestLevel::TestLevel(const ShootSpacer &parent) :
 		Level(parent) {
 
 	init();
@@ -113,10 +113,12 @@ TestLevel::~TestLevel() {
 
 void TestLevel::beforeRun() {
 
-	gui->clear();
+	//gui->clear();
 
 	device->getCursorControl()->setVisible(false);
 	gui->addStaticText(L"Game", rect<s32>(10, 10, 260, 22), true);
+
+	ship->createGUI(parent);
 
 }
 
@@ -126,9 +128,8 @@ void TestLevel::beforeStop() {
 
 void TestLevel::init() {
 
-
-	loader.loadTexture("orange_particle","img/orange_projectile.bmp");
-	loader.loadTexture("sydney","img/sydney.bmp");
+	loader.loadTexture("orange_particle", "img/orange_projectile.bmp");
+	loader.loadTexture("sydney", "img/sydney.bmp");
 
 //	IAnimatedMesh* mesh = smgr->getMesh("img/sydney.md2");
 
@@ -140,19 +141,12 @@ void TestLevel::init() {
 		tmpnode->setMaterialTexture(0, loader.getTexture("sydney"));
 	}
 
-	tmpnode->setPosition(vector3df(-222,0,0));
+	tmpnode->setPosition(vector3df(-222, 0, 0));
 
-
-
-
-	vector3df wsp(0,5,-10);
+	vector3df wsp(0, 5, -10);
 
 	ship = new TestPlayerShip(TestPlayerShip::createTestPlayerShipNode(parent));
-	ship->attachNewCamera(new StaticCamera(parent,ship));
-
-
-
-
+	ship->attachNewCamera(new StaticCamera(parent, ship));
 //	ship.attachCamera(cam);
 
 	this->node = new Planet(tmpnode);
@@ -168,9 +162,7 @@ void TestLevel::beforeRender() {
 
 	testPlanet->rotateNodeInLocalSpace(5, vector3df(0, 1, 0));
 
-
 	ship->update();
-
 
 //	vector3df npos = ship.toWorldPos(vector3df(0, 5, -20));
 
@@ -181,7 +173,7 @@ void TestLevel::beforeRender() {
 
 //cam->setRotation(ship.getNode()->getAbsoluteTransformation().g);
 
-	//cam->setTarget(ship.getPosition());
+//cam->setTarget(ship.getPosition());
 
 }
 
@@ -205,11 +197,11 @@ void TestLevel::handleEvent(const irr::SEvent& event) {
 	if (!event.KeyInput.PressedDown) {
 		if (event.KeyInput.Key == KEY_ESCAPE) {
 
-			parent->getStateRunner().appendStateWithName(L"menu");
+			parent.getStateRunner().appendStateWithName(L"menu");
 			this->stop();
 
 		} else if (event.KeyInput.Key == KEY_KEY_Q) {
-			parent->getStateRunner().endCurrentState();
+			parent.getStateRunner().endCurrentState();
 		}
 	}
 

@@ -2,7 +2,7 @@
  * Planet.cpp
  *
  *  Created on: 18-05-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #include "stdafx.h"
@@ -32,17 +32,17 @@ Planet::Planet(ISceneNode *createdNode):Object3D(createdNode)
 Planet::~Planet() {
 }
 
-Planet* Planet::createTestPlanet(const ShootSpacer* parent) {
+Planet* Planet::createTestPlanet(const ShootSpacer &parent) {
 
 
-	ISceneNode *tmp = parent->getSmgr()->addSphereSceneNode(180,128);
+	ISceneNode *tmp = parent.getSmgr()->addSphereSceneNode(180,128);
 
 	tmp->setPosition(vector3df(100,10,0));
 	if (tmp) {
 		tmp->setMaterialFlag(EMF_LIGHTING, false);
 
 		tmp->setMaterialTexture(0,
-				parent->getDriver()->getTexture(
+				parent.getDriver()->getTexture(
 						"img/earth.jpg"));
 	}
 

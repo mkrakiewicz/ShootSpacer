@@ -2,7 +2,7 @@
  * LevelManager.cpp
  *
  *  Created on: 10-06-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 #include "stdafx.h"
 #include "Level.h"
@@ -10,7 +10,7 @@
 
 namespace shs {
 
-LevelManager::LevelManager(const ShootSpacer* parent) :
+LevelManager::LevelManager(const ShootSpacer &parent) :
 		testLevel(0), IrrlichtClassBase(parent) {
 	// TODO Auto-generated constructor stub
 	testLevel = new TestLevel(parent);

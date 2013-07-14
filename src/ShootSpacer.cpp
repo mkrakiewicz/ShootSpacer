@@ -2,7 +2,7 @@
  * ShootSpacer.cpp
  *
  *  Created on: 18-05-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #include "stdafx.h"
@@ -67,7 +67,7 @@ void ShootSpacer::initialize() {
 
 	enableFrameIndependentMovement();
 
-	eventReceiver = new ShootSpacerEvent(this);
+	eventReceiver = new ShootSpacerEvent(*this);
 
 	device->setEventReceiver(eventReceiver);
 	device->setWindowCaption(windowTitle.c_str());
@@ -121,14 +121,14 @@ void ShootSpacer::startGame() {
 
 		hasGameStarted = true;
 
-		LevelManager mgr(this);
+		LevelManager mgr(*this);
 
 		//TODO: implement level manager
 		Level *testLevel = mgr.getCurrentLevel();
 
 		stateRunner.saveStateAs(L"current_level", testLevel);
-		stateRunner.saveStateAs(L"menu", new Menu(this));
-		stateRunner.saveStateAs(L"main_menu", new MainMenu(this));
+		stateRunner.saveStateAs(L"menu", new Menu(*this));
+		stateRunner.saveStateAs(L"main_menu", new MainMenu(*this));
 
 		stateRunner.appendStateWithName("main_menu");
 

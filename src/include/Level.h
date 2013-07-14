@@ -2,7 +2,7 @@
  * Level.h
  *
  *  Created on: 09-06-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #ifndef LEVEL_H_
@@ -17,9 +17,8 @@ namespace shs {
 class Ship;
 class Planet;
 class TestPlayerShip;
-class Loader;
 
-class Level: public shs::FSMStateRenderLoop {
+class Level: public FSMStateRenderLoop {
 protected:
 	/**
 	 * Virtual overloaded methods from RenderLoop
@@ -33,11 +32,9 @@ protected:
 
 	Loader loader;
 
-
-
 public:
 //	Level();
-	Level(const ShootSpacer* parent);
+	Level(const ShootSpacer &parent);
 
 	virtual ~Level();
 };
@@ -59,10 +56,9 @@ protected:
 	TestPlayerShip *ship;
 	void init();
 
-
 public:
 //	TestLevel();
-	TestLevel(const ShootSpacer* parent);
+	TestLevel(const ShootSpacer &parent);
 
 	virtual ~TestLevel();
 

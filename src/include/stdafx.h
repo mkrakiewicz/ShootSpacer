@@ -2,7 +2,7 @@
  * stdafx.h
  *
  *  Created on: 18-05-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #ifndef STDAFX_H_
@@ -12,7 +12,6 @@
 #include <iostream>
 #include <memory>
 #include <string>
-#include "GameContext.h"
 #include "SmartPointer.h"
 
 #include "version.h"

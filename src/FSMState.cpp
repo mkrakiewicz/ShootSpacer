@@ -2,7 +2,7 @@
  * FSMState.cpp
  *
  *  Created on: 08-06-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #include "stdafx.h"
@@ -32,7 +32,7 @@ void FSMStateRenderLoop::run() {
 	RenderLoop::run();
 }
 
-FSMStateRenderLoop::FSMStateRenderLoop(const ShootSpacer* parent) : FSMRunnableState(), RenderLoop(parent)
+FSMStateRenderLoop::FSMStateRenderLoop(const ShootSpacer &parent) : FSMRunnableState(), RenderLoop(parent)
 {
 }
 

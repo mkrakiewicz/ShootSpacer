@@ -2,7 +2,7 @@
  * Camera.h
  *
  *  Created on: 25-06-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #ifndef CAMERA_H_
@@ -21,7 +21,7 @@ protected:
 	irr::scene::ICameraSceneNode *camera;
 public:
 	Camera();
-	Camera(const ShootSpacer* parent);
+	Camera(const ShootSpacer &parent);
 	virtual ~Camera();
 
 	virtual void update() = 0;
@@ -35,7 +35,7 @@ protected:
 	irr::scene::ISceneNode * node;
 	irr::core::vector3df offset;
 public:
-	AttachableCamera(const ShootSpacer* parent, shs::Object3D * obj,
+	AttachableCamera(const ShootSpacer &parent, shs::Object3D * obj,
 			irr::core::vector3df offset);
 
 	void setOffset(irr::core::vector3df offset);
@@ -48,7 +48,7 @@ public:
 
 class StaticCamera: public AttachableCamera {
 public:
-	StaticCamera(const ShootSpacer* parent, shs::Object3D * obj,
+	StaticCamera(const ShootSpacer &parent, shs::Object3D * obj,
 			irr::core::vector3df offset = irr::core::vector3df(0.f, 10.f, -40.f));
 
 	virtual void update();

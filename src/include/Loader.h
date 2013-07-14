@@ -2,7 +2,7 @@
  * Loader.h
  *
  *  Created on: 10-07-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #ifndef LOADER_H_
@@ -12,12 +12,13 @@
 
 namespace shs {
 
+class ShootSpacer;
 /**
  * Temporary class! need to find better solution...
  */
 class Loader {
 public:
-	Loader(const GameContext &_context);
+	Loader(const ShootSpacer &parent);
 	virtual ~Loader();
 
 	irr::scene::IMesh* getMesh(irr::core::stringw name) const;
@@ -30,7 +31,7 @@ public:
 
 protected:
 
-	const GameContext &context;
+	const ShootSpacer &parent;
 
 	/**
 	 * Now, I know they both derive form IReferenceCounted... but then I won't know what resource is this, basing only on type

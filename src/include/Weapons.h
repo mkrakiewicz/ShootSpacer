@@ -2,17 +2,22 @@
  * Weapons.h
  *
  *  Created on: 10-07-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #ifndef WEAPONS_H_
 #define WEAPONS_H_
 
 #include <vector>
+#include "Ship.h"
 
 namespace shs {
 
 class Projectile;
+class Loader;
+class Object3D;
+class ShootSpacer;
+
 
 class Gun {
 public:
@@ -22,12 +27,13 @@ public:
 
 	virtual void shoot() = 0;
 
-	void makeProjectiles(Loader *loader, irr::scene::ISceneManager *smgr) = 0;
-	void deleteProjectiles() = 0;
+	virtual void makeProjectiles(const ShootSpacer &parent) = 0;
+	void deleteProjectiles();
+
 
 	void updateProjectiles();
 	irr::f32 getRpm() const;
-	void setRpm(irr::f32 rpm);
+	irr::f32 setRpm(irr::f32 rpm);
 
 protected:
 
@@ -61,9 +67,9 @@ protected:
 	// projectile limit in pool
 	irr::u32 projectileLimit;
 
-	Gun() :
-			node(0), projectileLimit(0), rpm(setRpm(120)) {
-	};
+	Gun(): node(0), projectileLimit(0), rpm(setRpm(120)) {
+	}
+	;
 
 };
 
@@ -74,9 +80,7 @@ public:
 
 	void shoot();
 
-	void makeProjectiles(Loader *loader, irr::scene::ISceneManager *smgr);
-	void deleteProjectiles();
-
+	void makeProjectiles(const ShootSpacer &parent);
 
 protected:
 

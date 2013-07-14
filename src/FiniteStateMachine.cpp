@@ -2,7 +2,7 @@
  * FiniteStateMachine.cpp
  *
  *  Created on: 09-06-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 #include "stdafx.h"
 #include "FSMState.h"
@@ -53,7 +53,7 @@ FSMRunnableState* FiniteStateMachine::getState(irr::core::stringw name) {
 	return availableStates[name];
 }
 
-bool shs::FiniteStateMachine::hasNext() {
+bool FiniteStateMachine::hasNext() {
 	if (stateStack.size() > 0)
 		return true;
 	return false;

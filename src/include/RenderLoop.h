@@ -2,7 +2,7 @@
  * RenderLoop.h
  *
  *  Created on: 18-05-2013
- *      Author: Micha³
+ *      Author: Michaï¿½
  */
 
 #ifndef RENDERLOOP_H_
@@ -14,7 +14,7 @@ class ShootSpacer;
 
 class IrrlichtClassBase {
 public:
-	IrrlichtClassBase(const ShootSpacer* parent);
+	IrrlichtClassBase(const ShootSpacer &parent);
 	virtual ~IrrlichtClassBase();
 protected:
 	irr::IrrlichtDevice *device;
@@ -22,7 +22,7 @@ protected:
 	irr::scene::ISceneManager *smgr;
 	irr::gui::IGUIEnvironment *gui;
 
-	const ShootSpacer* parent;
+	const ShootSpacer &parent;
 
 };
 
@@ -44,7 +44,7 @@ protected:
 //	}
 
 public:
-	RenderLoop(const ShootSpacer* parent);
+	RenderLoop(const ShootSpacer &parent);
 	virtual ~RenderLoop();
 
 	static irr::f32 getFrameDeltaTime();
