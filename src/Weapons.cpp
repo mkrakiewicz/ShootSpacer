@@ -30,9 +30,16 @@ Gun::Gun(MovingObject3D *node, irr::ITimer &timer, u32 limit) :
 }
 
 void Gun::updateProjectiles() {
-	for (std::list<Projectile*>::iterator it = activeProjectilePool.begin();
-			it != activeProjectilePool.end(); ++it) {
+	std::list<Projectile*>::iterator it = activeProjectilePool.begin();
+	while (	it != activeProjectilePool.end()) {
 		(*it)->move();
+		if ((*it)->isEnd()) {
+			(*it)->end();
+
+			remainingProjectilePool.push_back(*it);
+			activeProjectilePool.erase(it++);
+		} else
+			it++;
 
 	}
 }
@@ -92,6 +99,7 @@ void SimpleGun::shoot() {
 				remainingProjectilePool.push_back(tmp);
 			}
 		}
+
 		Projectile * tmp = remainingProjectilePool.back();
 		remainingProjectilePool.pop_back();
 		activeProjectilePool.push_back(tmp);
@@ -146,8 +154,8 @@ SimpleGun::~SimpleGun() {
 ////////////////////////////////////////////////////////////////////////////////////
 
 Projectile::Projectile(scene::ISceneNode* node, irr::ITimer &timer) :
-		Ship(node), distanceTravelled(0.f), maxDistance(1000), startTime(0), timer(
-				timer) {
+		Ship(node), distanceTravelled(0.f), maxDistance(3000), startTime(0), timer(
+				timer), maxTravelTime(10000),initialSpeed(1000) {
 //startTime = smgr-
 }
 
@@ -159,15 +167,32 @@ void Projectile::start(const core::vector3df& startPos,
 		const irr::core::vector3df &direction) {
 	this->startPos = startPos;
 	node->setPosition(startPos);
-	setVelocityVector(startVect + (direction * 200));
-	node->setVisible(true);
 
+	setVelocityVector(startVect + ( vector3df(direction).normalize() * initialSpeed));
+	node->setVisible(true);
+	distanceTravelled = 0;
+	startTime = timer.getTime();
+
+}
+
+bool Projectile::isEnd() {
+	if (distanceTravelled >= maxDistance) //TODO: or if time exceeds...
+		return true;
+	if ((timer.getTime() - startTime) >= maxTravelTime)
+		return true;
+
+	return false;
+}
+
+void Projectile::end() {
+	node->setVisible(false);
 }
 
 void Projectile::move() {
 	vector3df translation = velocityVector * getFrameDelta();
 	node->setPosition(node->getPosition() + translation);
 	distanceTravelled += translation.getLength();
+
 
 }
 
