@@ -100,10 +100,16 @@ public:
 	//method to be called when shot
 	void start(const irr::core::vector3df & startPos,
 			const irr::core::vector3df & startVect,const irr::core::vector3df &direction);
+	bool isEnd();
+
+	void end();
 
 	virtual void move();
 
 protected:
+
+	//speed of projectile when ship is not moving
+	irr::f32 initialSpeed;
 
 	//starting position for reference
 	irr::core::vector3df startPos;
@@ -116,6 +122,8 @@ protected:
 
 	// time in miliseconds at which
 	irr::u32 startTime;
+
+	irr::u32 maxTravelTime;
 
 	irr::ITimer &timer;
 
