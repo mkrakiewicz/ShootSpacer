@@ -87,7 +87,6 @@ void Gun::updateProjectiles() {
 			(*it)->end();
 			remainingProjectilePool.push_back(*it);
 			activeProjectilePool.erase(it++);
-
 		} else
 			it++;
 
@@ -145,6 +144,8 @@ void Gun::deleteProjectiles() {
 }
 Gun::~Gun() {
 	deleteProjectiles();
+
+
 	// TODO Auto-generated destructor stub
 }
 ////////////////////////////////////////////////////////////////////////////////////
