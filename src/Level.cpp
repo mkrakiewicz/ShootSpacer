@@ -144,12 +144,16 @@ void TestLevel::init() {
 
 	tmpnode->setPosition(vector3df(-222, 0, 0));
 
+	ITriangleSelector * selector = smgr->createTriangleSelector(tmpnode->getMesh(),tmpnode);
+	tmpnode->setTriangleSelector(selector);
+	selector->drop();
+
 	vector3df wsp(0, 5, -10);
 
 	ship = new TestPlayerShip(TestPlayerShip::createTestPlayerShipNode(parent));
 	ship->attachNewCamera(new StaticCamera(parent, ship));
 	Gun * tmp = new SimpleGun(ship,*parent.getDevice()->getTimer());
-	tmp->makeProjectiles(parent);
+	tmp->initialize(parent);
 	tmp->setRpm(500);
 	ship->addGun("main",tmp);
 //	ship.attachCamera(cam);
