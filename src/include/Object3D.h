@@ -32,7 +32,7 @@ public:
 	 * Get frame delta time
 	 * @return
 	 */
-	inline irr::f32 getFrameDelta() {
+	inline static irr::f32 getFrameDelta() {
 		if (!frameDeltaTime)
 			return 1.f;
 

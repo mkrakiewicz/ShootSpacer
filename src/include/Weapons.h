@@ -18,6 +18,7 @@ class Projectile;
 class Loader;
 class Object3D;
 class ShootSpacer;
+class HitEffect;
 
 class Gun {
 public:
@@ -27,14 +28,27 @@ public:
 
 	virtual void shoot() = 0;
 
-	virtual void makeProjectiles(const ShootSpacer &parent) = 0;
-	void deleteProjectiles();
+	virtual void initialize(const ShootSpacer &parent);
+
+
 
 	void updateProjectiles();
 	irr::f32 getRpm() const;
 	irr::f32 setRpm(irr::f32 rpm);
 
 protected:
+
+	irr::scene::ISceneManager *smgr;
+
+	 Loader  *loader;
+
+
+	virtual void makeProjectiles(const ShootSpacer &parent) = 0;
+	void deleteProjectiles();
+
+	virtual void checkCollisions();
+
+	virtual bool isCollision( Projectile *p);
 
 	/**
 	 * maybe when we have some models there should be a gun model
@@ -57,6 +71,12 @@ protected:
 	// this is also needed to set parent if model is applied later
 	MovingObject3D *node;
 
+	/**
+	 *  Remaining and active projectile pool element numbers should be adjusted so that
+	 *  remaining projectile pool has projectiles at the moment where "First" shot needs to be
+	 *  removed... so that they don't disappear in the middle of the way when player shoots a lot
+	 */
+
 	// Pool of all projectiles. maybe this should be just an array?
 	std::vector<Projectile*> remainingProjectilePool;
 
@@ -68,18 +88,29 @@ protected:
 
 	irr::ITimer &timer;
 
+	/**
+	 *
+	 * For each projectile there must be a "hit effect"...
+	 * if the animation of effect finishes before it needs to be run again, then we need more
+	 * nodes for effects
+	 */
+
+	irr::scene::ISceneCollisionManager* collisionManager;
+
+
 };
 
 class SimpleGun: public Gun {
 public:
-	SimpleGun(MovingObject3D *node, irr::ITimer &timer, irr::u32 limit = 70);
+	SimpleGun(MovingObject3D *node, irr::ITimer &timer, irr::u32 limit = 30);
 	virtual ~SimpleGun();
 
 	void shoot();
 
 	void makeProjectiles(const ShootSpacer &parent);
+protected:
 
-
+	void addHitEmitter();
 
 };
 
@@ -99,7 +130,8 @@ public:
 
 	//method to be called when shot
 	void start(const irr::core::vector3df & startPos,
-			const irr::core::vector3df & startVect,const irr::core::vector3df &direction);
+			const irr::core::vector3df & startVect,
+			const irr::core::vector3df &direction);
 	bool isEnd();
 
 	void end();
@@ -107,6 +139,12 @@ public:
 	virtual void move();
 
 protected:
+
+	irr::scene::IBillboardSceneNode *billboard;
+
+	irr::f32 calculateOpacity();
+
+	irr::f32 calculateOpacityFromTime();
 
 	//speed of projectile when ship is not moving
 	irr::f32 initialSpeed;
@@ -123,9 +161,15 @@ protected:
 	// time in miliseconds at which
 	irr::u32 startTime;
 
+	irr::u32 timeTravelled;
+
 	irr::u32 maxTravelTime;
 
 	irr::ITimer &timer;
+
+};
+
+class HitEffect {
 
 };
 
