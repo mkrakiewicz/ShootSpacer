@@ -158,6 +158,11 @@ IAnimatedMeshSceneNode* TestPlayerShip::createTestPlayerShipNode(
 
 	node->setPosition(vector3df(0, 30, -340));
 
+	ITriangleSelector * selector = parent.getSmgr()->createTriangleSelector(
+			node->getMesh(), node);
+	node->setTriangleSelector(selector);
+	selector->drop();
+
 	return node;
 }
 

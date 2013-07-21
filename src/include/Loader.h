@@ -15,6 +15,11 @@ namespace shs {
 class ShootSpacer;
 /**
  * Temporary class! need to find better solution...
+ * Should implement the following functionality:
+ *   -load everything during level loading, or initialization. perhaps via constructor,
+ *   so that it's not possible to load inside loop?
+ *   -if loading same mesh twice, resolve that somehow
+ *   -get loaded resources by name
  */
 class Loader {
 public:

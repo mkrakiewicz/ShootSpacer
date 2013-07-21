@@ -113,7 +113,7 @@ IrrlichtDevice* ShootSpacer::createIrrlichtDevice() {
 	params.AntiAlias = true;
 	params.DriverType = video::EDT_OPENGL;
 	params.WindowSize = core::dimension2d<u32>(1024, 768);
-	params.Fullscreen = false;
+	params.Fullscreen = true;
 
 	return createDeviceEx(params);
 }

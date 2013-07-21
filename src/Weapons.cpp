@@ -47,6 +47,8 @@ void Gun::updateProjectiles() {
 			IParticleSystemSceneNode* pas = 0;
 
 			pas = smgr->addParticleSystemSceneNode(true);
+
+
 			pas->setPosition((*it)->getPosition());
 
 /*
@@ -83,6 +85,22 @@ void Gun::updateProjectiles() {
 			pas->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
 			pas->setMaterialTexture(0,loader->getTexture(L"smoke")
 					);
+
+			// "explosion"
+			IBillboardSceneNode* bill = 0;
+
+			bill = smgr->addBillboardSceneNode();
+			bill->setPosition((*it)->getPosition());
+
+			bill->setMaterialTexture(0, loader->getTexture("orange_particle"));
+			bill->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
+			bill->setMaterialFlag(video::EMF_LIGHTING, false);
+			//	tmp->setMaterialFlag(video::EMF_ZBUFFER, false);
+			bill->setSize(core::dimension2d<f32>(20.0f, 20.0f));
+
+			anim = smgr->createDeleteAnimator(200);
+			bill->addAnimator(anim);
+			anim->drop();
 
 			(*it)->end();
 			remainingProjectilePool.push_back(*it);
@@ -209,7 +227,7 @@ void SimpleGun::makeProjectiles(const ShootSpacer &parent) {
 	tmp->setSize(core::dimension2d<f32>(10.0f, 10.0f));
 	tmp->setVisible(false);
 
-	parent.getSmgr()->addBillboardSceneNode();
+//	parent.getSmgr()->addBillboardSceneNode();
 
 	for (u32 i = 0; i < projectileLimit; ++i) {
 		remainingProjectilePool.push_back(new Projectile(tmp->clone(), timer));
