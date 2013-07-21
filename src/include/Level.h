@@ -52,6 +52,7 @@ protected:
 
 	Planet *node;
 	Planet *testPlanet;
+	ShipWithGuns *testEnemy;
 
 	TestPlayerShip *ship;
 	void init();

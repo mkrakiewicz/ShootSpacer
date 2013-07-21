@@ -110,6 +110,7 @@ TestLevel::~TestLevel() {
 	delete testPlanet;
 
 	delete ship;
+	delete testEnemy;
 }
 
 void TestLevel::beforeRun() {
@@ -144,7 +145,8 @@ void TestLevel::init() {
 
 	tmpnode->setPosition(vector3df(-222, 0, 0));
 
-	ITriangleSelector * selector = smgr->createTriangleSelector(tmpnode->getMesh(),tmpnode);
+	ITriangleSelector * selector = parent.getSmgr()->createTriangleSelector(
+			tmpnode->getMesh(), tmpnode);
 	tmpnode->setTriangleSelector(selector);
 	selector->drop();
 
@@ -152,15 +154,23 @@ void TestLevel::init() {
 
 	ship = new TestPlayerShip(TestPlayerShip::createTestPlayerShipNode(parent));
 	ship->attachNewCamera(new StaticCamera(parent, ship));
-	Gun * tmp = new SimpleGun(ship,*parent.getDevice()->getTimer());
+	Gun * tmp = new SimpleGun(ship, *parent.getDevice()->getTimer());
 	tmp->initialize(parent);
 	tmp->setRpm(500);
-	ship->addGun("main",tmp);
+	ship->addGun("main", tmp);
 //	ship.attachCamera(cam);
 
 	this->node = new Planet(tmpnode);
 	testPlanet = Planet::createTestPlanet(parent);
 
+	ISceneNode *tmp2 = TestPlayerShip::createTestPlayerShipNode(parent);
+	tmp2->setPosition(vector3df(-20, 20, -200));
+	tmp2->setScale(vector3df(4,4,4));
+	ISceneNodeAnimator * anim = parent.getSmgr()->createFlyCircleAnimator(
+			tmp2->getPosition(), 50, 0.001);
+	tmp2->addAnimator(anim);
+	anim->drop();
+	testEnemy = new ShipWithGuns(tmp2);
 }
 
 void TestLevel::beforeRender() {
