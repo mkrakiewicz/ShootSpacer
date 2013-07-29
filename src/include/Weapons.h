@@ -12,6 +12,7 @@
 #include <list>
 #include <vector>
 
+
 namespace shs {
 
 class Projectile;
@@ -19,6 +20,7 @@ class Loader;
 class Object3D;
 class ShootSpacer;
 class HitEffect;
+class StopEmitter;
 
 class Gun {
 public:
@@ -171,6 +173,23 @@ protected:
 
 class HitEffect {
 
+	static void addSimpleSmokeEffect();
+};
+
+
+class StopEmitter : public irr::scene::ISceneNodeAnimator {
+public:
+	StopEmitter(irr::u32 startTime, irr::u32 stopAfter = 100);
+
+	virtual irr::scene::ISceneNodeAnimator * createClone (irr::scene::ISceneNode *node, irr::scene::ISceneManager *newManager=0);
+	virtual void animateNode (irr::scene::ISceneNode *node, irr::u32 timeMs);
+	virtual ~StopEmitter(){
+		drop();
+	}
+
+protected:
+	irr::u32 startTime;
+	irr::u32 stopTime;
 };
 
 } /* namespace shs */

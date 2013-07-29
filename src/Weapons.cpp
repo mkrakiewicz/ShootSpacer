@@ -46,45 +46,44 @@ void Gun::updateProjectiles() {
 			 */
 			IParticleSystemSceneNode* pas = 0;
 
-			pas = smgr->addParticleSystemSceneNode(true);
-
+			pas = smgr->addParticleSystemSceneNode(false);
 
 			pas->setPosition((*it)->getPosition());
 
-/*
 			IParticleEmitter* em = pas->createBoxEmitter(
-					aabbox3d<f32>(-4.f, 0.f, -4.f, 20.f,
-							smoke[g].minparticleSize, 20.f), direction,
-					smoke[g].minParticle, smoke[g].maxParticle,
-					video::SColor(0, 0, 0, 0), video::SColor(0, 128, 128, 128),
-					250, 4000, 60);
+					aabbox3d<f32>(-4.f, 0.f, -4.f, 20.f, 2, 20.f),
+					vector3df((*it)->getVelocityVector()).normalize() * -0.1f,
+					12, 44, video::SColor(200, 20,20,20),
+					video::SColor(200, 100,100,100), 1500, 2000, 60);
 
-			em->setMinStartSize(
-					dimension2d<f32>(smoke[g].minparticleSize,
-							smoke[g].minparticleSize));
-			em->setMaxStartSize(
-					dimension2d<f32>(smoke[g].maxparticleSize,
-							smoke[g].maxparticleSize));
+			em->setMinStartSize(dimension2d<f32>(5.f, 5.f));
+			em->setMaxStartSize(dimension2d<f32>(20.f, 20.f));
 
 			pas->setEmitter(em);
-			em->drop();*/
 
+			em->drop();
 			// particles get invisible
 			IParticleAffector* paf = pas->createFadeOutParticleAffector(
-					video::SColor(0, 0, 0, 0), 5000);
+					video::SColor(0, 0, 0, 0), 3000);
+			pas->addAffector(paf);
+			paf->drop();
+
+			paf = pas->createScaleParticleAffector(dimension2df(30.f,30.f));
 			pas->addAffector(paf);
 			paf->drop();
 
 			// particle system life time
-			ISceneNodeAnimator* anim = smgr->createDeleteAnimator(5001);
+			ISceneNodeAnimator* anim = smgr->createDeleteAnimator(5000);
+			anim->createClone(this->node->getNode(), smgr);
 			pas->addAnimator(anim);
 			anim->drop();
 
 			pas->setMaterialFlag(video::EMF_LIGHTING, false);
 			pas->setMaterialFlag(video::EMF_ZWRITE_ENABLE, false);
 			pas->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
-			pas->setMaterialTexture(0,loader->getTexture(L"smoke")
-					);
+			pas->setMaterialTexture(0, loader->getTexture(L"smoke"));
+
+			pas->addAnimator(new StopEmitter(timer.getTime(), 700));
 
 			// "explosion"
 			IBillboardSceneNode* bill = 0;
@@ -130,7 +129,7 @@ void Gun::initialize(const ShootSpacer &parent) {
 	collisionManager = parent.getSmgr()->getSceneCollisionManager();
 	smgr = parent.getSmgr();
 	loader = &parent.getLoader();
-	loader->loadTexture(L"smoke",L"img/smoke2.jpg");
+	loader->loadTexture(L"smoke", L"img/smoke2.jpg");
 	makeProjectiles(parent);
 }
 
@@ -162,7 +161,6 @@ void Gun::deleteProjectiles() {
 }
 Gun::~Gun() {
 	deleteProjectiles();
-
 
 	// TODO Auto-generated destructor stub
 }
@@ -226,6 +224,7 @@ void SimpleGun::makeProjectiles(const ShootSpacer &parent) {
 //	tmp->setMaterialFlag(video::EMF_ZBUFFER, false);
 	tmp->setSize(core::dimension2d<f32>(10.0f, 10.0f));
 	tmp->setVisible(false);
+//	tmp->setColor(SColor(0,0,0,0),SColor(0,0,0,0));
 
 //	parent.getSmgr()->addBillboardSceneNode();
 
@@ -284,7 +283,7 @@ void Projectile::move() {
 	node->setPosition(node->getPosition() + translation);
 	distanceTravelled += translation.getLength();
 	timeTravelled = timer.getTime() - startTime;
-	billboard->getMaterial(0).MaterialTypeParam = calculateOpacityFromTime();
+//	billboard->getMaterial(0).MaterialTypeParam = calculateOpacityFromTime();
 	//TODO: HOW TO SET OPACITY
 //	billboard->setColor(SColor(calculateOpacityFromTime(),255,255,255));
 
@@ -335,6 +334,23 @@ bool Gun::isCollision(Projectile *p) {
 		}
 	}
 	return false;
+
+}
+
+ISceneNodeAnimator* StopEmitter::createClone(irr::scene::ISceneNode* node,
+		irr::scene::ISceneManager* newManager) {
+}
+
+StopEmitter::StopEmitter(irr::u32 startTime, irr::u32 stopAfter) :
+		startTime(startTime), stopTime(startTime + stopAfter) {
+}
+
+void StopEmitter::animateNode(irr::scene::ISceneNode* node, irr::u32 timeMs) {
+	if (timeMs >= stopTime) {
+		((IParticleSystemSceneNode*) node)->getEmitter()->setMaxParticlesPerSecond(
+				0);
+		//	drop();
+	}
 
 }
 
