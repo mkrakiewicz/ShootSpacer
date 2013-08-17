@@ -21,6 +21,25 @@ using namespace gui;
 
 namespace shs {
 
+void CursorControl::handleInput(const irr::SEvent& event) {
+	if (event.EventType == irr::EET_MOUSE_INPUT_EVENT) {
+		if (event.MouseInput.Event == irr::EMIE_MOUSE_MOVED){
+			u32 x = event.MouseInput.X;
+			_horizontalDelta = (-1.f) + (x/_screenResX)*2.f;
+
+			u32 y = event.MouseInput.Y;
+			_verticalDelta = (-1.f) + (y/_screenResY)*2.f;
+		}
+
+	}
+}
+
+void CursorControl::update() {
+	decreaseDelta();
+	postAction();
+}
+
+
 PlayerShip::PlayerShip(IAnimatedMeshSceneNode *node) :
 		ShipWithGuns(node), camera(0), isCameraHandled(false) {
 
@@ -82,6 +101,7 @@ void PlayerShip::createGUI(const ShootSpacer& parent) {
 	tmp->setDrawBorder(true);
 	shipGUI.addTextElement(stringw(L"acceleration"), tmp);
 
+
 	//shipGUI.addTextElement(L"speed",tmp);
 }
 
@@ -128,6 +148,21 @@ void TestPlayerShip::handleInput(const irr::SEvent& event) {
 		}
 
 	}
+
+	if (event.EventType == irr::EET_MOUSE_INPUT_EVENT) {
+		switch (event.MouseInput.Event) {
+		case irr::EMIE_LMOUSE_PRESSED_DOWN:
+			keyStates[SHOOT] = true;
+			break;
+		case irr::EMIE_LMOUSE_LEFT_UP:
+			keyStates[SHOOT] = false;
+			break;
+		default:
+			break;
+		}
+
+	}
+
 	if (isCameraHandled) {
 		camera->handleInput(event);
 	}
@@ -216,3 +251,4 @@ void TestPlayerShip::handleKeystates() {
 //}
 
 } /* namespace shootspacer */
+
