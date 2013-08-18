@@ -21,27 +21,9 @@ using namespace gui;
 
 namespace shs {
 
-void CursorControl::handleInput(const irr::SEvent& event) {
-	if (event.EventType == irr::EET_MOUSE_INPUT_EVENT) {
-		if (event.MouseInput.Event == irr::EMIE_MOUSE_MOVED){
-			u32 x = event.MouseInput.X;
-			_horizontalDelta = (-1.f) + (x/_screenResX)*2.f;
-
-			u32 y = event.MouseInput.Y;
-			_verticalDelta = (-1.f) + (y/_screenResY)*2.f;
-		}
-
-	}
-}
-
-void CursorControl::update() {
-	decreaseDelta();
-	postAction();
-}
-
 
 PlayerShip::PlayerShip(IAnimatedMeshSceneNode *node) :
-		ShipWithGuns(node), camera(0), isCameraHandled(false) {
+		ShipWithGuns(node), camera(0), isCameraHandled(false), _cursorControl(0) {
 
 }
 
@@ -74,6 +56,10 @@ void PlayerShip::update() {
 	shipGUI.updateAcceleration(acceleration);
 
 	ShipWithGuns::update();
+
+	if (_cursorControl) {
+		_cursorControl->update();
+	}
 
 	handleCamera();
 
@@ -159,6 +145,10 @@ void TestPlayerShip::handleInput(const irr::SEvent& event) {
 			break;
 		default:
 			break;
+		}
+
+		if (_cursorControl) {
+			_cursorControl->handleInput(event);
 		}
 
 	}

@@ -35,6 +35,9 @@ public:
 
 	void accelerate();
 
+	// factor - value between (-1,1)
+	void rotate(irr::f32 factor, const irr::core::vector3df& axis);
+
 protected:
 	Ship();
 

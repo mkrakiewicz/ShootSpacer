@@ -62,6 +62,11 @@ void Ship::update() {
 	updateMovement();
 	clearAcceleration();
 }
+//TODO: optimize, check for correct value
+void Ship::rotate(f32 factor, const core::vector3df& axis)
+{
+	rotateNodeInLocalSpace(factor * maxRotationSpeed, axis);
+}
 
 void Ship::init() {
 	maxAcceleration = maxRotationSpeed = maxSpeed = 0;

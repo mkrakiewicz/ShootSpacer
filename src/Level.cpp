@@ -158,6 +158,7 @@ void TestLevel::init() {
 	tmp->initialize(parent);
 	tmp->setRpm(500);
 	ship->addGun("main", tmp);
+	ship->_cursorControl = new ShipRotatingCursorHandler(ship,parent.getDevice()->getCursorControl(),1024, 768);
 //	ship.attachCamera(cam);
 
 	this->node = new Planet(tmpnode);

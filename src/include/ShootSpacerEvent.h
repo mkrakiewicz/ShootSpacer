@@ -13,24 +13,131 @@ namespace shs {
 //class irr::IEventReceiver;
 class ShootSpacer;
 
-class ShootSpacerEvent: public irr::IEventReceiver {
-private:
-	// We use this array to store the current state of each key
-	bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
+class ShootSpacerEvent: public irr::IEventReceiver
+{
+	private:
+		// We use this array to store the current state of each key
+		bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
 
-	ShootSpacer &gameInstance;
-public:
-	// This is the one method that we have to implement
-	virtual bool OnEvent(const irr::SEvent& event);
+		ShootSpacer &gameInstance;
+	public:
+		// This is the one method that we have to implement
+		virtual bool OnEvent(const irr::SEvent& event);
 
-	// This is used to check whether a key is being held down
-	inline bool IsKeyDown(irr::EKEY_CODE keyCode) const {
-		return KeyIsDown[keyCode];
-	}
+		// This is used to check whether a key is being held down
+		inline bool IsKeyDown(irr::EKEY_CODE keyCode) const
+		{
+			return KeyIsDown[keyCode];
+		}
 
-	ShootSpacerEvent(ShootSpacer &parent);
+		ShootSpacerEvent(ShootSpacer &parent);
 
-	virtual ~ShootSpacerEvent();
+		virtual ~ShootSpacerEvent();
+
+};
+
+class CursorHandler
+{
+	public:
+		CursorHandler(irr::gui::ICursorControl* control, irr::u32 screenResX,
+		      irr::u32 screenResY)
+				: _horizontalDelta(0.f), _verticalDelta(0.f), _screenResX(
+				      screenResX), _screenResY(screenResY), _control(control)
+		{
+
+			_halfX = _screenResX / 2.f;
+			_halfY = _screenResY / 2.f;
+
+			//reset cursor position to middle
+			_control->setPosition(_halfX, _halfY);
+
+			allowLeaveWindow = false;
+		}
+
+		virtual ~CursorHandler()
+		{
+		}
+
+		void handleInput(const irr::SEvent& event);
+		virtual void update();
+
+		bool allowLeaveWindow;
+
+	protected:
+		virtual void decreaseDelta() = 0;
+
+		// to put something like: _control->setPosition(_halfX,_halfY);
+		virtual void postAction() = 0;
+
+		irr::f32 _horizontalDelta, // value range -1(100% left) to 1 (100% right)
+		      _verticalDelta,
+
+		      // value range -1(100% top) to 1 (100% bottom)
+		      // because Irrlicht's Y axis goes from top to bottom.
+
+		      //helper variables
+		      _halfX, _halfY;
+
+		irr::u32 _screenResX, _screenResY;
+
+		irr::gui::ICursorControl* _control;
+
+};
+
+
+class PlayerShip;
+
+class PlayerShipCursorHandler: public CursorHandler
+{
+	public:
+		PlayerShipCursorHandler(PlayerShip *shipToHandle,
+		      irr::gui::ICursorControl* control, irr::u32 screenResX = 800,
+		      irr::u32 screenResY = 600)
+				: CursorHandler(control, screenResX, screenResY), _ship(
+				      shipToHandle)
+		{
+
+		}
+
+		virtual void update();
+
+		virtual ~PlayerShipCursorHandler()
+		{
+		}
+
+	protected:
+		PlayerShip *_ship;
+
+};
+
+
+class ShipRotatingCursorHandler: public PlayerShipCursorHandler
+{
+	public:
+		ShipRotatingCursorHandler(PlayerShip *shipToHandle,
+		      irr::gui::ICursorControl* control, irr::u32 screenResX = 800,
+		      irr::u32 screenResY = 600)
+				: PlayerShipCursorHandler(shipToHandle, control, screenResX,
+				      screenResY)
+
+		{
+		}
+
+		virtual void update();
+
+	protected:
+
+		void setShipRotation(irr::f32 rotX, irr::f32 rotY);
+
+		// empty - no decreasing delta
+		virtual void decreaseDelta()
+		{
+		}
+
+		// empty - no post action
+		virtual void postAction()
+		{
+		}
 
 };
 
