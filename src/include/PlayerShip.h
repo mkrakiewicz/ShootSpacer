@@ -9,7 +9,6 @@
 #define PLAYERSHIP_H_
 
 #include "Ship.h"
-
 #include <map>
 #include "GUI.h"
 
@@ -29,49 +28,7 @@ enum ShipKeys {
 
 class AttachableCamera;
 class Loader;
-
-class CursorControl {
-public:
-	CursorControl(irr::gui::ICursorControl* control, irr::u32 screenResX = 800, irr::u32 screenResY = 600):
-		_horizontalDelta(0.f),_verticalDelta(0.f),
-		_screenResX(screenResX),_screenResY(screenResY), _control(control) {
-
-		_halfX = _screenResX/2.f;
-		_halfY = _screenResY/2.f;
-
-		//reset cursor position to middle
-		_control->setPosition(_halfX,_halfY);
-	}
-
-	inline irr::f32 getHorizontalDelta() { return _horizontalDelta; }
-	inline irr::f32 getVerticalDelta() { return _verticalDelta; }
-
-	virtual  ~CursorControl() {}
-
-protected:
-	void handleInput(const irr::SEvent& event);
-	virtual void update();
-
-	virtual void decreaseDelta() = 0;
-
-	// to put something like: _control->setPosition(_halfX,_halfY);
-	virtual void postAction() = 0;
-
-	irr::f32
-	// value range -1(100% left) to 1 (100% right)
-	_horizontalDelta,
-
-	// value range -1(100% top) to 1 (100% bottom)
-	// because Irrlicht's Y axis goes from top to bottom.
-	_verticalDelta,
-	//helper variables
-	_halfX, _halfY;
-
-	irr::u32 _screenResX, _screenResY;
-
-	irr::gui::ICursorControl* _control;
-
-};
+class CursorHandler;
 
 /**
  * PlayerShip will always have guns
@@ -93,6 +50,8 @@ public:
 	void attachNewCamera(AttachableCamera *camera);
 	void createGUI(const ShootSpacer &parent);
 
+	CursorHandler *_cursorControl;
+
 
 protected:
 
@@ -109,7 +68,6 @@ protected:
 
 	bool isCameraHandled;
 
-	CursorControl *_cursorControl;
 
 
 

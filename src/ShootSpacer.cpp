@@ -9,7 +9,6 @@
 #include "Menu.h"
 #include "Ship.h"
 #include "Planet.h"
-#include "ShootSpacerEvent.h"
 #include "Level.h"
 #include "LevelManager.h"
 #include "ShootSpacer.h"
