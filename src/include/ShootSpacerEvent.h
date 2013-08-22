@@ -40,19 +40,7 @@ class CursorHandler
 {
 	public:
 		CursorHandler(irr::gui::ICursorControl* control, irr::u32 screenResX,
-		      irr::u32 screenResY)
-				: _horizontalDelta(0.f), _verticalDelta(0.f), _screenResX(
-				      screenResX), _screenResY(screenResY), _control(control)
-		{
-
-			_halfX = _screenResX / 2.f;
-			_halfY = _screenResY / 2.f;
-
-			//reset cursor position to middle
-			_control->setPosition(_halfX, _halfY);
-
-			allowLeaveWindow = false;
-		}
+		      irr::u32 screenResY);
 
 		virtual ~CursorHandler()
 		{
@@ -61,7 +49,7 @@ class CursorHandler
 		void handleInput(const irr::SEvent& event);
 		virtual void update();
 
-		bool allowLeaveWindow;
+		bool forceCursorStayInWindow;
 
 	protected:
 		virtual void decreaseDelta() = 0;
@@ -82,8 +70,16 @@ class CursorHandler
 
 		irr::gui::ICursorControl* _control;
 
-};
+		const irr::u32 maxDistFromCenter;
+		const irr::u32 maxDistFromWindowEdge;
 
+		irr::u32 x_min, x_max, y_min, y_max;
+
+		bool handleWindowBounds(irr::s32& x,irr::s32&y);
+
+		irr::f32 normalizeCoordinate(irr::u32 &min, irr::u32 &max, irr::s32 & value);
+
+};
 
 class PlayerShip;
 
@@ -109,7 +105,6 @@ class PlayerShipCursorHandler: public CursorHandler
 		PlayerShip *_ship;
 
 };
-
 
 class ShipRotatingCursorHandler: public PlayerShipCursorHandler
 {

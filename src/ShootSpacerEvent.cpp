@@ -52,45 +52,66 @@ void CursorHandler::handleInput(const irr::SEvent& event)
 			s32 x = event.MouseInput.X;
 			s32 y = event.MouseInput.Y;
 
-			/*if (!allowLeaveWindow) {
-				bool boundsCrossed = false;
+			_horizontalDelta = 0;
+			_verticalDelta = 0;
 
-				const s32 border = 20;
+			if (forceCursorStayInWindow) {
 
-				if (x < border) {
-					x = border;
-					boundsCrossed = true;
-				} else if (x >= (_screenResX - border)) {
-					x = _screenResX - border;
-					boundsCrossed = true;
-				}
+				handleWindowBounds(x, y);
 
-				if (y < border) {
-					boundsCrossed = true;
-					y = border;
-				} else if (y >= (_screenResY - border)) {
-					y = _screenResY - border;
-					boundsCrossed = true;
-				}
+			}
 
-				if (boundsCrossed) {
-					_control->setPosition(vector2di(x,y));
-				}
+			if (x < x_min) {
+				x = x_min;
+			} else if (x > x_max) {
+				x = x_max;
+			}
 
-			}*/
+			if (y < y_min) {
+				y = y_min;
+			} else if (y > y_max) {
+				y = y_max;
+			}
 
-			_horizontalDelta = (-1.f) + ((float)x / _screenResX) * 2.f;
+			s32 x_dist = x - _halfX;
+			s32 y_dist = y - _halfY;
 
-			_verticalDelta = (-1.f) + ((float)y / _screenResY) * 2.f;
-
-		//	_control->setPosition(0.5f,0.5f);
+			_horizontalDelta = -1.f + normalizeCoordinate(x_min, x_max, x) * 2.f;
+			_verticalDelta = -1.f + normalizeCoordinate(y_min, y_max, y) * 2.f;
 		}
 
 	}
 }
 
+CursorHandler::CursorHandler(irr::gui::ICursorControl* control,
+      irr::u32 screenResX, irr::u32 screenResY)
+		: _horizontalDelta(0.f), _verticalDelta(0.f), _screenResX(screenResX), _screenResY(
+		      screenResY), _control(control), maxDistFromCenter(200), maxDistFromWindowEdge(
+		      40)
+{
+
+	_halfX = _screenResX / 2.f;
+	_halfY = _screenResY / 2.f;
+
+	//reset cursor position to middle
+	_control->setPosition(_halfX, _halfY);
+
+	forceCursorStayInWindow = true;
+
+	x_min = _halfX - maxDistFromCenter;
+	x_max = _halfX + maxDistFromCenter;
+
+	y_min = _halfY - maxDistFromCenter;
+	y_max = _halfY + maxDistFromCenter;
+
+}
+
 void CursorHandler::update()
 {
+	{
+
+		//	_control->setPosition(0.5f,0.5f);
+	}
 	decreaseDelta();
 	postAction();
 }
@@ -110,6 +131,41 @@ void ShipRotatingCursorHandler::setShipRotation(irr::f32 rotX, irr::f32 rotY)
 {
 	_ship->rotate(_verticalDelta, vector3df(1, 0, 0));
 	_ship->rotate(_horizontalDelta, vector3df(0, 1, 0));
+}
+
+bool CursorHandler::handleWindowBounds(irr::s32& x, irr::s32&y)
+{
+	bool mousePositionChanged = false;
+	s32 nx, ny;
+	nx = x;
+	ny = y;
+	if (x < maxDistFromWindowEdge) {
+		mousePositionChanged = true;
+		nx = x_min;
+	} else if (x >= (_screenResX - maxDistFromWindowEdge)) {
+		mousePositionChanged = true;
+		nx = x_max;
+	}
+
+	if (y < maxDistFromWindowEdge) {
+		mousePositionChanged = true;
+		ny = y_min;
+	} else if (y >= (_screenResY - maxDistFromWindowEdge)) {
+		mousePositionChanged = true;
+		ny = y_max;
+	}
+
+	if (mousePositionChanged) {
+		_control->setPosition(nx, ny);
+	}
+
+	return mousePositionChanged;
+}
+
+irr::f32 CursorHandler::normalizeCoordinate(irr::u32& min, irr::u32& max,
+      irr::s32& value)
+{
+	return (f32)(value - min) / (max - min);
 }
 
 } /* namespace shs */
