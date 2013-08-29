@@ -58,7 +58,7 @@ void PlayerShip::update() {
 	ShipWithGuns::update();
 
 	if (_cursorControl) {
-		_cursorControl->update();
+		_cursorControl->handle();
 	}
 
 	handleCamera();
