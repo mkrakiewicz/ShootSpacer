@@ -47,7 +47,7 @@ class CursorHandler
 		}
 
 		void handleInput(const irr::SEvent& event);
-		virtual void update();
+		virtual void handle();
 
 		bool forceCursorStayInWindow;
 
@@ -78,6 +78,7 @@ class CursorHandler
 		bool handleWindowBounds(irr::s32& x,irr::s32&y);
 
 		irr::f32 normalizeCoordinate(irr::u32 &min, irr::u32 &max, irr::s32 & value);
+		irr::f32 checkMinMax(const irr::f32 &min,const  irr::f32 &max,const  irr::f32 &val);
 
 };
 
@@ -95,7 +96,7 @@ class PlayerShipCursorHandler: public CursorHandler
 
 		}
 
-		virtual void update();
+		virtual void handle();
 
 		virtual ~PlayerShipCursorHandler()
 		{
@@ -118,7 +119,7 @@ class ShipRotatingCursorHandler: public PlayerShipCursorHandler
 		{
 		}
 
-		virtual void update();
+		virtual void handle();
 
 	protected:
 

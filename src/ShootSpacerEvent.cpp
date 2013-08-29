@@ -49,35 +49,6 @@ void CursorHandler::handleInput(const irr::SEvent& event)
 	if (event.EventType == irr::EET_MOUSE_INPUT_EVENT) {
 		if (event.MouseInput.Event == irr::EMIE_MOUSE_MOVED) {
 
-			s32 x = event.MouseInput.X;
-			s32 y = event.MouseInput.Y;
-
-			_horizontalDelta = 0;
-			_verticalDelta = 0;
-
-			if (forceCursorStayInWindow) {
-
-				handleWindowBounds(x, y);
-
-			}
-
-			if (x < x_min) {
-				x = x_min;
-			} else if (x > x_max) {
-				x = x_max;
-			}
-
-			if (y < y_min) {
-				y = y_min;
-			} else if (y > y_max) {
-				y = y_max;
-			}
-
-			s32 x_dist = x - _halfX;
-			s32 y_dist = y - _halfY;
-
-			_horizontalDelta = -1.f + normalizeCoordinate(x_min, x_max, x) * 2.f;
-			_verticalDelta = -1.f + normalizeCoordinate(y_min, y_max, y) * 2.f;
 		}
 
 	}
@@ -106,25 +77,50 @@ CursorHandler::CursorHandler(irr::gui::ICursorControl* control,
 
 }
 
-void CursorHandler::update()
+void CursorHandler::handle()
 {
 	{
+		position2di pos = _control->getPosition();
 
-		//	_control->setPosition(0.5f,0.5f);
+		const f32 maxDist = 200.f;
+
+		s32 x_dist = checkMinMax(-maxDist, maxDist, pos.X - _halfX);
+		s32 y_dist = checkMinMax(-maxDist, maxDist, pos.Y - _halfY);
+
+		const f32 sensivity = 0.4f;
+
+		_horizontalDelta += (sensivity * x_dist)/maxDist;
+		_verticalDelta += (sensivity * y_dist)/maxDist;
+
+		_horizontalDelta = checkMinMax(-1,1, _horizontalDelta);
+		_verticalDelta = checkMinMax(-1,1,_verticalDelta);
+
+		_control->setPosition(0.5f,0.5f);
 	}
 	decreaseDelta();
 	postAction();
 }
 
-void PlayerShipCursorHandler::update()
-{
-	CursorHandler::update();
+f32 CursorHandler::checkMinMax(const f32 &min,const  f32 &max,const  f32 &val) {
+	f32 result = val;
+	if (val < min)
+		result = min;
+	if (val > max)
+		result = max;
+
+	return result;
+
 }
 
-void ShipRotatingCursorHandler::update()
+void PlayerShipCursorHandler::handle()
+{
+	CursorHandler::handle();
+}
+
+void ShipRotatingCursorHandler::handle()
 {
 	setShipRotation(_horizontalDelta, _verticalDelta);
-	PlayerShipCursorHandler::update();
+	PlayerShipCursorHandler::handle();
 }
 
 void ShipRotatingCursorHandler::setShipRotation(irr::f32 rotX, irr::f32 rotY)
@@ -165,7 +161,7 @@ bool CursorHandler::handleWindowBounds(irr::s32& x, irr::s32&y)
 irr::f32 CursorHandler::normalizeCoordinate(irr::u32& min, irr::u32& max,
       irr::s32& value)
 {
-	return (f32)(value - min) / (max - min);
+	return (f32) (value - min) / (max - min);
 }
 
 } /* namespace shs */
