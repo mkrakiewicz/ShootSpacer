@@ -113,6 +113,11 @@ MainMenu::~MainMenu() {
 
 void MainMenu::displayMenu() {
 	gui->clear();
+	IGUIWindow* window = gui->addWindow(
+	                        rect<s32>(100 , 100 , 300 , 200 ),
+	                        false, // modal?
+	                        L"Test window");
+	gui->
 
 	//	gui->addStaticText(L"SPACESHOOTER", rect<s32>(400, 400, 700, 722), true);
 
