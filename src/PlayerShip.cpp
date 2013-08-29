@@ -212,19 +212,19 @@ void TestPlayerShip::handleKeystates() {
 	}
 
 	if (keyStates[PITCH_UPWARDS] == true) {
-		rotateNodeInLocalSpace(-maxRotationSpeed, vector3df(1, 0, 0));
+		rotate(-1, vector3df(1, 0, 0));
 	}
 
 	if (keyStates[PITCH_DOWNWARDS] == true) {
-		rotateNodeInLocalSpace(maxRotationSpeed, vector3df(1, 0, 0));
+		rotate(1, vector3df(1, 0, 0));
 
 	}
 	if (keyStates[TURN_RIGHT] == true) {
-		rotateNodeInLocalSpace(maxRotationSpeed, vector3df(0, 1, 0));
+		rotate(1, vector3df(0, 1, 0));
 
 	}
 	if (keyStates[TURN_LEFT] == true) {
-		rotateNodeInLocalSpace(-maxRotationSpeed, vector3df(0, 1, 0));
+		rotate(-1, vector3df(0, 1, 0));
 
 	}
 
