@@ -52,7 +52,7 @@ void AttachableCamera::setPositionAtOffset() {
 	// set camera
 	camera->setPosition(node->getPosition() + offset); //position camera in front of the ship
 	camera->setUpVector(upv); //set up vector of camera >> Zeuss - tested with +node->getPostion() and it didnt work, but this works fine.
-	camera->setTarget(node->getPosition() - offset); //set target of camera (look at point) >> Zeuss - Dont forget to add the node positiob
+	camera->setTarget(node->getPosition() + node->getRotation().rotationToDirection()*1000.f); //set target of camera (look at point) >> Zeuss - Dont forget to add the node positiob
 
 }
 
