@@ -25,6 +25,9 @@ public:
 	virtual void handleEvent(const irr::SEvent& event);
 protected:
 
+	void addButton(irr::core::stringw texture_name,irr::core::stringw pressed_texture_name, irr::core::vector2di startPosition);
+
+
 	irr::video::ITexture *backgroundImg;
 
 	void beforeRender();
