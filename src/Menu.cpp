@@ -105,7 +105,8 @@ void Menu::handleEvent(const irr::SEvent& event) {
 				}
 
 			}
-		} else if (event.EventType == EET_GUI_EVENT) {
+
+	} else if (event.EventType == EET_GUI_EVENT) {
 			if (event.GUIEvent.EventType == EGET_BUTTON_CLICKED) {
 				switch (event.GUIEvent.Caller->getID()) {
 				case RESUME_GAME:
