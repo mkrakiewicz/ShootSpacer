@@ -36,6 +36,10 @@ Menu::Menu(const ShootSpacer &parent) :
 	menu_test_string = L"MENU: ShootSpacer ";
 	menu_test_string += VERSION_INFO::CURRENT_VERSION_STRING;
 	menu_test_string += "\nmenu to be implemented...";
+
+	parent.getLoader().loadTexture("resume_button", "img/b_resume.png");
+	parent.getLoader().loadTexture("resume_button_pressed",
+			"img/b_resume_pressed.png");
 }
 
 void Menu::beforeRender() {
@@ -68,6 +72,10 @@ void Menu::displayMenu() {
 
 	gui->clear();
 
+	addButton("resume_button", "resume_button_pressed", vector2di(50, 50), RESUME_GAME);
+	addButton("options_button", "options_button_pressed", vector2di(50, 150),
+			OPTIONS);
+	addButton("exit_button", "exit_button_pressed", vector2di(50, 250), EXIT);
 //	gui->addStaticText(L"SPACESHOOTER", rect<s32>(400, 400, 700, 722), true);
 
 }
@@ -77,10 +85,45 @@ void Menu::beforeRun() {
 }
 
 void Menu::beforeStop() {
+	gui->clear();
 }
 
-
 void Menu::handleEvent(const irr::SEvent& event) {
+
+	if (event.EventType == EET_KEY_INPUT_EVENT) {
+			if (!event.KeyInput.PressedDown) {
+
+				switch (event.KeyInput.Key) {
+				case KEY_ESCAPE:
+					parent.getStateRunner().endCurrentState();
+					break;
+				case KEY_KEY_Q:
+					parent.getStateRunner().exit();
+					break;
+				default:
+					break;
+				}
+
+			}
+		} else if (event.EventType == EET_GUI_EVENT) {
+			if (event.GUIEvent.EventType == EGET_BUTTON_CLICKED) {
+				switch (event.GUIEvent.Caller->getID()) {
+				case RESUME_GAME:
+					parent.getStateRunner().endCurrentState();
+					break;
+				case OPTIONS:
+					break;
+				case EXIT:
+					parent.getStateRunner().endCurrentState();
+					//UGLY HACK: TODO: improve;
+					parent.getStateRunner().endCurrentState();
+					break;
+				default:
+					break;
+
+				}
+			}
+		}
 	//TODO: handel events. need to pass state manager with game context??
 	//coz how else to set next state from here.
 
@@ -100,12 +143,44 @@ void Menu::handleEvent(const irr::SEvent& event) {
 	}
 }
 
+void Menu::addButton(stringw texture_name, stringw pressed_texture_name,
+		vector2di startPosition, s32 buttonID) {
+	ITexture *buttonTexture = parent.getLoader().getTexture(texture_name);
+
+	u32 btn_x = startPosition.X, btn_y = startPosition.Y;
+
+	dimension2du btnDimension = buttonTexture->getSize();
+
+	recti btnAlignment(btn_x, btn_y, btn_x + btnDimension.Width,
+			btn_y + btnDimension.Height);
+	IGUIButton *startButton = gui->addButton(btnAlignment, 0, buttonID);
+	//	startButton->setIsPushButton(true);
+	startButton->setImage(buttonTexture);
+	startButton->setPressedImage(
+			parent.getLoader().getTexture(pressed_texture_name));
+	startButton->setUseAlphaChannel(true);
+	startButton->setDrawBorder(false);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
 MainMenu::MainMenu(const ShootSpacer &parent) :
 		Menu(parent) {
 
 	menu_test_string = L"MAIN MENU: ShootSpacer ";
 	menu_test_string += VERSION_INFO::CURRENT_VERSION_STRING;
 	menu_test_string += "\nmenu to be implemented...";
+	this->parent.getLoader().loadTexture("start_button", "img/b_start.png");
+	this->parent.getLoader().loadTexture("start_button_pressed",
+			"img/b_start_pressed.png");
+
+	this->parent.getLoader().loadTexture("options_button", "img/b_options.png");
+	this->parent.getLoader().loadTexture("options_button_pressed",
+			"img/b_options_pressed.png");
+
+	this->parent.getLoader().loadTexture("exit_button", "img/b_exit.png");
+	this->parent.getLoader().loadTexture("exit_button_pressed",
+			"img/b_exit_pressed.png");
+
 }
 
 MainMenu::~MainMenu() {
@@ -113,6 +188,14 @@ MainMenu::~MainMenu() {
 
 void MainMenu::displayMenu() {
 	gui->clear();
+
+	addButton("start_button", "start_button_pressed", vector2di(50, 50),
+			START_GAME);
+	addButton("options_button", "options_button_pressed", vector2di(50, 150),
+			OPTIONS);
+	addButton("exit_button", "exit_button_pressed", vector2di(50, 250), EXIT);
+
+//	startButton->set
 
 	//	gui->addStaticText(L"SPACESHOOTER", rect<s32>(400, 400, 700, 722), true);
 
@@ -131,21 +214,40 @@ void MainMenu::afterRender() {
 }
 
 void MainMenu::handleEvent(const irr::SEvent& event) {
-	if (!event.KeyInput.PressedDown) {
+	if (event.EventType == EET_KEY_INPUT_EVENT) {
+		if (!event.KeyInput.PressedDown) {
 
-		switch (event.KeyInput.Key) {
-		case KEY_ESCAPE:
-		case KEY_KEY_Q:
-			parent.getStateRunner().exit();
-			break;
-		case KEY_RETURN:
-			parent.getStateRunner().appendStateWithName(L"current_level");
-			this->stop();
-			break;
-		default:
-			break;
+			switch (event.KeyInput.Key) {
+			case KEY_ESCAPE:
+			case KEY_KEY_Q:
+				parent.getStateRunner().exit();
+				break;
+			case KEY_RETURN:
+				parent.getStateRunner().appendStateWithName(L"current_level");
+				this->stop();
+				break;
+			default:
+				break;
+			}
+
 		}
+	} else if (event.EventType == EET_GUI_EVENT) {
+		if (event.GUIEvent.EventType == EGET_BUTTON_CLICKED) {
+			switch (event.GUIEvent.Caller->getID()) {
+			case START_GAME:
+				parent.getStateRunner().appendStateWithName(L"current_level");
+				this->stop();
+				break;
+			case OPTIONS:
+				break;
+			case EXIT:
+				parent.getStateRunner().exit();
+				break;
+			default:
+				break;
 
+			}
+		}
 	}
 }
 
