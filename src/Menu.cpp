@@ -124,23 +124,6 @@ void Menu::handleEvent(const irr::SEvent& event) {
 				}
 			}
 		}
-	//TODO: handel events. need to pass state manager with game context??
-	//coz how else to set next state from here.
-
-	//    // Remember whether each key is down or up
-	//    if (event.EventType == irr::EET_KEY_INPUT_EVENT){
-	//        KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
-	//
-	if (!event.KeyInput.PressedDown) {
-		if (event.KeyInput.Key == KEY_ESCAPE) {
-
-			//	context.stateRunner->appendStateWithName(L"test_level");
-			parent.getStateRunner().endCurrentState();
-
-		} else if (event.KeyInput.Key == KEY_KEY_Q) {
-			parent.getStateRunner().exit();
-		}
-	}
 }
 
 void Menu::addButton(stringw texture_name, stringw pressed_texture_name,
