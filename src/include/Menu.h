@@ -24,8 +24,13 @@ public:
 
 	virtual void handleEvent(const irr::SEvent& event);
 protected:
+	enum BUTTONS {
+			RESUME_GAME,
+			OPTIONS,
+			EXIT
+	};
 
-	void addButton(irr::core::stringw texture_name,irr::core::stringw pressed_texture_name, irr::core::vector2di startPosition);
+	void addButton(irr::core::stringw texture_name,irr::core::stringw pressed_texture_name, irr::core::vector2di startPosition, irr::s32 buttonID);
 
 
 	irr::video::ITexture *backgroundImg;
@@ -47,10 +52,6 @@ protected:
 };
 
 class MainMenu: public Menu {
-protected:
-	void afterRender();
-
-
 public:
 	MainMenu(const ShootSpacer &parent);
 	virtual ~MainMenu();
@@ -58,6 +59,16 @@ public:
 	void displayMenu();
 
 	virtual void handleEvent(const irr::SEvent& event);
+
+protected:
+	enum BUTTONS {
+		START_GAME,
+		OPTIONS,
+		EXIT
+	};
+
+	void afterRender();
+
 };
 
 } /* namespace shootspacer */
