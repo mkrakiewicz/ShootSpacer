@@ -1,4 +1,0 @@
-[submodule "img"]
-	path = img
-	url = git@github.com:ShootSpacer/ShootSpacer-media.git
-	ignore = dirty
