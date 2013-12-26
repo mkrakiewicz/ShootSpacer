@@ -5,7 +5,7 @@
  *      Author: Micha�
  */
 #include "stdafx.h"
-#include "ShootSpacer.h"
+#include "shootspacer/ShootSpacer.h"
 #include "Menu.h"
 #include "FiniteStateMachine.h"
 

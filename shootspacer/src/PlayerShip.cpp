@@ -6,9 +6,9 @@
  */
 
 #include "stdafx.h"
-#include "ShootSpacer.h"
+#include "shootspacer/ShootSpacer.h"
 #include "PlayerShip.h"
-#include "Camera.h"
+#include "shootspacer/Camera.h"
 #include "Weapons.h"
 
 using namespace irr;

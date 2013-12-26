@@ -11,7 +11,7 @@
 #include "Planet.h"
 #include "Level.h"
 #include "LevelManager.h"
-#include "ShootSpacer.h"
+#include "shootspacer/ShootSpacer.h"
 
 using namespace irr;
 

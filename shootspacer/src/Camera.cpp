@@ -5,8 +5,8 @@
  *      Author: Micha�
  */
 #include "stdafx.h"
-#include "ShootSpacer.h"
-#include "Camera.h"
+#include "shootspacer/ShootSpacer.h"
+#include "shootspacer/Camera.h"
 #include "Object3D.h"
 
 using namespace irr;

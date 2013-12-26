@@ -9,7 +9,7 @@
 #include "Loader.h"
 #include "Weapons.h"
 #include "Object3D.h"
-#include "ShootSpacer.h"
+#include "shootspacer/ShootSpacer.h"
 
 using namespace irr;
 
