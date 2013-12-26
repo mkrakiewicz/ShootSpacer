@@ -126,6 +126,7 @@ class ShootSpacerInstance: protected ShootSpacer {
 public:
 
 	static ShootSpacerInstance* getInstance();
+	static void stop();
 	static void releaseInstance();
 
 	virtual ~ShootSpacerInstance();
