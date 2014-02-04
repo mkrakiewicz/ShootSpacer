@@ -12,23 +12,8 @@
 #include <iostream>
 #include <memory>
 #include <string>
-#include "SmartPointer.h"
 
-#include "version.h"
-
-//using namespace irr;
-//
-//using namespace core;
-//using namespace scene;
-//using namespace video;
-//using namespace io;
-//using namespace gui;
-
-/**
- * #define SHOOTSPACER_DEVELOPMENT
- * -- means we are in development move. code needs to be not placed in according #ifdefs
- * Set this in project build settings instead of here.
- */
+#include "shootspacer/version.h"
 
 namespace shs {
 

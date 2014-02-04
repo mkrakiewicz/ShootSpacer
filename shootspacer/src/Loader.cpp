@@ -6,7 +6,7 @@
  */
 
 #include "stdafx.h"
-#include "shootspacer/ShootSpacer.h"
+#include "ShootSpacer.h"
 #include "Loader.h"
 
 namespace shs {

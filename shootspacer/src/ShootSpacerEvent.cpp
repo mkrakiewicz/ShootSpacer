@@ -6,7 +6,7 @@
  */
 #include "stdafx.h"
 #include "ShootSpacerEvent.h"
-#include "shootspacer/ShootSpacer.h"
+#include "ShootSpacer.h"
 #include "PlayerShip.h"
 
 using namespace irr;

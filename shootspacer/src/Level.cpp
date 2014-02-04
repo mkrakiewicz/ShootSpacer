@@ -11,8 +11,8 @@
 #include "Planet.h"
 #include "FiniteStateMachine.h"
 #include "PlayerShip.h"
-#include "shootspacer/Camera.h"
-#include "shootspacer/ShootSpacer.h"
+#include "Camera.h"
+#include "ShootSpacer.h"
 
 using namespace irr;
 

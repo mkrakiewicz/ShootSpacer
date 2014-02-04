@@ -23,7 +23,7 @@ using namespace shs;
 int main(int argc, char **argv) {
 
 	ShootSpacerInstance *s = ShootSpacerInstance::getInstance();
-	s->startGame();
+//	s->startGame();/
 	ShootSpacerInstance::releaseInstance();
 
 	return 0;
