@@ -1,7 +1,7 @@
 ///*
 // * Easing.h
 // *
-// *  Created on: 06-07-2013
+// *  
 // *      Author: Micha³
 // */
 //

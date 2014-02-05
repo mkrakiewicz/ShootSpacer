@@ -1,7 +1,7 @@
 /*
  * Weapons.cpp
  *
- *  Created on: 10-07-2013
+ *  
  *      Author: Micha�
  */
 
@@ -9,7 +9,7 @@
 #include "Loader.h"
 #include "Weapons.h"
 #include "Object3D.h"
-#include "ShootSpacer.h"
+#include "Spaceshooter.h"
 
 using namespace irr;
 
@@ -125,7 +125,7 @@ f32 Gun::getRpm() const {
 	return rpm;
 }
 
-void Gun::initialize(const ShootSpacer &parent) {
+void Gun::initialize(const Spaceshooter &parent) {
 	collisionManager = parent.getSmgr()->getSceneCollisionManager();
 	smgr = parent.getSmgr();
 	loader = &parent.getLoader();
@@ -203,7 +203,7 @@ void SimpleGun::shoot() {
 
 }
 
-void SimpleGun::makeProjectiles(const ShootSpacer &parent) {
+void SimpleGun::makeProjectiles(const Spaceshooter &parent) {
 
 //	scene::IBillboardSceneNode * bill = smgr->addBillboardSceneNode();
 //		bill->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR );

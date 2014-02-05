@@ -1,7 +1,7 @@
 /*
  * Ship.cpp
  *
- *  Created on: 18-05-2013
+ *  
  *      Author: Micha�
  */
 

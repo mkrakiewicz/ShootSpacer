@@ -1,7 +1,6 @@
 /*
  * FiniteStateMachine.cpp
  *
- *  Created on: 09-06-2013
  *      Author: Micha�
  */
 #include "stdafx.h"

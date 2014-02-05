@@ -1,7 +1,7 @@
 /*
  * Object3D.cpp
  *
- *  Created on: 17-05-2013
+ *  
  *      Author: Micha�
  */
 
@@ -309,5 +309,5 @@ AcceleratingObject3D::AcceleratingObject3D() :
 		MovingObject3D(), acceleration(0), accelerationVector(0, 0, 0) {
 }
 
-} /* namespace shootspacer */
+} /* namespace Spaceshooter */
 

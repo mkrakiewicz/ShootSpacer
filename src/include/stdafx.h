@@ -1,7 +1,7 @@
 /*
  * stdafx.h
  *
- *  Created on: 18-05-2013
+ *  
  *      Author: Micha�
  */
 
@@ -25,17 +25,17 @@
 //using namespace gui;
 
 /**
- * #define SHOOTSPACER_DEVELOPMENT
+ * #define Spaceshooter_DEVELOPMENT
  * -- means we are in development move. code needs to be not placed in according #ifdefs
  * Set this in project build settings instead of here.
  */
 
 namespace shs {
 
-const irr::core::stringw windowTitle = (irr::core::stringw(L"ShootSpacer ")
+const irr::core::stringw windowTitle = (irr::core::stringw(L"Spaceshooter ")
 		+ VERSION_INFO::CURRENT_VERSION_STRING + " ");
 
 
 
-} /* namespace ShootSpacer */
+} /* namespace Spaceshooter */
 #endif /* STDAFX_H_ */

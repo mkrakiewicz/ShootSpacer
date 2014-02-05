@@ -1,7 +1,7 @@
 /*
  * FSMState.h
  *
- *  Created on: 08-06-2013
+ *  
  *      Author: Micha�
  */
 
@@ -42,7 +42,7 @@ protected:
 	virtual void beforeStop() = 0;
 public:
 //	FSMStateRenderLoop();
-	FSMStateRenderLoop(const ShootSpacer &parent);
+	FSMStateRenderLoop(const Spaceshooter &parent);
 	virtual ~FSMStateRenderLoop();
 
 	void run();

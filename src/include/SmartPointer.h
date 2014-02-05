@@ -1,7 +1,7 @@
 /*
  * SmartPointer.h
  *
- *  Created on: 19-05-2013
+ *  
  *      Author: Micha³
  */
 
@@ -27,7 +27,7 @@ public:
 
 };
 
-} /* namespace ShootSpacer */
+} /* namespace Spaceshooter */
 
 
 

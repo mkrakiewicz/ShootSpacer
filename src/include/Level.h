@@ -1,7 +1,7 @@
 /*
  * Level.h
  *
- *  Created on: 09-06-2013
+ *  
  *      Author: Micha�
  */
 
@@ -34,7 +34,7 @@ protected:
 
 public:
 //	Level();
-	Level(const ShootSpacer &parent);
+	Level(const Spaceshooter &parent);
 
 	virtual ~Level();
 };
@@ -59,7 +59,7 @@ protected:
 
 public:
 //	TestLevel();
-	TestLevel(const ShootSpacer &parent);
+	TestLevel(const Spaceshooter &parent);
 
 	virtual ~TestLevel();
 

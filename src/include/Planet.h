@@ -1,7 +1,7 @@
 /*
  * Planet.h
  *
- *  Created on: 18-05-2013
+ *  
  *      Author: Micha�
  */
 
@@ -12,15 +12,15 @@
 
 namespace shs {
 
-class ShootSpacer;
+class Spaceshooter;
 
 class Planet: public Object3D {
 public:
 	Planet(irr::scene::ISceneNode *createdNode);
 	virtual ~Planet();
 
-	static Planet* createTestPlanet(const ShootSpacer &parent);
+	static Planet* createTestPlanet(const Spaceshooter &parent);
 };
 
-} /* namespace shootspacer */
+} /* namespace Spaceshooter */
 #endif /* PLANET_H_ */

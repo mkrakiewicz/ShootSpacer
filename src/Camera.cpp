@@ -1,11 +1,10 @@
 /*
  * Camera.cpp
  *
- *  Created on: 25-06-2013
  *      Author: Micha�
  */
 #include "stdafx.h"
-#include "ShootSpacer.h"
+#include "Spaceshooter.h"
 #include "Camera.h"
 #include "Object3D.h"
 
@@ -19,7 +18,7 @@ using namespace gui;
 
 namespace shs {
 
-Camera::Camera(const ShootSpacer &parent) :
+Camera::Camera(const Spaceshooter &parent) :
 		IrrlichtClassBase(parent) {
 	camera = smgr->addCameraSceneNode(0);
 	smgr->setActiveCamera(camera);
@@ -67,7 +66,7 @@ void AttachableCamera::update() {
 void AttachableCamera::handleInput(const irr::SEvent& event) {
 }
 
-AttachableCamera::AttachableCamera(const ShootSpacer &parent,
+AttachableCamera::AttachableCamera(const Spaceshooter &parent,
 		shs::Object3D * obj, irr::core::vector3df offset) :
 		Camera(parent), node(obj->getNode()), offset(offset) {
 
@@ -81,7 +80,7 @@ AttachableCamera::~AttachableCamera() {
 
 } /* namespace shs */
 
-shs::StaticCamera::StaticCamera(const ShootSpacer &parent,
+shs::StaticCamera::StaticCamera(const Spaceshooter &parent,
 		shs::Object3D * obj, irr::core::vector3df offset) :
 
 		AttachableCamera(parent, obj, offset) {

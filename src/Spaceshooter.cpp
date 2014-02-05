@@ -1,17 +1,10 @@
-/*
- * ShootSpacer.cpp
- *
- *  Created on: 18-05-2013
- *      Author: Micha�
- */
-
 #include "stdafx.h"
 #include "Menu.h"
 #include "Ship.h"
 #include "Planet.h"
 #include "Level.h"
 #include "LevelManager.h"
-#include "ShootSpacer.h"
+#include "Spaceshooter.h"
 
 using namespace irr;
 
@@ -23,34 +16,34 @@ using namespace gui;
 
 namespace shs {
 
-irr::IrrlichtDevice* ShootSpacer::getDevice() const {
+irr::IrrlichtDevice* Spaceshooter::getDevice() const {
 	return device;
 }
 
-irr::video::IVideoDriver* ShootSpacer::getDriver() const {
+irr::video::IVideoDriver* Spaceshooter::getDriver() const {
 	return driver;
 }
 
-ShootSpacerEvent* ShootSpacer::getEventReceiver() const {
+SpaceshooterEvent* Spaceshooter::getEventReceiver() const {
 	return eventReceiver;
 }
 
-irr::gui::IGUIEnvironment* ShootSpacer::getGui() const {
+irr::gui::IGUIEnvironment* Spaceshooter::getGui() const {
 	return gui;
 }
 
-irr::scene::ISceneManager* ShootSpacer::getSmgr() const {
+irr::scene::ISceneManager* Spaceshooter::getSmgr() const {
 	return smgr;
 }
-FSMStateRunner& ShootSpacer::getStateRunner() const {
+FSMStateRunner& Spaceshooter::getStateRunner() const {
 	return const_cast<FSMStateRunner&>(stateRunner);
 }
 
-Loader& ShootSpacer::getLoader() const {
+Loader& Spaceshooter::getLoader() const {
 	return const_cast<Loader&>(loader);
 }
 
-ShootSpacer::ShootSpacer():loader(*this) {
+Spaceshooter::Spaceshooter():loader(*this) {
 
 	/**
 	 *  Init the game
@@ -58,7 +51,7 @@ ShootSpacer::ShootSpacer():loader(*this) {
 	initialize();
 }
 
-void ShootSpacer::initialize() {
+void Spaceshooter::initialize() {
 
 	hasGameStarted = false;
 
@@ -69,24 +62,24 @@ void ShootSpacer::initialize() {
 
 	enableFrameIndependentMovement();
 
-	eventReceiver = new ShootSpacerEvent(*this);
+	eventReceiver = new SpaceshooterEvent(*this);
 
 	device->setEventReceiver(eventReceiver);
 	device->setWindowCaption(windowTitle.c_str());
 
 }
 
-void ShootSpacer::toggleGameState() {
+void Spaceshooter::toggleGameState() {
 
 }
 
-void ShootSpacer::exit() {
+void Spaceshooter::exit() {
 	if (stateRunner.hasNext())
 		stateRunner.endCurrentState();
 
 }
 
-void ShootSpacer::cleanup() {
+void Spaceshooter::cleanup() {
 
 	// all objects created with "new" operator must be deleted
 	delete eventReceiver;
@@ -94,19 +87,19 @@ void ShootSpacer::cleanup() {
 
 }
 
-void ShootSpacer::enableFrameIndependentMovement() {
+void Spaceshooter::enableFrameIndependentMovement() {
 	Object3D::setFrameDeltaReference(RenderLoop::getFrameDeltaTimePtr());
 }
 
-void ShootSpacer::handleEvent(const irr::SEvent& event) {
+void Spaceshooter::handleEvent(const irr::SEvent& event) {
 	stateRunner.handleEvent(event);
 }
 
-ShootSpacer::~ShootSpacer() {
+Spaceshooter::~Spaceshooter() {
 	cleanup();
 }
 
-IrrlichtDevice* ShootSpacer::createIrrlichtDevice() {
+IrrlichtDevice* Spaceshooter::createIrrlichtDevice() {
 
 	SIrrlichtCreationParameters params = SIrrlichtCreationParameters();
 	params.AntiAlias = true;
@@ -117,7 +110,7 @@ IrrlichtDevice* ShootSpacer::createIrrlichtDevice() {
 	return createDeviceEx(params);
 }
 
-void ShootSpacer::startGame() {
+void Spaceshooter::startGame() {
 
 	if (!hasGameStarted) {
 
@@ -143,20 +136,20 @@ void ShootSpacer::startGame() {
 
 //////////////////////////////////////////////////////////////////////////////
 
-ShootSpacerInstance* ShootSpacerInstance::_instance = NULL;
-int ShootSpacerInstance::_referenceCount = 0;
+SpaceshooterInstance* SpaceshooterInstance::_instance = NULL;
+int SpaceshooterInstance::_referenceCount = 0;
 
-ShootSpacerInstance* shs::ShootSpacerInstance::getInstance() {
+SpaceshooterInstance* shs::SpaceshooterInstance::getInstance() {
 
 	if (NULL == _instance) {
-		_instance = new ShootSpacerInstance();
+		_instance = new SpaceshooterInstance();
 	}
 	_referenceCount++;
 	return _instance;
 
 }
 
-void shs::ShootSpacerInstance::releaseInstance() {
+void shs::SpaceshooterInstance::releaseInstance() {
 	_referenceCount--;
 	if ((0 == _referenceCount) && (NULL != _instance)) {
 		delete _instance;
@@ -164,11 +157,11 @@ void shs::ShootSpacerInstance::releaseInstance() {
 	}
 }
 
-ShootSpacerInstance::~ShootSpacerInstance() {
+SpaceshooterInstance::~SpaceshooterInstance() {
 }
 
-ShootSpacerInstance::ShootSpacerInstance() :
-		ShootSpacer() {
+SpaceshooterInstance::SpaceshooterInstance() :
+		Spaceshooter() {
 	// creates the instance
 }
 

@@ -1,7 +1,7 @@
 /*
  * PlayerShip.h
  *
- *  Created on: 17-05-2013
+ *  
  *      Author: Micha�
  */
 
@@ -41,14 +41,14 @@ public:
 
 //	void attachCamera(irr::scene::ICameraSceneNode *camera);
 
-	static irr::scene::ISceneNode* createPlayerShip(const ShootSpacer &parent);
+	static irr::scene::ISceneNode* createPlayerShip(const Spaceshooter &parent);
 
 	virtual void update();
 
 	virtual void handleInput(const irr::SEvent& event) = 0;
 
 	void attachNewCamera(AttachableCamera *camera);
-	void createGUI(const ShootSpacer &parent);
+	void createGUI(const Spaceshooter &parent);
 
 	CursorHandler *_cursorControl;
 
@@ -80,7 +80,7 @@ public:
 
 	virtual void handleInput(const irr::SEvent& event);
 	static irr::scene::IAnimatedMeshSceneNode* createTestPlayerShipNode(
-			const ShootSpacer &parent);
+			const Spaceshooter &parent);
 
 //	void bindCamera(irr::scene::ICameraSceneNode *cam);
 
@@ -96,5 +96,5 @@ protected:
 
 };
 
-} /* namespace shootspacer */
+} /* namespace Spaceshooter */
 #endif /* PLAYERSHIP_H_ */

@@ -1,7 +1,6 @@
 /*
  * GUI.cpp
  *
- *  Created on: 07-07-2013
  *      Author: Micha�
  */
 

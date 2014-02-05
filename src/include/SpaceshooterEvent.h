@@ -1,25 +1,25 @@
 /*
  * EventReceiver.h
  *
- *  Created on: 19-05-2013
+ *  
  *      Author: Micha�
  */
 
-#ifndef SHOOTSPACEREVENT_H_
-#define SHOOTSPACEREVENT_H_
+#ifndef SpaceshooterEVENT_H_
+#define SpaceshooterEVENT_H_
 
 namespace shs {
 
 //class irr::IEventReceiver;
-class ShootSpacer;
+class Spaceshooter;
 
-class ShootSpacerEvent: public irr::IEventReceiver
+class SpaceshooterEvent: public irr::IEventReceiver
 {
 	private:
 		// We use this array to store the current state of each key
 		bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
 
-		ShootSpacer &gameInstance;
+		Spaceshooter &gameInstance;
 	public:
 		// This is the one method that we have to implement
 		virtual bool OnEvent(const irr::SEvent& event);
@@ -30,9 +30,9 @@ class ShootSpacerEvent: public irr::IEventReceiver
 			return KeyIsDown[keyCode];
 		}
 
-		ShootSpacerEvent(ShootSpacer &parent);
+		SpaceshooterEvent(Spaceshooter &parent);
 
-		virtual ~ShootSpacerEvent();
+		virtual ~SpaceshooterEvent();
 
 };
 

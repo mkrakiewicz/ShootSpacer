@@ -1,7 +1,7 @@
 /*
  * Ship.h
  *
- *  Created on: 18-05-2013
+ *  
  *      Author: Micha�
  */
 
@@ -89,5 +89,5 @@ public:
 
 };
 
-} /* namespace shootspacer */
+} /* namespace Spaceshooter */
 #endif /* SHIP_H_ */

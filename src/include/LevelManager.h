@@ -1,7 +1,7 @@
 /*
  * LevelManager.h
  *
- *  Created on: 10-06-2013
+ *  
  *      Author: Micha�
  */
 
@@ -13,7 +13,7 @@
 
 namespace shs {
 
-class ShootSpacer;
+class Spaceshooter;
 class Level;
 /**
  *  - Manages generated levels by itself!
@@ -23,7 +23,7 @@ class Level;
  */
 class LevelManager: protected FiniteStateMachine, public IrrlichtClassBase {
 public:
-	LevelManager(const ShootSpacer &parent);
+	LevelManager(const Spaceshooter &parent);
 	virtual ~LevelManager();
 
 	/**

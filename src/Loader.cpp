@@ -1,17 +1,17 @@
 /*
  * Loader.cpp
  *
- *  Created on: 10-07-2013
+ *  
  *      Author: Micha�
  */
 
 #include "stdafx.h"
-#include "ShootSpacer.h"
+#include "Spaceshooter.h"
 #include "Loader.h"
 
 namespace shs {
 
-Loader::Loader(const ShootSpacer &parent): parent(parent) {
+Loader::Loader(const Spaceshooter &parent): parent(parent) {
 }
 
 Loader::~Loader() {

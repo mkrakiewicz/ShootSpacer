@@ -1,12 +1,12 @@
 /*
  * Planet.cpp
  *
- *  Created on: 18-05-2013
+ *  
  *      Author: Micha�
  */
 
 #include "stdafx.h"
-#include "ShootSpacer.h"
+#include "Spaceshooter.h"
 #include "Planet.h"
 
 using namespace irr;
@@ -29,7 +29,7 @@ Planet::Planet(ISceneNode *createdNode) :
 Planet::~Planet() {
 }
 
-Planet* Planet::createTestPlanet(const ShootSpacer &parent) {
+Planet* Planet::createTestPlanet(const Spaceshooter &parent) {
 
 	IMeshSceneNode *tmp = parent.getSmgr()->addSphereSceneNode(180, 128);
 
@@ -50,4 +50,4 @@ Planet* Planet::createTestPlanet(const ShootSpacer &parent) {
 	return p;
 }
 
-} /* namespace shootspacer */
+} /* namespace Spaceshooter */

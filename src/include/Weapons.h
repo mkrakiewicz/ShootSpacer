@@ -1,7 +1,7 @@
 /*
  * Weapons.h
  *
- *  Created on: 10-07-2013
+ *  
  *      Author: Micha�
  */
 
@@ -18,7 +18,7 @@ namespace shs {
 class Projectile;
 class Loader;
 class Object3D;
-class ShootSpacer;
+class Spaceshooter;
 class HitEffect;
 class StopEmitter;
 
@@ -30,7 +30,7 @@ public:
 
 	virtual void shoot() = 0;
 
-	virtual void initialize(const ShootSpacer &parent);
+	virtual void initialize(const Spaceshooter &parent);
 
 
 
@@ -45,7 +45,7 @@ protected:
 	 Loader  *loader;
 
 
-	virtual void makeProjectiles(const ShootSpacer &parent) = 0;
+	virtual void makeProjectiles(const Spaceshooter &parent) = 0;
 	void deleteProjectiles();
 
 	virtual void checkCollisions();
@@ -109,7 +109,7 @@ public:
 
 	void shoot();
 
-	void makeProjectiles(const ShootSpacer &parent);
+	void makeProjectiles(const Spaceshooter &parent);
 protected:
 
 	void addHitEmitter();

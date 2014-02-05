@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "ShootSpacer.h"
+#include "Spaceshooter.h"
 
 using namespace std;
 
@@ -22,9 +22,9 @@ using namespace shs;
  */
 int main(int argc, char **argv) {
 
-	ShootSpacerInstance *s = ShootSpacerInstance::getInstance();
+	SpaceshooterInstance *s = SpaceshooterInstance::getInstance();
 	s->startGame();
-	ShootSpacerInstance::releaseInstance();
+	SpaceshooterInstance::releaseInstance();
 
 	return 0;
 }

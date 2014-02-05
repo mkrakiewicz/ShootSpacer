@@ -1,12 +1,12 @@
 /*
  * PlayerShip.cpp
  *
- *  Created on: 17-05-2013
+ *  
  *      Author: Micha�
  */
 
 #include "stdafx.h"
-#include "ShootSpacer.h"
+#include "Spaceshooter.h"
 #include "PlayerShip.h"
 #include "Camera.h"
 #include "Weapons.h"
@@ -32,7 +32,7 @@ PlayerShip::~PlayerShip() {
 		delete camera;
 }
 
-ISceneNode* PlayerShip::createPlayerShip(const ShootSpacer &parent) {
+ISceneNode* PlayerShip::createPlayerShip(const Spaceshooter &parent) {
 
 	ISceneNode * node = 0;
 
@@ -71,7 +71,7 @@ void PlayerShip::attachNewCamera(AttachableCamera* camera) {
 	isCameraHandled = true;
 }
 
-void PlayerShip::createGUI(const ShootSpacer& parent) {
+void PlayerShip::createGUI(const Spaceshooter& parent) {
 	IGUIStaticText *tmp = parent.getGui()->addStaticText(L"Speed:",
 			recti(5, 5, 200, 50), true, true);
 	tmp->setBackgroundColor(SColor(22, 255, 255, 0));
@@ -166,7 +166,7 @@ TestPlayerShip::~TestPlayerShip() {
 }
 
 IAnimatedMeshSceneNode* TestPlayerShip::createTestPlayerShipNode(
-		const ShootSpacer &parent) {
+		const Spaceshooter &parent) {
 
 	IAnimatedMeshSceneNode * node = 0;
 
@@ -240,5 +240,5 @@ void TestPlayerShip::handleKeystates() {
 //
 //}
 
-} /* namespace shootspacer */
+} /* namespace Spaceshooter */
 

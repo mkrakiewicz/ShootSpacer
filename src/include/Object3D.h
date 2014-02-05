@@ -1,7 +1,7 @@
 /*
  * Object3D.h
  *
- *  Created on: 17-05-2013
+ *  
  *      Author: Micha�
  */
 

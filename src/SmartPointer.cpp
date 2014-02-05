@@ -1,7 +1,7 @@
 /*
  * SmartPointer.cpp
  *
- *  Created on: 19-05-2013
+ *  
  *      Author: Micha³
  */
 

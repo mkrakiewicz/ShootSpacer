@@ -1,7 +1,7 @@
 /*
  * Menu.h
  *
- *  Created on: 18-05-2013
+ *  
  *      Author: Micha�
  */
 
@@ -13,11 +13,11 @@
 
 namespace shs {
 
-class ShootSpacer;
+class Spaceshooter;
 
 class Menu: public FSMStateRenderLoop {
 public:
-	Menu(const ShootSpacer &parent);
+	Menu(const Spaceshooter &parent);
 	virtual ~Menu();
 
 	virtual void displayMenu();
@@ -53,7 +53,7 @@ protected:
 
 class MainMenu: public Menu {
 public:
-	MainMenu(const ShootSpacer &parent);
+	MainMenu(const Spaceshooter &parent);
 	virtual ~MainMenu();
 
 	void displayMenu();
@@ -71,5 +71,5 @@ protected:
 
 };
 
-} /* namespace shootspacer */
+} /* namespace Spaceshooter */
 #endif /* MENU_H_ */

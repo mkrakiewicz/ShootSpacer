@@ -1,11 +1,11 @@
 /*
  * Menu.cpp
  *
- *  Created on: 18-05-2013
+ *  
  *      Author: Micha�
  */
 #include "stdafx.h"
-#include "ShootSpacer.h"
+#include "Spaceshooter.h"
 #include "Menu.h"
 #include "FiniteStateMachine.h"
 
@@ -19,7 +19,7 @@ using namespace gui;
 
 namespace shs {
 
-Menu::Menu(const ShootSpacer &parent) :
+Menu::Menu(const Spaceshooter &parent) :
 		FSMStateRenderLoop(parent) {
 
 	/**
@@ -33,7 +33,7 @@ Menu::Menu(const ShootSpacer &parent) :
 
 	builtInFont = device->getGUIEnvironment()->getBuiltInFont();
 
-	menu_test_string = L"MENU: ShootSpacer ";
+	menu_test_string = L"MENU: Spaceshooter ";
 	menu_test_string += VERSION_INFO::CURRENT_VERSION_STRING;
 	menu_test_string += "\nmenu to be implemented...";
 
@@ -147,10 +147,10 @@ void Menu::addButton(stringw texture_name, stringw pressed_texture_name,
 }
 
 //////////////////////////////////////////////////////////////////////////////////////
-MainMenu::MainMenu(const ShootSpacer &parent) :
+MainMenu::MainMenu(const Spaceshooter &parent) :
 		Menu(parent) {
 
-	menu_test_string = L"MAIN MENU: ShootSpacer ";
+	menu_test_string = L"MAIN MENU: Spaceshooter ";
 	menu_test_string += VERSION_INFO::CURRENT_VERSION_STRING;
 	menu_test_string += "\nmenu to be implemented...";
 	this->parent.getLoader().loadTexture("start_button", "img/b_start.png");
@@ -164,6 +164,9 @@ MainMenu::MainMenu(const ShootSpacer &parent) :
 	this->parent.getLoader().loadTexture("exit_button", "img/b_exit.png");
 	this->parent.getLoader().loadTexture("exit_button_pressed",
 			"img/b_exit_pressed.png");
+
+	this->parent.getLoader().loadTexture("resume_button", "img/b_resume.png");
+	this->parent.getLoader().loadTexture("resume_button_pressed",	"img/b_resume_pressed.png");
 
 }
 

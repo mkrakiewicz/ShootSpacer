@@ -1,7 +1,7 @@
 /*
  * RenderLoop.h
  *
- *  Created on: 18-05-2013
+ *  
  *      Author: Micha�
  */
 
@@ -10,11 +10,11 @@
 
 namespace shs {
 
-class ShootSpacer;
+class Spaceshooter;
 
 class IrrlichtClassBase {
 public:
-	IrrlichtClassBase(const ShootSpacer &parent);
+	IrrlichtClassBase(const Spaceshooter &parent);
 	virtual ~IrrlichtClassBase();
 protected:
 	irr::IrrlichtDevice *device;
@@ -22,12 +22,12 @@ protected:
 	irr::scene::ISceneManager *smgr;
 	irr::gui::IGUIEnvironment *gui;
 
-	const ShootSpacer &parent;
+	const Spaceshooter &parent;
 
 };
 
 /**
- * Abstract base class for Menu and ShootSpacer
+ * Abstract base class for Menu and Spaceshooter
  */
 class RenderLoop: protected IrrlichtClassBase {
 private:
@@ -44,7 +44,7 @@ protected:
 //	}
 
 public:
-	RenderLoop(const ShootSpacer &parent);
+	RenderLoop(const Spaceshooter &parent);
 	virtual ~RenderLoop();
 
 	static irr::f32 getFrameDeltaTime();
@@ -76,5 +76,5 @@ public:
 	}
 };
 
-} /* namespace ShootSpacer */
+} /* namespace Spaceshooter */
 #endif /* TIMEDLOOP_H_ */

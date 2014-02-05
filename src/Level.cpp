@@ -1,7 +1,7 @@
 /*
  * Level.cpp
  *
- *  Created on: 09-06-2013
+ *  
  *      Author: Micha�
  */
 #include "stdafx.h"
@@ -12,7 +12,7 @@
 #include "FiniteStateMachine.h"
 #include "PlayerShip.h"
 #include "Camera.h"
-#include "ShootSpacer.h"
+#include "Spaceshooter.h"
 
 using namespace irr;
 
@@ -27,7 +27,7 @@ using namespace gui;
  */
 
 /**
- * void ShootSpacer::beforeRender() {
+ * void Spaceshooter::beforeRender() {
 
  #ifdef SHS_DEV
 
@@ -42,12 +42,12 @@ using namespace gui;
 
  }
 
- void ShootSpacer::afterRender() {
+ void Spaceshooter::afterRender() {
  static int lastFPS = -1;
  int fps = driver->getFPS();
 
  if (lastFPS != fps) {
- //		core::stringw tmp(L"ShootSpacer [");
+ //		core::stringw tmp(L"Spaceshooter [");
  //		tmp += driver->getName();
  //		tmp += L"] fps: ";
  //		tmp += fps;
@@ -67,7 +67,7 @@ namespace shs {
 //
 //
 //}
-Level::Level(const ShootSpacer &parent) :
+Level::Level(const Spaceshooter &parent) :
 		FSMStateRenderLoop(parent), loader(parent.getLoader()) {
 }
 
@@ -99,7 +99,7 @@ Level::~Level() {
 //TestLevel::TestLevel() :
 //		Level() {
 //}
-TestLevel::TestLevel(const ShootSpacer &parent) :
+TestLevel::TestLevel(const Spaceshooter &parent) :
 		Level(parent) {
 
 	init();
@@ -202,7 +202,7 @@ void TestLevel::afterRender() {
 	int fps = driver->getFPS();
 
 	if (lastFPS != fps) {
-		//		core::stringw tmp(L"ShootSpacer [");
+		//		core::stringw tmp(L"Spaceshooter [");
 		//		tmp += driver->getName();
 		//		tmp += L"] fps: ";
 		//		tmp += fps;
