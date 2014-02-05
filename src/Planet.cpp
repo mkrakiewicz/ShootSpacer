@@ -35,7 +35,7 @@ Planet* Planet::createTestPlanet(const Spaceshooter &parent) {
 
 	tmp->setPosition(vector3df(100, 10, 0));
 	if (tmp) {
-		tmp->setMaterialFlag(EMF_LIGHTING, false);
+//		tmp->setMaterialFlag(EMF_LIGHTING, true);
 
 		tmp->setMaterialTexture(0,
 				parent.getDriver()->getTexture("img/earth.jpg"));

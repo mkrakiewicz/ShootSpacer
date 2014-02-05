@@ -133,7 +133,10 @@ void TestLevel::init() {
 	loader.loadTexture("orange_particle", "img/orange_projectile.bmp");
 	loader.loadTexture("sydney", "img/sydney.bmp");
 
+	ILightSceneNode *light = smgr->addLightSceneNode(0,vector3df(-200,0,0),SColorf(1,1,1),200);
 //	IAnimatedMesh* mesh = smgr->getMesh("img/sydney.md2");
+	ILightSceneNode *lightAmbient = smgr->addLightSceneNode(0,vector3df(0,0,300),SColorf(0.7f,0.7f,1.f),500);
+	lightAmbient->setLightType(ELT_DIRECTIONAL);
 
 	IMeshSceneNode * tmpnode = smgr->addCubeSceneNode(40);
 
@@ -164,6 +167,7 @@ void TestLevel::init() {
 	this->node = new Planet(tmpnode);
 	testPlanet = Planet::createTestPlanet(parent);
 
+
 	ISceneNode *tmp2 = TestPlayerShip::createTestPlayerShipNode(parent);
 	tmp2->setPosition(vector3df(-20, 20, -200));
 	tmp2->setScale(vector3df(4,4,4));
@@ -172,6 +176,10 @@ void TestLevel::init() {
 	tmp2->addAnimator(anim);
 	anim->drop();
 	testEnemy = new ShipWithGuns(tmp2);
+
+	 scene::ISceneNode* skydome=smgr->addSkyDomeSceneNode(driver->getTexture("img/tlo.png"),16,8,0.95f,2.0f);
+	 skydome->setVisible(true);
+//	 driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, true);
 }
 
 void TestLevel::beforeRender() {

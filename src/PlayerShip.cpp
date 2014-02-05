@@ -175,7 +175,7 @@ IAnimatedMeshSceneNode* TestPlayerShip::createTestPlayerShipNode(
 	node = parent.getSmgr()->addAnimatedMeshSceneNode(mesh);
 
 	if (node) {
-		node->setMaterialFlag(EMF_LIGHTING, false);
+//		node->setMaterialFlag(EMF_LIGHTINlG, true);
 
 		node->setMaterialTexture(0,
 				parent.getDriver()->getTexture("img/tex.png"));
